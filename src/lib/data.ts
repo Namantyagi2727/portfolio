@@ -186,6 +186,7 @@ export const projects: Project[] = [
     description:
       "Smart contract security analysis tool that scans Solidity code for vulnerabilities including reentrancy attacks, integer overflows, and access control issues.",
     tags: ["Solidity", "Ethereum", "Web3", "Security", "Python"],
+    github: "https://github.com/Namantyagi2727/BlockGuard",
   },
   {
     title: "SmartScholar",
