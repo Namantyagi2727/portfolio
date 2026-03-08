@@ -226,6 +226,13 @@ export const projects: Project[] = [
     tags: ["JavaScript", "HTML", "CSS", "LocalStorage"],
     github: "https://github.com/Namantyagi2727/Todo-App",
   },
+  {
+    title: "Student Performance Visualization",
+    description:
+      "Data visualization dashboard analyzing student performance metrics. Uncovers trends across grades, subjects, and demographics using interactive charts and statistical insights.",
+    tags: ["Python", "Data Visualization", "Pandas", "Matplotlib", "EDA"],
+    github: "https://github.com/Namantyagi2727/Student-Performance-Visualization",
+  },
 ];
 
 export type Education = {
