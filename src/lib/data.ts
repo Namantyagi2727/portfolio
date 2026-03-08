@@ -165,6 +165,7 @@ export const projects: Project[] = [
     description:
       "Real-time big data pipeline processing 475K+ flight records using Apache Spark and Kafka. Visualizes airspace congestion patterns with live streaming analytics and alerting.",
     tags: ["Apache Spark", "Kafka", "Python", "Big Data", "ETL"],
+    github: "https://github.com/Namantyagi2727/airspace-congestion-monitoring",
     highlight: "475K+ flight records",
   },
   {
@@ -203,6 +204,27 @@ export const projects: Project[] = [
     description:
       "Cloud + blockchain hybrid file storage and verification system. Files stored on cloud with cryptographic proofs anchored on Ethereum for tamper-proof verification.",
     tags: ["Blockchain", "Ethereum", "Cloud", "Solidity", "AWS"],
+  },
+  {
+    title: "DiningBot on AWS",
+    description:
+      "Serverless dining recommendation chatbot built on AWS. Uses Lex for natural language understanding, Lambda for business logic, and DynamoDB to serve personalized restaurant suggestions.",
+    tags: ["AWS Lex", "Lambda", "DynamoDB", "Serverless", "Chatbot"],
+    github: "https://github.com/Namantyagi2727/DiningBot-on-AWS",
+  },
+  {
+    title: "Photo Search App",
+    description:
+      "A responsive photo search application that fetches and displays high-quality images from an external API. Features real-time search, infinite scroll, and a clean gallery layout.",
+    tags: ["JavaScript", "REST API", "HTML", "CSS"],
+    github: "https://github.com/Namantyagi2727/Photo-Search-Project",
+  },
+  {
+    title: "Todo App",
+    description:
+      "A clean, responsive task management application with CRUD operations, local persistence, and a minimal UI. Built to practice frontend fundamentals and state management.",
+    tags: ["JavaScript", "HTML", "CSS", "LocalStorage"],
+    github: "https://github.com/Namantyagi2727/Todo-App",
   },
 ];
 
