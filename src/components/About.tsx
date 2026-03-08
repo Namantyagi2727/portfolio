@@ -2,10 +2,10 @@ import { GraduationCap, MapPin, Award, BookOpen } from "lucide-react";
 import { personalInfo, education, certifications } from "@/lib/data";
 
 const stats = [
-  { label: "GPA", value: "3.74" },
   { label: "Projects Built", value: "10+" },
   { label: "Internships", value: "6+" },
   { label: "Publications", value: "2" },
+  { label: "Certifications", value: "6+" },
 ];
 
 const certCategoryColors: Record<string, string> = {
@@ -99,9 +99,6 @@ export default function About() {
                     <div className="text-right flex-shrink-0">
                       <p className="text-xs font-mono text-[#00d4ff]">{edu.period}</p>
                       <p className="text-xs text-[#6b7280] mt-1">{edu.location}</p>
-                      {edu.gpa && (
-                        <p className="text-xs font-mono mt-1" style={{ color: "#a855f7" }}>GPA: {edu.gpa}</p>
-                      )}
                     </div>
                   </div>
 
