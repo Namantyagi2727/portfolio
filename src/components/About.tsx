@@ -99,9 +99,6 @@ export default function About() {
                     <div className="text-right flex-shrink-0">
                       <p className="text-xs font-mono text-[#00d4ff]">{edu.period}</p>
                       <p className="text-xs text-[#6b7280] mt-1">{edu.location}</p>
-                      {edu.gpa && (
-                        <p className="text-xs font-mono mt-1.5 px-2 py-0.5 rounded-full" style={{ background: "rgba(168,85,247,0.12)", color: "#a855f7", border: "1px solid rgba(168,85,247,0.2)" }}>{edu.gpa}</p>
-                      )}
                     </div>
                   </div>
 

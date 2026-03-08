@@ -293,8 +293,7 @@ export const education: Education[] = [
     school: "Amity University Noida",
     period: "Jul 2020 – Jun 2024",
     location: "Noida, India",
-    gpa: "8.54 / 10 · First Division with Distinction",
-    details: "Exchange programs at Birkbeck University London & Adelphi University NY",
+    details: "First Division with Distinction · Exchange programs at Birkbeck University London & Adelphi University NY",
     courses: [
       "Introduction to AI & Machine Learning",
       "Deep Learning & Neural Networks",
@@ -324,27 +323,33 @@ export type Publication = {
   description: string;
   url?: string;
   highlight?: string;
+  authors?: string;
+  doi?: string;
 };
 
 export const publications: Publication[] = [
   {
     type: "book",
-    title: "Next Generation Healthcare: Deep Learning and Blockchain for Precision Clinical Decision-Making",
-    publisher: "Cambridge Scholars Publishing",
-    date: "December 2025",
+    title: "Decentralized Smart Cities: Enhancing Urban Living Through IoT, Metaverse, and Blockchain Integration",
+    publisher: "Cambridge Scholars Publishing — Next Generation Healthcare: Deep Learning and Blockchain for Precision Clinical Decision-Making",
+    date: "December 23, 2025",
     description:
-      "Contributing author to an academic volume exploring the intersection of deep learning, blockchain, and precision medicine for next-generation clinical decision-making systems.",
+      "Authored chapter investigating the collaborative integration of Blockchain, the Metaverse, and IoT toward decentralized smart urban ecosystems. Explores resource optimization, citizen experience, security, and sustainability — with focus on data privacy via blockchain and real-time urban service management via IoT.",
     url: "https://www.cambridgescholars.com/product/978-1-0364-6498-1/",
     highlight: "Cambridge Scholars Publishing",
+    authors: "Naman Tyagi (NYU) · Anushka Singh (Johns Hopkins) · Fahad Eqbal Hashmi · Dolly Sharma (Amity)",
   },
   {
     type: "conference",
-    title: "Sign Language Recognition Using CNN",
-    publisher: "IEEE Xplore",
-    date: "2024",
+    title: "Impact of Colour Image and Skeleton Plotting on Sign Language Recognition Using Convolutional Neural Networks (CNN)",
+    publisher: "IEEE Xplore — 2024 14th International Conference on Cloud Computing, Data Science & Engineering (Confluence)",
+    date: "January 2024",
     description:
-      "Published research on a CNN-based gesture-to-text translation system with skeleton-plotted image augmentation for improved spatial feature learning. Demonstrated strong generalization across varied backgrounds.",
-    highlight: "IEEE Xplore 2024",
+      "Introduced a CNN-based model for American Sign Language recognition achieving ~99% accuracy using color + skeleton-mapped image datasets. Demonstrated significant impact of preprocessing strategy on model accuracy across varied backgrounds.",
+    url: "https://ieeexplore.ieee.org/document/10463239",
+    highlight: "8 Citations · 183 Views",
+    authors: "Anushka Singh · Fahad Eqbal Hashmi · Naman Tyagi · Anant Kumar Jayswal",
+    doi: "10.1109/Confluence60223.2024.10463239",
   },
 ];
 
