@@ -126,12 +126,24 @@ export default function About() {
 
               {/* VIP Project callout */}
               <div className="bg-[#111111] border border-[#a855f7]/20 rounded-xl p-5">
-                <p className="text-xs font-mono text-[#a855f7] mb-1">Vertically Integrated Project</p>
-                <p className="text-sm font-semibold text-[#ededed]">BC. Flexible AI-Enabled Mechatronic Sys Lab</p>
-                <p className="text-xs text-[#6b7280] mt-1">NYU FAMS Lab · Fall 2025 – Present</p>
-                <p className="text-xs text-[#6b7280] mt-2 leading-relaxed">
-                  Long-term research project integrating AI and mechatronics systems at NYU's interdisciplinary VIP program.
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <p className="text-xs font-mono text-[#a855f7] mb-1">Vertically Integrated Project · NYU FAMS Lab</p>
+                    <p className="text-sm font-semibold text-[#ededed]">TAJ Dataset — Endoscopic Laser Ablation Analysis</p>
+                  </div>
+                  <p className="text-xs font-mono text-[#00d4ff] flex-shrink-0">Fall 2025 – Present</p>
+                </div>
+                <p className="text-xs text-[#6b7280] leading-relaxed mb-3">
+                  Built a computer vision pipeline using YOLOv5 and U-Net to detect surgical regions and segment laser-affected tissue in endoscopic imagery. Generated tissue damage heatmaps to visualize ablation intensity and spatial spread, integrated with 3D Slicer for surgical decision support.
                 </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["YOLOv5", "U-Net", "PyTorch", "Computer Vision", "OpenCV", "3D Slicer", "Medical Imaging"].map((tag) => (
+                    <span key={tag} className="text-xs px-2 py-0.5 rounded font-mono"
+                      style={{ background: "rgba(168,85,247,0.1)", color: "#a855f7", border: "1px solid rgba(168,85,247,0.2)" }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
