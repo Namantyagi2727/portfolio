@@ -12,7 +12,7 @@ export const personalInfo = {
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
-  bio: "I'm an AI/ML engineer and MS CS student at NYU Tandon, passionate about building intelligent systems that solve real-world problems. With hands-on experience across LLMs, cloud infrastructure, big data pipelines, and full-stack development, I bring ideas from research to production. IEEE-published researcher with 5+ internships spanning AI, cloud, and enterprise software.",
+  bio: "I'm an AI/ML engineer and MS CS student at NYU Tandon (GPA: 3.74), passionate about building intelligent systems that solve real-world problems. With hands-on experience across LLMs, cloud infrastructure, big data pipelines, and full-stack development, I bring ideas from research to production. Published author with Cambridge Scholars Publishing and IEEE, with 6+ internships spanning AI, cloud, and enterprise software.",
 };
 
 export type Skill = {
@@ -31,8 +31,11 @@ export const skills: Skill[] = [
       "Transformers",
       "TensorFlow",
       "PyTorch",
+      "Keras",
+      "Hugging Face",
       "Sentiment Analysis",
       "Computer Vision",
+      "RAG",
     ],
   },
   {
@@ -46,7 +49,9 @@ export const skills: Skill[] = [
       "DynamoDB",
       "API Gateway",
       "EC2",
+      "AWS Rekognition",
       "Azure ML",
+      "Azure AI Services",
     ],
   },
   {
@@ -59,6 +64,7 @@ export const skills: Skill[] = [
       "Time-Series",
       "MongoDB",
       "PostgreSQL",
+      "OpenSearch",
     ],
   },
   {
@@ -73,13 +79,15 @@ export const skills: Skill[] = [
       "Power BI",
       "Streamlit",
       "Salesforce",
-      "Postman",
+      "OpenCV",
+      "NumPy",
+      "Pandas",
       "Agile/Kanban",
     ],
   },
   {
     category: "Blockchain",
-    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3"],
+    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3", "DLT"],
   },
 ];
 
@@ -110,10 +118,11 @@ export const experiences: Experience[] = [
     period: "Jun 2025 – Aug 2025",
     location: "White Plains, NY",
     description: [
-      "Built AI-powered analytics dashboards using Power BI to surface business insights.",
-      "Integrated machine learning models with enterprise BI tooling for predictive reporting.",
+      "Built a fully offline AI chatbot using embeddings + RAG workflows for secure internal knowledge access.",
+      "Automated document ingestion and semantic search pipelines, improving retrieval efficiency for TSMs and RSMs.",
+      "Enhanced NLP query understanding in Power BI Q&A, improving insight accuracy and user experience.",
     ],
-    tags: ["AI", "Power BI", "Analytics", "Python"],
+    tags: ["AI", "RAG", "Power BI", "NLP", "Azure AI", "Python"],
   },
   {
     title: "AI Research Intern",
@@ -121,10 +130,11 @@ export const experiences: Experience[] = [
     period: "Sep 2023 – Aug 2024",
     location: "Remote",
     description: [
-      "Conducted research on NLP and deep learning models, resulting in an IEEE-published paper.",
-      "Developed a CNN-based sign language recognition system achieving high accuracy.",
+      "Conducted NLP and sentiment analysis research supporting early detection of Body Dysmorphic Disorder.",
+      "Fine-tuned Transformer-based models for contextual classification and precision-recall balance.",
+      "Published findings in IEEE Xplore (2024) via CNN-based sign language recognition project.",
     ],
-    tags: ["NLP", "CNN", "Research", "IEEE Published"],
+    tags: ["NLP", "Transformers", "CNN", "Research", "IEEE Published"],
   },
   {
     title: "Global Technical Support Engineer",
@@ -132,10 +142,10 @@ export const experiences: Experience[] = [
     period: "Jan 2024 – Jun 2024",
     location: "Gurugram, India",
     description: [
-      "Provided L3 technical support for optical networking equipment across global enterprise clients.",
-      "Diagnosed and resolved complex network performance issues using data-driven analysis.",
+      "Performed data-driven diagnostics on optical network systems, ensuring minimal downtime for global telecom clients.",
+      "Authored internal automation scripts and technical solutions that improved case resolution efficiency.",
     ],
-    tags: ["Networking", "Technical Support", "Data Analysis"],
+    tags: ["Networking", "Automation", "Data Analysis"],
   },
   {
     title: "Salesforce Developer & Administrator",
@@ -143,10 +153,22 @@ export const experiences: Experience[] = [
     period: "May 2023 – Dec 2023",
     location: "Remote",
     description: [
-      "Built custom Salesforce solutions including Apex triggers, Lightning components, and automation flows.",
-      "Administered org configurations, data migrations, and user permission management.",
+      "Automated processes with Flow Builder, reducing manual workload by 40%.",
+      "Developed Apex triggers and Lightning components to extend platform functionality.",
+      "Managed permission sets and data integrity across 50+ active users.",
     ],
-    tags: ["Salesforce", "Apex", "CRM", "Automation"],
+    tags: ["Salesforce", "Apex", "Lightning", "CRM", "Automation"],
+  },
+  {
+    title: "Frontend Developer",
+    company: "Ulavi Technologies PTE. Ltd",
+    period: "Jan 2023 – Apr 2023",
+    location: "Singapore (Remote)",
+    description: [
+      "Designed responsive frontends for travel platforms, improving user experience and performance by 15%.",
+      "Collaborated in iterative feature rollout using Agile and version control best practices.",
+    ],
+    tags: ["Frontend", "JavaScript", "Responsive Design", "Agile"],
   },
 ];
 
@@ -171,27 +193,34 @@ export const projects: Project[] = [
   {
     title: "Sign Language Recognition",
     description:
-      "CNN-based gesture recognition system for real-time sign language translation. Achieved high classification accuracy across multiple sign classes. Published in IEEE 2024.",
-    tags: ["CNN", "Computer Vision", "Python", "TensorFlow", "IEEE Published"],
+      "CNN-based gesture-to-text translation system improving accessibility for the hearing-impaired. Enhanced spatial feature learning with skeleton-plotted image augmentation. Published in IEEE Xplore 2024.",
+    tags: ["CNN", "Computer Vision", "Python", "OpenCV", "IEEE Published"],
     highlight: "IEEE Published 2024",
   },
   {
     title: "MindMend",
     description:
-      "AI-powered therapeutic assistant using LLMs and sentiment analysis to provide personalized mental wellness support. Adapts responses based on user emotional state.",
-    tags: ["LLMs", "NLP", "Sentiment Analysis", "Python", "Streamlit"],
+      "LLM-driven conversational therapy agent using GPT-4, NLP, and sentiment analysis. Analyzes emotional state during live interactions and implements sentiment scoring + trend tracking.",
+    tags: ["LLMs", "GPT-4", "NLP", "Sentiment Analysis", "Python", "Streamlit"],
   },
   {
     title: "ChainGuard",
     description:
-      "Smart contract security analysis tool that scans Solidity code for vulnerabilities including reentrancy attacks, integer overflows, and access control issues.",
-    tags: ["Solidity", "Ethereum", "Web3", "Security", "Python"],
+      "Smart contract security analysis tool that scans Solidity code for vulnerabilities including reentrancy attacks, integer overflows, and access control issues using LLM-powered ranking.",
+    tags: ["Solidity", "Ethereum", "Web3", "Security", "Python", "LLMs"],
     github: "https://github.com/Namantyagi2727/BlockGuard",
+  },
+  {
+    title: "Photo Search & Recognition",
+    description:
+      "Automated face/object detection pipeline using AWS Rekognition with intelligent metadata tagging. Enables semantic queries for image search via REST APIs and event-driven inference.",
+    tags: ["AWS Rekognition", "Lambda", "OpenSearch", "REST API", "Computer Vision"],
+    github: "https://github.com/Namantyagi2727/Photo-Search-Project",
   },
   {
     title: "SmartScholar",
     description:
-      "LLM-powered research paper summarizer and Q&A system. Ingests academic PDFs, generates structured summaries, and enables natural language querying over paper content.",
+      "LLM-powered research paper summarizer and Q&A system. Ingests academic PDFs, generates structured summaries, and enables natural language querying over paper content via RAG.",
     tags: ["LLMs", "RAG", "NLP", "Python", "Streamlit"],
   },
   {
@@ -214,25 +243,18 @@ export const projects: Project[] = [
     github: "https://github.com/Namantyagi2727/DiningBot-on-AWS",
   },
   {
-    title: "Photo Search App",
-    description:
-      "A responsive photo search application that fetches and displays high-quality images from an external API. Features real-time search, infinite scroll, and a clean gallery layout.",
-    tags: ["JavaScript", "REST API", "HTML", "CSS"],
-    github: "https://github.com/Namantyagi2727/Photo-Search-Project",
-  },
-  {
-    title: "Todo App",
-    description:
-      "A clean, responsive task management application with CRUD operations, local persistence, and a minimal UI. Built to practice frontend fundamentals and state management.",
-    tags: ["JavaScript", "HTML", "CSS", "LocalStorage"],
-    github: "https://github.com/Namantyagi2727/Todo-App",
-  },
-  {
     title: "Student Performance Visualization",
     description:
       "Data visualization dashboard analyzing student performance metrics. Uncovers trends across grades, subjects, and demographics using interactive charts and statistical insights.",
     tags: ["Python", "Data Visualization", "Pandas", "Matplotlib", "EDA"],
     github: "https://github.com/Namantyagi2727/Student-Performance-Visualization",
+  },
+  {
+    title: "Todo App",
+    description:
+      "A clean, responsive task management application with CRUD operations, local persistence, and a minimal UI.",
+    tags: ["JavaScript", "HTML", "CSS", "LocalStorage"],
+    github: "https://github.com/Namantyagi2727/Todo-App",
   },
 ];
 
@@ -241,6 +263,8 @@ export type Education = {
   school: string;
   period: string;
   location: string;
+  gpa?: string;
+  courses?: string[];
   details?: string;
 };
 
@@ -250,6 +274,19 @@ export const education: Education[] = [
     school: "NYU Tandon School of Engineering",
     period: "Aug 2024 – Present",
     location: "Brooklyn, NY",
+    gpa: "3.74 / 4.0",
+    courses: [
+      "Machine Learning",
+      "Big Data",
+      "Computer Vision",
+      "Design & Analysis of Algorithms",
+      "Principles of Database Systems",
+      "Application Security",
+      "Visualization for Machine Learning",
+      "Intro to Blockchain & DLT",
+      "Cloud Computing",
+      "Cyber Resiliency Management — AI Governance",
+    ],
   },
   {
     degree: "Bachelor of Science — Computer Science (Honors in AI & ML)",
@@ -258,4 +295,51 @@ export const education: Education[] = [
     location: "Noida, India",
     details: "Exchange programs at Birkbeck University London & Adelphi University NY",
   },
+];
+
+export type Publication = {
+  type: "book" | "journal" | "conference";
+  title: string;
+  publisher: string;
+  date: string;
+  description: string;
+  url?: string;
+  highlight?: string;
+};
+
+export const publications: Publication[] = [
+  {
+    type: "book",
+    title: "Next Generation Healthcare: Deep Learning and Blockchain for Precision Clinical Decision-Making",
+    publisher: "Cambridge Scholars Publishing",
+    date: "December 2025",
+    description:
+      "Contributing author to an academic volume exploring the intersection of deep learning, blockchain, and precision medicine for next-generation clinical decision-making systems.",
+    url: "https://www.cambridgescholars.com/product/978-1-0364-6498-1/",
+    highlight: "Cambridge Scholars Publishing",
+  },
+  {
+    type: "conference",
+    title: "Sign Language Recognition Using CNN",
+    publisher: "IEEE Xplore",
+    date: "2024",
+    description:
+      "Published research on a CNN-based gesture-to-text translation system with skeleton-plotted image augmentation for improved spatial feature learning. Demonstrated strong generalization across varied backgrounds.",
+    highlight: "IEEE Xplore 2024",
+  },
+];
+
+export type Certification = {
+  name: string;
+  issuer: string;
+  category: string;
+};
+
+export const certifications: Certification[] = [
+  { name: "Google Cybersecurity Program Certificate", issuer: "Google", category: "Security" },
+  { name: "Big Data & Machine Learning Fundamentals", issuer: "Google Cloud / Coursera", category: "Cloud" },
+  { name: "AWS Cloud Completion Badge", issuer: "Amazon Web Services", category: "Cloud" },
+  { name: "GCP Cloud Completion Badge", issuer: "Google Cloud", category: "Cloud" },
+  { name: "Azure Cloud Completion Badge", issuer: "Microsoft Azure", category: "Cloud" },
+  { name: "Salesforce Administrator & Developer", issuer: "Salesforce", category: "Platform" },
 ];

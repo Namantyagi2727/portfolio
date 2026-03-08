@@ -7,7 +7,7 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="mb-16">
-          <p className="text-xs font-mono text-[#00d4ff] uppercase tracking-widest mb-2">05 / Contact</p>
+          <p className="text-xs font-mono text-[#00d4ff] uppercase tracking-widest mb-2">07 / Contact</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#ededed]">Get In Touch</h2>
         </div>
 
