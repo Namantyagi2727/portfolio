@@ -353,6 +353,61 @@ export const publications: Publication[] = [
   },
 ];
 
+export type SideQuest = {
+  icon: string;
+  title: string;
+  description: string;
+  status: "ACTIVE" | "IN PROGRESS" | "PASSIVE";
+};
+
+export const sideQuests: SideQuest[] = [
+  {
+    icon: "🏎️",
+    title: "F1 Pilgrim",
+    description: "Never misses a race weekend. Can predict pit stop strategy before the wall tells the driver.",
+    status: "ACTIVE",
+  },
+  {
+    icon: "🏸",
+    title: "Court Regular",
+    description: "Badminton and tennis. Serves well, returns better, trash talks respectfully.",
+    status: "ACTIVE",
+  },
+  {
+    icon: "🏋️",
+    title: "Iron Forger",
+    description: "Consistent gym sessions. Lifts heavy, codes heavier. Never skips — well, almost never.",
+    status: "ACTIVE",
+  },
+  {
+    icon: "🎮",
+    title: "Console + Chess Strategist",
+    description: "PS/Xbox for action, Chess for the ego. Both require patience. Both test it.",
+    status: "ACTIVE",
+  },
+  {
+    icon: "✈️",
+    title: "World Wanderer",
+    description: "4 countries explored, 190+ on the list. Every trip comes with a tech meetup recommendation.",
+    status: "IN PROGRESS",
+  },
+  {
+    icon: "📱",
+    title: "Gadget Oracle",
+    description: "Reads every tech blog. Knows the specs before the launch event. Has opinions about bezels.",
+    status: "PASSIVE",
+  },
+];
+
+export const funStats = [
+  { label: "F1 Races Watched", value: "Every. Single. One." },
+  { label: "Countries Explored", value: "4 (and counting)" },
+  { label: "Gym Sessions Skipped", value: "Classified" },
+  { label: "Chess Matches Lost", value: "Learning experiences" },
+  { label: "Tech Blogs Read", value: "∞ / week" },
+  { label: "Chai Consumed", value: "Yes." },
+];
+
 export type Certification = {
   name: string;
   issuer: string;
