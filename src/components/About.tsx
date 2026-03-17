@@ -3,6 +3,16 @@
 import { motion } from "framer-motion";
 import { MapPin, BookOpen } from "lucide-react";
 import { personalInfo, education, certifications, type Certification } from "@/lib/data";
+import dynamic from "next/dynamic";
+
+const JourneyMap = dynamic(() => import("./JourneyMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-48 rounded-2xl border border-[#1e1e1e] bg-[#0a0a0f] flex items-center justify-center">
+      <p className="text-xs font-mono text-[#6b7280] uppercase tracking-widest animate-pulse">Loading flight log…</p>
+    </div>
+  ),
+});
 
 const stats = [
   { label: "Projects Built", value: "10+" },
@@ -129,7 +139,21 @@ export default function About() {
           ))}
         </motion.div>
 
-        {/* D. Education timeline */}
+        {/* D. Journey Map */}
+        <motion.div
+          className="mb-20"
+          variants={itemVariants}
+          whileInView="visible"
+          initial="hidden"
+          viewport={{ once: true }}
+        >
+          <h3 className="text-sm font-mono text-[#00d4ff] uppercase tracking-widest mb-6">
+            Academic Journey
+          </h3>
+          <JourneyMap />
+        </motion.div>
+
+        {/* E. Education timeline */}
         <div className="mb-20">
           <motion.h3
             className="text-sm font-mono text-[#00d4ff] uppercase tracking-widest mb-10"
