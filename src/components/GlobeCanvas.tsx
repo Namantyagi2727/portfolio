@@ -17,23 +17,20 @@ export default function GlobeCanvas() {
       devicePixelRatio: 2,
       width: 600,
       height: 600,
-      phi: 0.3,
-      theta: 0.2,
+      phi: 0.35,
+      theta: 0.22,
       dark: 1,
-      diffuse: 1.4,
+      diffuse: 1.3,
       mapSamples: 16000,
-      mapBrightness: 7,
-      baseColor: [0.02, 0.02, 0.06],
-      markerColor: [1, 0.78, 0.1],    // amber/gold
-      glowColor: [0.28, 0.14, 0.68],  // deep purple
+      mapBrightness: 6.5,
+      baseColor: [0.02, 0.02, 0.05],
+      markerColor: [0, 0.831, 1],
+      glowColor: [0.35, 0.18, 0.65],
       markers: [
-        { location: [40.6782, -73.9442],  size: 0.08 }, // Brooklyn, NY (home)
-        { location: [51.5074, -0.1278],   size: 0.06 }, // London
-        { location: [28.6139, 77.209],    size: 0.06 }, // New Delhi
-        { location: [37.7749, -122.4194], size: 0.05 }, // San Francisco
-        { location: [43.7347, 7.4206],    size: 0.04 }, // Monaco — F1
-        { location: [52.0786, -1.0169],   size: 0.04 }, // Silverstone — F1
-        { location: [24.4672, 54.6031],   size: 0.04 }, // Abu Dhabi — F1
+        { location: [40.6782, -73.9442],  size: 0.07 }, // Brooklyn, NY
+        { location: [51.5074, -0.1278],   size: 0.05 }, // London
+        { location: [28.6139, 77.209],    size: 0.05 }, // New Delhi
+        { location: [37.7749, -122.4194], size: 0.04 }, // San Francisco
       ],
       onRender: (state) => {
         if (!pointerInteracting.current) {
