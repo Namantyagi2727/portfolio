@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { personalInfo } from "@/lib/data";
 
@@ -46,10 +46,32 @@ const particles = [
   { top: "52%", left: "48%", size: 1, color: "#00d4ff", delay: 2.6 },
 ];
 
+const SPOTLIGHTS = [
+  {
+    city:    "Brooklyn",
+    country: "New York, USA",
+    context: "MS CS · NYU Tandon",
+    coords:  "40.6782° N · 73.9442° W",
+  },
+  {
+    city:    "London",
+    country: "United Kingdom",
+    context: "Exchange · Birkbeck University",
+    coords:  "51.5074° N · 0.1278° W",
+  },
+  {
+    city:    "New Delhi",
+    country: "India",
+    context: "B.Tech · Amity University",
+    coords:  "28.6139° N · 77.2090° E",
+  },
+] as const;
+
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activeSpotlight, setActiveSpotlight] = useState<number | null>(0);
 
   useEffect(() => {
     const current = personalInfo.roles[roleIndex];
@@ -66,6 +88,10 @@ export default function Hero() {
     }
     return () => clearTimeout(timeout);
   }, [displayed, isDeleting, roleIndex]);
+
+  const handleSpotlight = useCallback((index: number | null) => {
+    setActiveSpotlight(index);
+  }, []);
 
   return (
     <section
@@ -259,17 +285,90 @@ export default function Hero() {
               }}
             />
 
-            <GlobeCanvas />
+            <GlobeCanvas onSpotlight={handleSpotlight} />
+
+            {/* Spotlight tooltip — rises from bottom of globe */}
+            <AnimatePresence mode="wait">
+              {activeSpotlight !== null && (
+                <motion.div
+                  key={activeSpotlight}
+                  initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+                >
+                  <div
+                    className="px-5 py-3 rounded-xl border"
+                    style={{
+                      background: "rgba(8,8,12,0.82)",
+                      borderColor: "rgba(0,212,255,0.22)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "0 0 20px rgba(0,212,255,0.08)",
+                    }}
+                  >
+                    <p
+                      className="text-[13px] font-semibold font-mono tracking-wide text-center whitespace-nowrap"
+                      style={{ color: "#00d4ff", textShadow: "0 0 12px rgba(0,212,255,0.5)" }}
+                    >
+                      {SPOTLIGHTS[activeSpotlight].city}
+                    </p>
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-center text-[#6b7280] mt-0.5 whitespace-nowrap">
+                      {SPOTLIGHTS[activeSpotlight].context}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Location readout */}
-          <div className="mt-5 flex flex-col items-center gap-1">
-            <p className="text-[10px] font-mono tracking-[0.22em] uppercase text-[#6b7280]/50">
-              40.6782° N · 73.9442° W
-            </p>
-            <p className="text-[9px] font-mono tracking-[0.16em] uppercase text-[#6b7280]/30">
-              Brooklyn, NY
-            </p>
+          {/* Dynamic coordinate readout */}
+          <div className="mt-5 flex flex-col items-center gap-2">
+            <div className="h-[28px] flex items-center">
+              <AnimatePresence mode="wait">
+                {activeSpotlight !== null ? (
+                  <motion.p
+                    key={`coords-${activeSpotlight}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="text-[10px] font-mono tracking-[0.22em] uppercase text-[#6b7280]/50"
+                  >
+                    {SPOTLIGHTS[activeSpotlight].coords}
+                  </motion.p>
+                ) : (
+                  <motion.p
+                    key="coords-rotating"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="text-[10px] font-mono tracking-[0.22em] uppercase text-[#6b7280]/25"
+                  >
+                    — rotating —
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Dot indicators */}
+            <div className="flex items-center gap-2">
+              {SPOTLIGHTS.map((s, i) => (
+                <motion.div
+                  key={i}
+                  className="rounded-full"
+                  animate={{
+                    width:      activeSpotlight === i ? 18 : 4,
+                    height:     4,
+                    background: activeSpotlight === i ? "#00d4ff" : "rgba(107,114,128,0.25)",
+                    boxShadow:  activeSpotlight === i ? "0 0 8px rgba(0,212,255,0.55)" : "none",
+                  }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  title={s.city}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

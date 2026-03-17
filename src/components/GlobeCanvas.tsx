@@ -3,11 +3,36 @@
 import { useEffect, useRef } from "react";
 import createGlobe from "cobe";
 
-export default function GlobeCanvas() {
+// phi ≈ -longitude_degrees × (π/180)
+const SPOTLIGHT_PHIS = [
+  1.290,   // Brooklyn, NY  (lon −73.94°)
+  0.0022,  // London        (lon  −0.13°)
+ -1.348,   // New Delhi     (lon  +77.21°)
+];
+
+const HOLD_MS = 2800;
+const LERP    = 0.042;
+const ARRIVAL = 0.018;
+
+interface GlobeCanvasProps {
+  onSpotlight?: (index: number | null) => void;
+}
+
+export default function GlobeCanvas({ onSpotlight }: GlobeCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const phiRef = useRef(0.4);
-  const pointerInteracting = useRef<number | null>(null);
+  const phiRef    = useRef(SPOTLIGHT_PHIS[0]);
+
+  const pointerInteracting       = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
+
+  // Spotlight state machine — all refs to avoid stale closures in onRender
+  const phaseRef        = useRef<"rotating" | "holding">("holding");
+  const spotlightIdxRef = useRef(0);
+  const holdStartRef    = useRef<number>(Date.now());
+  const onSpotlightRef  = useRef(onSpotlight);
+
+  // Keep ref in sync with latest prop without triggering effect
+  useEffect(() => { onSpotlightRef.current = onSpotlight; });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,29 +40,61 @@ export default function GlobeCanvas() {
 
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
-      width: 600,
+      width:  600,
       height: 600,
-      phi: 0.35,
-      theta: 0.22,
+      phi:    phiRef.current,
+      theta:  0.22,
       dark: 1,
       diffuse: 1.3,
       mapSamples: 16000,
       mapBrightness: 6.5,
-      baseColor: [0.02, 0.02, 0.05],
+      baseColor:   [0.02, 0.02, 0.05],
       markerColor: [0, 0.831, 1],
-      glowColor: [0.35, 0.18, 0.65],
+      glowColor:   [0.35, 0.18, 0.65],
       markers: [
         { location: [40.6782, -73.9442],  size: 0.07 }, // Brooklyn, NY
         { location: [51.5074, -0.1278],   size: 0.05 }, // London
-        { location: [28.6139, 77.209],    size: 0.05 }, // New Delhi
+        { location: [28.6139,  77.209],   size: 0.05 }, // New Delhi
         { location: [37.7749, -122.4194], size: 0.04 }, // San Francisco
       ],
       onRender: (state) => {
-        if (!pointerInteracting.current) {
-          phiRef.current += 0.003;
+        const interacting = pointerInteracting.current !== null;
+
+        if (interacting) {
+          state.phi = phiRef.current + pointerInteractionMovement.current;
+        } else {
+          const idx    = spotlightIdxRef.current;
+          const target = SPOTLIGHT_PHIS[idx];
+
+          if (phaseRef.current === "rotating") {
+            // Shortest-path lerp with wrap-around
+            let delta = target - phiRef.current;
+            while (delta >  Math.PI) delta -= 2 * Math.PI;
+            while (delta < -Math.PI) delta += 2 * Math.PI;
+
+            phiRef.current += delta * LERP;
+
+            if (Math.abs(delta) < ARRIVAL) {
+              phiRef.current    = target;
+              phaseRef.current  = "holding";
+              holdStartRef.current = Date.now();
+              onSpotlightRef.current?.(idx);
+            }
+          } else {
+            // Gentle micro-drift while holding so the globe feels alive
+            phiRef.current += 0.0006;
+
+            if (Date.now() - holdStartRef.current > HOLD_MS) {
+              phaseRef.current      = "rotating";
+              spotlightIdxRef.current = (idx + 1) % SPOTLIGHT_PHIS.length;
+              onSpotlightRef.current?.(null);
+            }
+          }
+
+          state.phi = phiRef.current;
         }
-        state.phi = phiRef.current + pointerInteractionMovement.current;
-        state.width = canvas.offsetWidth * 2;
+
+        state.width  = canvas.offsetWidth  * 2;
         state.height = canvas.offsetHeight * 2;
       },
     });

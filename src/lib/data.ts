@@ -274,7 +274,6 @@ export const education: Education[] = [
     school: "NYU Tandon School of Engineering",
     period: "Aug 2024 – Present",
     location: "Brooklyn, NY",
-    gpa: "3.74 / 4.0",
     courses: [
       "Machine Learning",
       "Big Data",
