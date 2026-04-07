@@ -36,6 +36,11 @@ export const skills: Skill[] = [
       "Sentiment Analysis",
       "Computer Vision",
       "RAG",
+      "Agentic AI",
+      "LangGraph",
+      "Prompt Engineering",
+      "Scikit-learn",
+      "ChromaDB",
     ],
   },
   {
@@ -52,6 +57,7 @@ export const skills: Skill[] = [
       "AWS Rekognition",
       "Azure ML",
       "Azure AI Services",
+      "Azure Logic Apps",
     ],
   },
   {
@@ -65,6 +71,8 @@ export const skills: Skill[] = [
       "MongoDB",
       "PostgreSQL",
       "OpenSearch",
+      "Hadoop/HDFS",
+      "Data Warehousing",
     ],
   },
   {
@@ -83,11 +91,14 @@ export const skills: Skill[] = [
       "NumPy",
       "Pandas",
       "Agile/Kanban",
+      "Flask",
+      "Tableau",
+      "Plotly",
     ],
   },
   {
     category: "Blockchain",
-    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3", "DLT"],
+    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3", "DLT", "Chainlink"],
   },
 ];
 
@@ -107,10 +118,12 @@ export const experiences: Experience[] = [
     period: "Jan 2026 – Present",
     location: "New York, NY",
     description: [
-      "Leading development of records management and dashboarding systems for faculty administration.",
-      "Building full-stack solutions that streamline workflows for the NYU Faculty Affairs office.",
+      "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management, workflow orchestration, and an AI-powered FAQ chatbot.",
+      "Deploying workflow automation pipelines using cloud-based orchestration (AWS, Azure Logic Apps) to digitize manual form processes with routing, compliance checks, and approval chain tracking.",
+      "Architecting cloud storage strategies with metadata tagging and classification systems to convert unstructured legacy documents into searchable, analytics-ready datasets.",
+      "Coordinating with IT and platform teams to ensure system integration, compliance, and security standards across NYU's existing infrastructure.",
     ],
-    tags: ["Full-Stack", "Dashboarding", "Records Management"],
+    tags: ["Full-Stack", "Cloud", "AWS", "Azure", "AI", "Workflow Automation", "Records Management"],
   },
   {
     title: "AI & Power BI Intern",
@@ -189,6 +202,14 @@ export const projects: Project[] = [
     tags: ["Apache Spark", "Kafka", "Python", "Big Data", "ETL"],
     github: "https://github.com/Namantyagi2727/airspace-congestion-monitoring",
     highlight: "475K+ flight records",
+  },
+  {
+    title: "RAGBase: Enterprise Document Q&A System",
+    description:
+      "Open-source offline RAG chatbot with semantic document search using FAISS vector indexing and LangChain retrieval chains, supporting PDF/DOCX ingestion across 1,000+ documents with sub-2-second latency. Modular pipeline with configurable embedding models, chunking strategies, and reranking.",
+    tags: ["RAG", "LangChain", "FAISS", "Hugging Face", "Python", "Streamlit"],
+    github: "https://github.com/Namantyagi2727/ragbase",
+    highlight: "1,000+ docs · sub-2s retrieval",
   },
   {
     title: "Sign Language Recognition",
