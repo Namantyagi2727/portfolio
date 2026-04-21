@@ -72,6 +72,8 @@ export default function Hero() {
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeSpotlight, setActiveSpotlight] = useState<number | null>(0);
+  const [activeCity, setActiveCity]           = useState(0);
+  const [targetIndex, setTargetIndex]         = useState<number | null>(null);
 
   useEffect(() => {
     const current = personalInfo.roles[roleIndex];
@@ -89,9 +91,20 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayed, isDeleting, roleIndex]);
 
+  // Globe calls this when it arrives at or leaves a city
   const handleSpotlight = useCallback((index: number | null) => {
     setActiveSpotlight(index);
+    if (index !== null) setActiveCity(index); // keep tab in sync with auto-rotation
   }, []);
+
+  // User clicks a city tab
+  const handleTabClick = (i: number) => {
+    setActiveCity(i);
+    setActiveSpotlight(i);
+    setTargetIndex(i);
+    // reset targetIndex after one frame so it can be re-triggered
+    setTimeout(() => setTargetIndex(null), 50);
+  };
 
   return (
     <section
@@ -110,7 +123,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Radial glow — centred right where globe sits */}
+      {/* Radial glow */}
       <div
         className="absolute top-1/2 right-[22%] -translate-y-1/2 w-[640px] h-[640px] rounded-full pointer-events-none"
         style={{
@@ -125,10 +138,8 @@ export default function Hero() {
           key={i}
           className="absolute rounded-full pointer-events-none"
           style={{
-            top: p.top,
-            left: p.left,
-            width: p.size,
-            height: p.size,
+            top: p.top, left: p.left,
+            width: p.size, height: p.size,
             background: p.color,
             boxShadow: `0 0 6px ${p.color}`,
           }}
@@ -137,12 +148,7 @@ export default function Hero() {
             x: [0, i % 2 === 0 ? 12 : -12, 0],
             opacity: [0.1, 0.35, 0.1],
           }}
-          transition={{
-            duration: 4.5 + i * 0.7,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: p.delay,
-          }}
+          transition={{ duration: 4.5 + i * 0.7, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
         />
       ))}
 
@@ -232,29 +238,16 @@ export default function Hero() {
             variants={itemVariants}
             className="flex items-center justify-center lg:justify-start gap-3"
           >
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200"
-              aria-label="GitHub"
-            >
+            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
+              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="GitHub">
               <Github size={19} />
             </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200"
-              aria-label="LinkedIn"
-            >
+            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
+              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="LinkedIn">
               <Linkedin size={19} />
             </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200"
-              aria-label="Email"
-            >
+            <a href={`mailto:${personalInfo.email}`}
+              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="Email">
               <Mail size={19} />
             </a>
           </motion.div>
@@ -271,7 +264,7 @@ export default function Hero() {
             className="relative"
             style={{ width: "min(480px, 88vw)", height: "min(480px, 88vw)" }}
           >
-            {/* Single clean orbit ring */}
+            {/* Orbit ring */}
             <div
               className="absolute rounded-full pointer-events-none"
               style={{ inset: "-18px", border: "1px dashed rgba(0,212,255,0.13)" }}
@@ -279,15 +272,12 @@ export default function Hero() {
             {/* Glow */}
             <div
               className="absolute inset-0 rounded-full pointer-events-none"
-              style={{
-                boxShadow:
-                  "0 0 70px rgba(0,212,255,0.07), inset 0 0 60px rgba(168,85,247,0.04)",
-              }}
+              style={{ boxShadow: "0 0 70px rgba(0,212,255,0.07), inset 0 0 60px rgba(168,85,247,0.04)" }}
             />
 
-            <GlobeCanvas onSpotlight={handleSpotlight} />
+            <GlobeCanvas onSpotlight={handleSpotlight} targetIndex={targetIndex} />
 
-            {/* Spotlight tooltip — rises from bottom of globe */}
+            {/* Tooltip — appears when globe is holding at a city */}
             <AnimatePresence mode="wait">
               {activeSpotlight !== null && (
                 <motion.div
@@ -322,58 +312,51 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* Dynamic coordinate readout */}
-          <div className="mt-5 flex flex-col items-center gap-2">
-            <div className="h-[28px] flex items-center">
-              <AnimatePresence mode="wait">
-                {activeSpotlight !== null ? (
-                  <motion.p
-                    key={`coords-${activeSpotlight}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="text-[10px] font-mono tracking-[0.22em] uppercase text-[#6b7280]/50"
-                  >
-                    {SPOTLIGHTS[activeSpotlight].coords}
-                  </motion.p>
-                ) : (
-                  <motion.p
-                    key="coords-rotating"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="text-[10px] font-mono tracking-[0.22em] uppercase text-[#6b7280]/25"
-                  >
-                    — rotating —
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Dot indicators */}
-            <div className="flex items-center gap-2">
-              {SPOTLIGHTS.map((s, i) => (
-                <motion.div
+          {/* ── City tab bar (replaces pill dots + coordinates) ── */}
+          <div className="mt-6 flex items-stretch gap-1 p-1 rounded-xl border border-[#1e1e1e] bg-[#0d0d0d]">
+            {SPOTLIGHTS.map((s, i) => {
+              const isActive = activeCity === i;
+              return (
+                <button
                   key={i}
-                  className="rounded-full"
-                  animate={{
-                    width:      activeSpotlight === i ? 18 : 4,
-                    height:     4,
-                    background: activeSpotlight === i ? "#00d4ff" : "rgba(107,114,128,0.25)",
-                    boxShadow:  activeSpotlight === i ? "0 0 8px rgba(0,212,255,0.55)" : "none",
+                  onClick={() => handleTabClick(i)}
+                  className="relative flex flex-col items-center px-5 py-2.5 rounded-lg transition-all duration-250 outline-none"
+                  style={{
+                    background: isActive ? "rgba(0,212,255,0.08)" : "transparent",
+                    border:     `1px solid ${isActive ? "rgba(0,212,255,0.2)" : "transparent"}`,
                   }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  title={s.city}
-                />
-              ))}
-            </div>
+                >
+                  {/* City name */}
+                  <span
+                    className="text-xs font-semibold font-mono tracking-wide transition-colors duration-200 whitespace-nowrap"
+                    style={{ color: isActive ? "#00d4ff" : "#6b7280" }}
+                  >
+                    {s.city}
+                  </span>
+                  {/* Context line */}
+                  <span
+                    className="text-[10px] font-mono mt-0.5 transition-colors duration-200 whitespace-nowrap"
+                    style={{ color: isActive ? "rgba(0,212,255,0.6)" : "rgba(107,114,128,0.5)" }}
+                  >
+                    {s.context}
+                  </span>
+                  {/* Active indicator dot */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="city-dot"
+                      className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+                      style={{ background: "#00d4ff", boxShadow: "0 0 6px rgba(0,212,255,0.8)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll */}
+      {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#6b7280]/50">
         <span className="text-[10px] font-mono tracking-widest uppercase">scroll</span>
         <ArrowDown size={14} className="animate-bounce" />

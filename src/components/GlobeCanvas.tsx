@@ -16,23 +16,32 @@ const ARRIVAL = 0.018;
 
 interface GlobeCanvasProps {
   onSpotlight?: (index: number | null) => void;
+  targetIndex?: number | null; // externally trigger rotation to a spotlight
 }
 
-export default function GlobeCanvas({ onSpotlight }: GlobeCanvasProps) {
+export default function GlobeCanvas({ onSpotlight, targetIndex }: GlobeCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phiRef    = useRef(SPOTLIGHT_PHIS[0]);
 
-  const pointerInteracting       = useRef<number | null>(null);
+  const pointerInteracting        = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
 
   // Spotlight state machine — all refs to avoid stale closures in onRender
-  const phaseRef        = useRef<"rotating" | "holding">("holding");
-  const spotlightIdxRef = useRef(0);
-  const holdStartRef    = useRef<number>(Date.now());
-  const onSpotlightRef  = useRef(onSpotlight);
+  const phaseRef          = useRef<"rotating" | "holding">("holding");
+  const spotlightIdxRef   = useRef(0);
+  const holdStartRef      = useRef<number>(Date.now());
+  const onSpotlightRef    = useRef(onSpotlight);
+  const forcedTargetRef   = useRef<number | null>(null);
 
-  // Keep ref in sync with latest prop without triggering effect
+  // Keep callbacks in sync without re-running the globe effect
   useEffect(() => { onSpotlightRef.current = onSpotlight; });
+
+  // When parent requests a specific city, push it into the render loop via ref
+  useEffect(() => {
+    if (targetIndex !== null && targetIndex !== undefined) {
+      forcedTargetRef.current = targetIndex;
+    }
+  }, [targetIndex]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -60,6 +69,15 @@ export default function GlobeCanvas({ onSpotlight }: GlobeCanvasProps) {
       onRender: (state) => {
         const interacting = pointerInteracting.current !== null;
 
+        // Handle external tab click — override state machine immediately
+        if (forcedTargetRef.current !== null) {
+          spotlightIdxRef.current  = forcedTargetRef.current;
+          phaseRef.current         = "rotating";
+          holdStartRef.current     = 0;
+          forcedTargetRef.current  = null;
+          onSpotlightRef.current?.(null);
+        }
+
         if (interacting) {
           state.phi = phiRef.current + pointerInteractionMovement.current;
         } else {
@@ -75,8 +93,8 @@ export default function GlobeCanvas({ onSpotlight }: GlobeCanvasProps) {
             phiRef.current += delta * LERP;
 
             if (Math.abs(delta) < ARRIVAL) {
-              phiRef.current    = target;
-              phaseRef.current  = "holding";
+              phiRef.current       = target;
+              phaseRef.current     = "holding";
               holdStartRef.current = Date.now();
               onSpotlightRef.current?.(idx);
             }
@@ -85,7 +103,7 @@ export default function GlobeCanvas({ onSpotlight }: GlobeCanvasProps) {
             phiRef.current += 0.0006;
 
             if (Date.now() - holdStartRef.current > HOLD_MS) {
-              phaseRef.current      = "rotating";
+              phaseRef.current        = "rotating";
               spotlightIdxRef.current = (idx + 1) % SPOTLIGHT_PHIS.length;
               onSpotlightRef.current?.(null);
             }
