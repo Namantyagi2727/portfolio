@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/d3-geo": "^3.1.0",
+    "@vercel/analytics": "^2.0.1",
     "cobe": "^0.6.5",
     "d3-geo": "^3.1.1",
     "d3-selection": "^3.0.0",

@@ -12,7 +12,7 @@ export const personalInfo = {
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
-  bio: "I'm an AI/ML engineer and MS CS student at NYU Tandon, passionate about building intelligent systems that solve real-world problems. With hands-on experience across LLMs, cloud infrastructure, big data pipelines, and full-stack development, I bring ideas from research to production. Published author with Cambridge Scholars Publishing and IEEE, with 6+ internships spanning AI, cloud, and enterprise software.",
+  bio: "AI/ML engineer and MS CS student at NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024) and Cambridge Scholars Publishing (2025). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
 };
 
 export type Skill = {
