@@ -1,100 +1,259 @@
-import { Github, ExternalLink, Star } from "lucide-react";
+"use client";
+
+import { useState, useEffect } from "react";
+import { Github, ExternalLink, Star, X, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/lib/data";
+import type { Project } from "@/lib/data";
 
 export default function Projects() {
+  const [selected, setSelected] = useState<Project | null>(null);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selected]);
+
   return (
-    <section id="projects" className="py-24 px-6 bg-[#0d0d0d]">
-      <div className="max-w-6xl mx-auto">
-        {/* Section header */}
-        <div className="mb-16">
-          <p className="text-xs font-mono text-[#00d4ff] uppercase tracking-widest mb-2">04 / Projects</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#ededed]">Featured Projects</h2>
-        </div>
+    <>
+      <section id="projects" className="py-24 px-6 bg-[#0d0d0d]">
+        <div className="max-w-6xl mx-auto">
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <div
-              key={project.title}
-              className="bg-[#111111] border border-[#1e1e1e] rounded-xl p-6 flex flex-col group hover:border-[#00d4ff]/30 transition-all duration-200 hover:-translate-y-1"
+          {/* Section header */}
+          <div className="mb-16">
+            <p className="text-xs font-mono text-[#00d4ff] uppercase tracking-widest mb-2">04 / Projects</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#ededed]">Featured Projects</h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, i) => (
+              <div
+                key={project.title}
+                onClick={() => setSelected(project)}
+                className="bg-[#111111] border border-[#1e1e1e] rounded-xl p-6 flex flex-col group hover:border-[#00d4ff]/30 transition-all duration-200 hover:-translate-y-1 cursor-pointer"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#00d4ff]/10 flex items-center justify-center text-lg font-bold font-mono text-[#00d4ff]">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-md text-[#6b7280] hover:text-[#ededed] transition-colors"
+                        aria-label="GitHub"
+                      >
+                        <Github size={16} />
+                      </a>
+                    )}
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-md text-[#6b7280] hover:text-[#ededed] transition-colors"
+                        aria-label="Live demo"
+                      >
+                        <ExternalLink size={16} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Title + highlight */}
+                <div className="mb-2">
+                  <h3 className="text-sm font-semibold text-[#ededed] group-hover:text-[#00d4ff] transition-colors leading-snug mb-1">
+                    {project.title}
+                  </h3>
+                  {project.highlight && (
+                    <span
+                      className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-mono"
+                      style={{ background: "rgba(0,212,255,0.1)", color: "#00d4ff", border: "1px solid rgba(0,212,255,0.2)" }}
+                    >
+                      <Star size={10} />
+                      {project.highlight}
+                    </span>
+                  )}
+                </div>
+
+                {/* Description — clamped to 3 lines on card */}
+                <p className="text-xs text-[#6b7280] leading-relaxed flex-1 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {project.tags.slice(0, 4).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-2 py-0.5 rounded font-mono text-[#6b7280] bg-[#1a1a1a] border border-[#2a2a2a]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {project.tags.length > 4 && (
+                    <span className="text-xs px-2 py-0.5 rounded font-mono text-[#6b7280]/50 bg-[#1a1a1a] border border-[#2a2a2a]">
+                      +{project.tags.length - 4}
+                    </span>
+                  )}
+                </div>
+
+                {/* View details hint */}
+                <div className="flex items-center gap-1 text-[10px] font-mono text-[#6b7280]/40 group-hover:text-[#00d4ff]/60 transition-colors mt-auto">
+                  <ArrowUpRight size={11} />
+                  click to expand
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* GitHub CTA */}
+          <div className="mt-12 text-center">
+            <a
+              href="https://github.com/Namantyagi2727"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#00d4ff] transition-colors font-medium"
             >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-10 h-10 rounded-lg bg-[#00d4ff]/10 flex items-center justify-center text-lg font-bold font-mono text-[#00d4ff]">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div className="flex gap-2">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded-md text-[#6b7280] hover:text-[#ededed] transition-colors"
-                      aria-label="GitHub"
-                    >
-                      <Github size={16} />
-                    </a>
-                  )}
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded-md text-[#6b7280] hover:text-[#ededed] transition-colors"
-                      aria-label="Live demo"
-                    >
-                      <ExternalLink size={16} />
-                    </a>
-                  )}
-                </div>
-              </div>
+              <Github size={16} />
+              See more on GitHub →
+            </a>
+          </div>
+        </div>
+      </section>
 
-              {/* Title + highlight */}
-              <div className="mb-2">
-                <h3 className="text-sm font-semibold text-[#ededed] group-hover:text-[#00d4ff] transition-colors leading-snug mb-1">
-                  {project.title}
-                </h3>
-                {project.highlight && (
-                  <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-mono"
-                    style={{ background: "rgba(0,212,255,0.1)", color: "#00d4ff", border: "1px solid rgba(0,212,255,0.2)" }}>
-                    <Star size={10} />
-                    {project.highlight}
-                  </span>
-                )}
-              </div>
+      {/* ── Project Detail Modal ── */}
+      <AnimatePresence>
+        {selected && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setSelected(null)}
+              className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
+            />
 
-              {/* Description */}
-              <p className="text-xs text-[#6b7280] leading-relaxed flex-1 mb-4">
-                {project.description}
-              </p>
+            {/* Panel */}
+            <motion.div
+              key="modal"
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 30, scale: 0.97 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            >
+              <div
+                className="relative w-full max-w-xl pointer-events-auto rounded-2xl overflow-hidden"
+                style={{
+                  background: "#111111",
+                  border: "1px solid rgba(0,212,255,0.2)",
+                  boxShadow: "0 0 60px rgba(0,212,255,0.08), 0 24px 80px rgba(0,0,0,0.6)",
+                }}
+              >
+                {/* Top accent line */}
+                <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, #00d4ff, transparent)" }} />
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-0.5 rounded font-mono text-[#6b7280] bg-[#1a1a1a] border border-[#2a2a2a]"
+                <div className="p-7">
+                  {/* Close */}
+                  <button
+                    onClick={() => setSelected(null)}
+                    className="absolute top-5 right-5 p-1.5 rounded-lg text-[#6b7280] hover:text-[#ededed] hover:bg-[#1e1e1e] transition-all"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                    <X size={17} />
+                  </button>
 
-        {/* GitHub CTA */}
-        <div className="mt-12 text-center">
-          <a
-            href="https://github.com/Namantyagi2727"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[#6b7280] hover:text-[#00d4ff] transition-colors font-medium"
-          >
-            <Github size={16} />
-            See more on GitHub →
-          </a>
-        </div>
-      </div>
-    </section>
+                  {/* Highlight badge */}
+                  {selected.highlight && (
+                    <span
+                      className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-mono mb-4"
+                      style={{ background: "rgba(0,212,255,0.1)", color: "#00d4ff", border: "1px solid rgba(0,212,255,0.2)" }}
+                    >
+                      <Star size={10} />
+                      {selected.highlight}
+                    </span>
+                  )}
+
+                  {/* Title */}
+                  <h2 className="text-xl font-bold text-[#ededed] leading-snug mb-4 pr-8">
+                    {selected.title}
+                  </h2>
+
+                  {/* Description — full, larger text */}
+                  <p className="text-sm text-[#9ca3af] leading-relaxed mb-6">
+                    {selected.description}
+                  </p>
+
+                  {/* All tags */}
+                  <div className="mb-6">
+                    <p className="text-xs font-mono text-[#6b7280]/60 uppercase tracking-widest mb-2">Tech Stack</p>
+                    <div className="flex flex-wrap gap-2">
+                      {selected.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs px-2.5 py-1 rounded-md font-mono"
+                          style={{
+                            background: "rgba(0,212,255,0.08)",
+                            color: "#00d4ff",
+                            border: "1px solid rgba(0,212,255,0.2)",
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex gap-3 pt-4 border-t border-[#1e1e1e]">
+                    {selected.github ? (
+                      <a
+                        href={selected.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02]"
+                        style={{ background: "#00d4ff", color: "#0a0a0a", boxShadow: "0 0 20px rgba(0,212,255,0.25)" }}
+                      >
+                        <Github size={15} />
+                        View on GitHub
+                      </a>
+                    ) : (
+                      <span
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#6b7280] border border-[#2a2a2a] cursor-not-allowed"
+                      >
+                        <Github size={15} />
+                        Private Repo
+                      </span>
+                    )}
+                    {selected.demo && (
+                      <a
+                        href={selected.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold border border-[#2a2a2a] text-[#ededed] hover:border-[#00d4ff]/40 transition-all"
+                      >
+                        <ExternalLink size={15} />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
