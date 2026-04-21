@@ -41,6 +41,9 @@ export const skills: Skill[] = [
       "Prompt Engineering",
       "Scikit-learn",
       "ChromaDB",
+      "LoRA",
+      "PEFT",
+      "Fine-Tuning",
     ],
   },
   {
@@ -58,6 +61,10 @@ export const skills: Skill[] = [
       "Azure ML",
       "Azure AI Services",
       "Azure Logic Apps",
+      "RBAC",
+      "Secrets Management",
+      "IAM",
+      "Multi-Cloud",
     ],
   },
   {
@@ -73,6 +80,8 @@ export const skills: Skill[] = [
       "OpenSearch",
       "Hadoop/HDFS",
       "Data Warehousing",
+      "Spark SQL",
+      "Spark Structured Streaming",
     ],
   },
   {
@@ -94,11 +103,18 @@ export const skills: Skill[] = [
       "Flask",
       "Tableau",
       "Plotly",
+      "Folium",
+      "DAX",
+      "Microservices",
     ],
   },
   {
     category: "Blockchain",
-    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3", "DLT", "Chainlink"],
+    items: ["Solidity", "Smart Contracts", "Ethereum", "MetaMask", "Web3", "DLT", "Chainlink", "IPFS"],
+  },
+  {
+    category: "AI Governance",
+    items: ["Responsible AI", "AI Safety", "AI Risk Assessment", "AI Governance", "Cyber Resiliency"],
   },
 ];
 
@@ -113,7 +129,7 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    title: "Lead Software Developer",
+    title: "Software Engineer — Faculty Operations Platform",
     company: "NYU — Office of Faculty Affairs",
     period: "Jan 2026 – Present",
     location: "New York, NY",
@@ -131,11 +147,11 @@ export const experiences: Experience[] = [
     period: "Jun 2025 – Aug 2025",
     location: "White Plains, NY",
     description: [
-      "Built a fully offline AI chatbot using embeddings + RAG workflows for secure internal knowledge access.",
-      "Automated document ingestion and semantic search pipelines, improving retrieval efficiency for TSMs and RSMs.",
-      "Enhanced NLP query understanding in Power BI Q&A, improving insight accuracy and user experience.",
+      "Designed and deployed a fully offline RAG-based AI chatbot using LangChain, vector embeddings, and semantic retrieval workflows, enabling secure knowledge access across 1,000+ enterprise documents for 50+ field team members.",
+      "Built automated document ingestion and semantic indexing pipelines, reducing information retrieval time by ~70% compared to manual search.",
+      "Enhanced NLP query interpretation in Power BI Q&A using custom semantic models; integrated Azure AI and Python NLP frameworks into production.",
     ],
-    tags: ["AI", "RAG", "Power BI", "NLP", "Azure AI", "Python"],
+    tags: ["AI", "RAG", "LangChain", "Power BI", "NLP", "Azure AI", "Python"],
   },
   {
     title: "AI Research Intern",
@@ -143,8 +159,8 @@ export const experiences: Experience[] = [
     period: "Sep 2023 – Aug 2024",
     location: "Remote",
     description: [
-      "Conducted NLP and sentiment analysis research supporting early detection of Body Dysmorphic Disorder.",
-      "Fine-tuned Transformer-based models for contextual classification and precision-recall balance.",
+      "Conducted NLP and sentiment analysis research for early BDD detection, achieving 12% F1-score improvement through transformer fine-tuning on ~10K annotated clinical text samples.",
+      "Automated end-to-end text preprocessing, feature extraction, and model evaluation workflows, reducing experiment iteration time by ~40%.",
       "Published findings in IEEE Xplore (2024) via CNN-based sign language recognition project.",
     ],
     tags: ["NLP", "Transformers", "CNN", "Research", "IEEE Published"],
@@ -155,8 +171,8 @@ export const experiences: Experience[] = [
     period: "Jan 2024 – Jun 2024",
     location: "Gurugram, India",
     description: [
-      "Performed data-driven diagnostics on optical network systems, ensuring minimal downtime for global telecom clients.",
-      "Authored internal automation scripts and technical solutions that improved case resolution efficiency.",
+      "Performed data-driven diagnostics on optical networks for 15+ global telecom clients (99.5% uptime SLAs); authored automation scripts reducing case resolution time by ~25%.",
+      "Managed 50+ monthly escalations with cross-functional coordination across global support teams.",
     ],
     tags: ["Networking", "Automation", "Data Analysis"],
   },
@@ -166,9 +182,8 @@ export const experiences: Experience[] = [
     period: "May 2023 – Dec 2023",
     location: "Remote",
     description: [
-      "Automated processes with Flow Builder, reducing manual workload by 40%.",
-      "Developed Apex triggers and Lightning components to extend platform functionality.",
-      "Managed permission sets and data integrity across 50+ active users.",
+      "Automated CRM workflows with Flow Builder, reducing manual workload by 40% across 50+ users; built Lightning components, backend validation rules, and analytics dashboards.",
+      "Developed Apex triggers to extend platform functionality and managed permission sets and data integrity.",
     ],
     tags: ["Salesforce", "Apex", "Lightning", "CRM", "Automation"],
   },
@@ -227,7 +242,7 @@ export const projects: Project[] = [
   {
     title: "ChainGuard",
     description:
-      "Smart contract security analysis tool that scans Solidity code for vulnerabilities including reentrancy attacks, integer overflows, and access control issues using LLM-powered ranking.",
+      "LLM-based auditing tool detecting smart contract vulnerabilities (reentrancy, overflow, access control) with 85%+ accuracy across 100+ test contracts. Fine-tuned transformers for structured audit report generation.",
     tags: ["Solidity", "Ethereum", "Web3", "Security", "Python", "LLMs"],
     github: "https://github.com/Namantyagi2727/BlockGuard",
   },
