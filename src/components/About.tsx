@@ -87,7 +87,7 @@ export default function About() {
           <p className="text-2xl sm:text-3xl leading-relaxed text-[#a0a0a0] font-light max-w-4xl">
             {"I\u2019m an "}
             <span className="text-[#ededed] font-semibold">AI/ML engineer</span>
-            {" and MS CS student at "}
+            {" with an MS in Computer Science from "}
             <span style={{ color: "#00d4ff" }}>NYU Tandon</span>
             {", passionate about building intelligent systems that solve real-world problems. With hands-on experience across "}
             <span className="text-[#ededed] font-semibold">LLMs, cloud infrastructure, big data pipelines</span>
@@ -95,8 +95,10 @@ export default function About() {
             <span className="text-[#ededed] font-semibold">Published author</span>
             {" with "}
             <span style={{ color: "#00d4ff" }}>Cambridge Scholars Publishing</span>
-            {" and "}
+            {", "}
             <span style={{ color: "#00d4ff" }}>IEEE</span>
+            {", and "}
+            <span style={{ color: "#00d4ff" }}>Human Behavior and Emerging Technologies</span>
             {", with "}
             <span className="text-[#ededed] font-semibold">6+ internships</span>
             {" spanning AI, cloud, and enterprise software."}

@@ -101,7 +101,7 @@ const NODES: MapNode[] = [
       },
       {
         name: "NYU Tandon School of Engineering", role: "MS — Computer Science",
-        period: "Aug 2024 – Present", category: "Education",
+        period: "Aug 2024 – May 2026", category: "Education",
         detail: "Machine Learning · Big Data · Cloud · Blockchain · Application Security",
         color: "#a855f7",
       },

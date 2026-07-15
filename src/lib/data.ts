@@ -12,7 +12,7 @@ export const personalInfo = {
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
-  bio: "AI/ML engineer and MS CS student at NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024) and Cambridge Scholars Publishing (2025). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
+  bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
 };
 
 export type Skill = {
@@ -211,6 +211,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Prism",
+    description:
+      "Self-hosted LLM gateway and control plane sitting between applications and providers (OpenAI, Anthropic, self-hosted Ollama) — a one-line base_url swap, no other code changes. Adds cost visibility, automatic provider failover via a hand-rolled circuit breaker, PII/prompt-injection guardrails, semantic + exact caching, and a live four-tab admin dashboard, backed by Postgres/pgvector, Redis, and full Prometheus/Grafana/Jaeger observability.",
+    tags: ["FastAPI", "Python", "LLM Gateway", "Redis", "PostgreSQL", "pgvector", "Docker", "Observability"],
+    github: "https://github.com/Namantyagi2727/prism",
+    demo: "https://namantyagi2727.github.io/prism/",
+    highlight: "~250 req/s · p95 ~80ms overhead",
+  },
+  {
     title: "Airspace Congestion Monitoring System",
     description:
       "Real-time big data pipeline processing 475K+ flight records using Apache Spark and Kafka. Visualizes airspace congestion patterns with live streaming analytics and alerting.",
@@ -308,7 +317,7 @@ export const education: Education[] = [
   {
     degree: "Master of Science — Computer Science",
     school: "NYU Tandon School of Engineering",
-    period: "Aug 2024 – Present",
+    period: "Aug 2024 – May 2026",
     location: "Brooklyn, NY",
     courses: [
       "Machine Learning",
@@ -363,6 +372,18 @@ export type Publication = {
 };
 
 export const publications: Publication[] = [
+  {
+    type: "journal",
+    title: "A Pilot Study of a Gamified CBT-Based Digital Approach for Body Image Distress and Appearance-Related Concerns",
+    publisher: "Human Behavior and Emerging Technologies (Wiley/Hindawi)",
+    date: "Accepted June 2026 · In Production",
+    description:
+      "Co-developed a pilot-scale serious game integrating CBT techniques with AI-driven analysis to support body image distress and appearance-related concerns. The AI model interpreting user input reached 97.15% accuracy on held-out test data, outperforming a BERT-based baseline, with preliminary results pointing to gamified digital interventions as a scalable, accessible complement to traditional CBT.",
+    url: "https://doi.org/10.1155/hbe2/8902875",
+    highlight: "97.15% Model Accuracy",
+    authors: "Anushka Singh (Amity) · Naman Tyagi (Amity) · Fahad Eqbal (Amity) · Dolly Sharma (Amity) · Aikaterini Bourazeri (Essex, Corresponding Author)",
+    doi: "10.1155/hbe2/8902875",
+  },
   {
     type: "book",
     title: "Decentralized Smart Cities: Enhancing Urban Living Through IoT, Metaverse, and Blockchain Integration",
