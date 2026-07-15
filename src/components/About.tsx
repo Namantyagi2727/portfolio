@@ -15,9 +15,9 @@ const JourneyMap = dynamic(() => import("./JourneyMap"), {
 });
 
 const stats = [
-  { label: "Projects Built", value: "10+" },
+  { label: "Projects Built", value: "13+" },
   { label: "Internships", value: "6+" },
-  { label: "Publications", value: "2" },
+  { label: "Publications", value: "3" },
   { label: "Certifications", value: "6+" },
 ];
 

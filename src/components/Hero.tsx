@@ -199,7 +199,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-[#6b7280] text-base sm:text-lg max-w-md mb-10 leading-relaxed"
           >
-            MS CS at NYU Tandon · IEEE Published · 6+ Internships.
+            MS CS from NYU Tandon · Published Researcher · 6+ Internships.
             <br />
             Building at the intersection of AI, cloud, and full-stack.
           </motion.p>
