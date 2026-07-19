@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MapPin, BookOpen } from "lucide-react";
-import { personalInfo, education, certifications, type Certification } from "@/lib/data";
+import { personalInfo, education, certifications, publications, type Certification } from "@/lib/data";
 import dynamic from "next/dynamic";
 
 const JourneyMap = dynamic(() => import("./JourneyMap"), {
@@ -17,7 +17,7 @@ const JourneyMap = dynamic(() => import("./JourneyMap"), {
 const stats = [
   { label: "Projects Built", value: "13+" },
   { label: "Internships", value: "6+" },
-  { label: "Publications", value: "3" },
+  { label: "Publications", value: String(publications.length) },
   { label: "Certifications", value: "6+" },
 ];
 
