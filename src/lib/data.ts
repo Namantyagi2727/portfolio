@@ -12,7 +12,8 @@ export const personalInfo = {
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
-  bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
+  scholar: "https://scholar.google.com/citations?hl=en&user=JNOaY9YAAAAJ",
+  bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Wiley (2025), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
 };
 
 export type Skill = {
@@ -394,6 +395,17 @@ export const publications: Publication[] = [
     url: "https://www.cambridgescholars.com/product/978-1-0364-6498-1/",
     highlight: "Cambridge Scholars Publishing",
     authors: "Naman Tyagi (NYU) · Anushka Singh (Johns Hopkins) · Fahad Eqbal Hashmi · Dolly Sharma (Amity)",
+  },
+  {
+    type: "book",
+    title: "Case Study on Ethical AI-Based Decision-Making in E-Commerce Industrial Sector: Insights on McDonald's and Deliveroo",
+    publisher: "Wiley — Ethical Decision-Making Using Artificial Intelligence: Challenges, Solutions and Applications (Chapter 12)",
+    date: "July 11, 2025",
+    description:
+      "Explored real-world implementation of AutoML principles at McDonald's, which optimizes food menus based on user preferences, and Deliveroo, which improved delivery times and service quality through AutoML. Examined AutoML's impact on business workflows alongside the ethical considerations organizations should weigh when adopting it.",
+    url: "https://doi.org/10.1002/9781394275311.ch12",
+    authors: "Anushka Singh · Naman Tyagi · Dolly Sharma",
+    doi: "10.1002/9781394275311.ch12",
   },
   {
     type: "conference",

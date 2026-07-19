@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Github, Linkedin, MapPin, Send, CheckCircle, AlertCircle, Loader } from "lucide-react";
+import { Mail, Github, Linkedin, GraduationCap, MapPin, Send, CheckCircle, AlertCircle, Loader } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { personalInfo } from "@/lib/data";
 
@@ -112,6 +112,18 @@ export default function Contact() {
                   <Linkedin size={15} />
                 </div>
                 <span className="text-sm">linkedin.com/in/naman-tyagi-nt2727</span>
+              </a>
+
+              <a
+                href={personalInfo.scholar}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-[#6b7280] hover:text-[#00d4ff] transition-colors group"
+              >
+                <div className="w-9 h-9 rounded-lg bg-[#111111] border border-[#1e1e1e] flex items-center justify-center group-hover:border-[#00d4ff]/40 transition-colors">
+                  <GraduationCap size={15} />
+                </div>
+                <span className="text-sm">Google Scholar</span>
               </a>
 
               <div className="flex items-center gap-3 text-[#6b7280]">

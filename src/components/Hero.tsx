@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowDown, Download, GraduationCap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { personalInfo } from "@/lib/data";
@@ -245,6 +245,10 @@ export default function Hero() {
             <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
               className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="LinkedIn">
               <Linkedin size={19} />
+            </a>
+            <a href={personalInfo.scholar} target="_blank" rel="noopener noreferrer"
+              className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="Google Scholar">
+              <GraduationCap size={19} />
             </a>
             <a href={`mailto:${personalInfo.email}`}
               className="p-2.5 rounded-lg border border-[#1e1e1e] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/40 transition-all duration-200" aria-label="Email">
