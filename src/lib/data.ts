@@ -376,7 +376,7 @@ export const publications: Publication[] = [
     type: "journal",
     title: "A Pilot Study of a Gamified CBT-Based Digital Approach for Body Image Distress and Appearance-Related Concerns",
     publisher: "Human Behavior and Emerging Technologies (Wiley/Hindawi)",
-    date: "Accepted June 2026 · In Production",
+    date: "Published July 2026",
     description:
       "Co-developed a pilot-scale serious game integrating CBT techniques with AI-driven analysis to support body image distress and appearance-related concerns. The AI model interpreting user input reached 97.15% accuracy on held-out test data, outperforming a BERT-based baseline, with preliminary results pointing to gamified digital interventions as a scalable, accessible complement to traditional CBT.",
     url: "https://doi.org/10.1155/hbe2/8902875",
