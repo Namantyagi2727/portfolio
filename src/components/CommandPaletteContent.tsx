@@ -5,6 +5,7 @@ import { Command } from "cmdk";
 import { personalInfo } from "@/lib/data";
 
 const SECTIONS = [
+  { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
@@ -15,7 +16,7 @@ const SECTIONS = [
 ];
 
 const itemClass =
-  "px-3 py-2 rounded-md text-sm normal-case tracking-normal text-[#c7bcae] data-[selected=true]:bg-[#d97b3f]/10 data-[selected=true]:text-[#d97b3f] cursor-pointer outline-none";
+  "px-3 py-2 rounded-md text-sm normal-case tracking-normal text-muted data-[selected=true]:bg-accent/10 data-[selected=true]:text-accent cursor-pointer outline-none";
 
 export default function CommandPaletteContent({ onClose }: { onClose: () => void }) {
   useEffect(() => {
@@ -54,28 +55,28 @@ export default function CommandPaletteContent({ onClose }: { onClose: () => void
       role="dialog"
       aria-modal="true"
       aria-label="Command palette"
-      className="fixed inset-0 z-[60] flex items-start justify-center pt-32 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-start justify-center pt-32 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <Command
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md rounded-xl border border-[#2a231c] bg-[#1c1712] overflow-hidden font-mono text-sm"
+        className="w-full max-w-md rounded-xl border border-border bg-surface overflow-hidden font-mono text-sm shadow-lg"
       >
         <Command.Input
           autoFocus
           placeholder="Jump to..."
-          className="w-full px-4 py-3 bg-transparent text-[#f5f0e8] outline-none border-b border-[#2a231c] placeholder:text-[#8a8073]"
+          className="w-full px-4 py-3 bg-transparent text-foreground outline-none border-b border-border placeholder:text-muted"
         />
         <Command.List className="max-h-80 overflow-y-auto p-2">
-          <Command.Empty className="px-3 py-2 text-[#8a8073]">No results.</Command.Empty>
-          <Command.Group heading="Sections" className="text-[10px] uppercase tracking-widest text-[#8a8073] px-2 py-1">
+          <Command.Empty className="px-3 py-2 text-muted">No results.</Command.Empty>
+          <Command.Group heading="Sections" className="text-[10px] uppercase tracking-widest text-muted px-2 py-1">
             {SECTIONS.map((s) => (
               <Command.Item key={s.href} onSelect={() => go(s.href)} className={itemClass}>
                 {s.label}
               </Command.Item>
             ))}
           </Command.Group>
-          <Command.Group heading="Actions" className="text-[10px] uppercase tracking-widest text-[#8a8073] px-2 py-1 mt-2">
+          <Command.Group heading="Actions" className="text-[10px] uppercase tracking-widest text-muted px-2 py-1 mt-2">
             <Command.Item onSelect={() => openLink(personalInfo.github)} className={itemClass}>
               Open GitHub
             </Command.Item>

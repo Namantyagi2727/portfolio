@@ -24,7 +24,7 @@ export default function Projects() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, i) => (
+            {projects.filter((project) => project.title !== "Prism").map((project, i) => (
               <div
                 key={project.title}
                 onClick={() => setSelected(project)}
