@@ -21,7 +21,12 @@ export default function PrismFlowDiagram() {
 
   return (
     <div className="w-full" style={{ maxWidth: 420 }}>
-      <svg viewBox="0 0 380 150" className="w-full h-auto" role="img" aria-label="Prism request flow diagram">
+      <svg
+        viewBox="0 0 380 150"
+        className="w-full h-auto"
+        role="img"
+        aria-label={`Prism request flow diagram — cache ${cacheState}, circuit breaker ${breakerTripped ? "open" : "closed"}`}
+      >
         {/* App -> Prism */}
         <motion.line
           x1={NODES.app.x + 32} y1={NODES.app.y}
@@ -60,12 +65,14 @@ export default function PrismFlowDiagram() {
       <div className="mt-4 flex flex-wrap items-center gap-3 font-mono text-xs">
         <button
           onClick={() => setCacheState((s) => (s === "hit" ? "miss" : "hit"))}
+          aria-pressed={cacheState === "hit"}
           className="px-3 py-1.5 rounded-md border border-[#2a231c] text-[#c7bcae] hover:border-[#d97b3f]/50 hover:text-[#d97b3f] transition-colors"
         >
           cache: {cacheState}
         </button>
         <button
           onClick={() => setBreakerTripped((b) => !b)}
+          aria-pressed={breakerTripped}
           className="px-3 py-1.5 rounded-md border border-[#2a231c] text-[#c7bcae] hover:border-[#d97b3f]/50 hover:text-[#d97b3f] transition-colors"
         >
           breaker: {breakerTripped ? "open" : "closed"}

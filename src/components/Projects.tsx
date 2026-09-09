@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Github, ExternalLink, Star, X, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/lib/data";
 import type { Project } from "@/lib/data";
@@ -51,17 +51,13 @@ export default function Projects() {
                 </div>
 
                 <div className="mb-2">
-                  <h3 className="text-sm font-semibold text-[#f5f0e8] group-hover:text-[#d97b3f] transition-colors leading-snug mb-1">
+                  <h3 className="text-sm font-semibold text-[#f5f0e8] group-hover:text-[#d97b3f] transition-colors leading-snug mb-1.5">
                     {project.title}
                   </h3>
                   {project.highlight && (
-                    <span
-                      className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-mono"
-                      style={{ background: "rgba(217,123,63,0.1)", color: "#d97b3f", border: "1px solid rgba(217,123,63,0.2)" }}
-                    >
-                      <Star size={10} />
+                    <p className="text-xs font-mono font-semibold text-[#d97b3f] tracking-wide">
                       {project.highlight}
-                    </span>
+                    </p>
                   )}
                 </div>
 
@@ -138,16 +134,12 @@ export default function Projects() {
                   </button>
 
                   {selected.highlight && (
-                    <span
-                      className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-mono mb-4"
-                      style={{ background: "rgba(217,123,63,0.1)", color: "#d97b3f", border: "1px solid rgba(217,123,63,0.2)" }}
-                    >
-                      <Star size={10} />
+                    <p className="text-sm font-mono font-semibold text-[#d97b3f] tracking-wide mb-2">
                       {selected.highlight}
-                    </span>
+                    </p>
                   )}
 
-                  <h2 className="text-xl font-bold text-[#f5f0e8] leading-snug mb-4 pr-8">{selected.title}</h2>
+                  <h2 className="text-xl font-serif font-bold text-[#f5f0e8] leading-snug mb-4 pr-8">{selected.title}</h2>
                   <p className="text-sm text-[#c7bcae] leading-relaxed mb-6">{selected.description}</p>
 
                   <div className="mb-6">
