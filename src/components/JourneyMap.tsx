@@ -112,8 +112,8 @@ const NODES: MapNode[] = [
         color: "#f59e0b",
       },
       {
-        name: "NYU — Office of Faculty Affairs", role: "Lead Software Developer",
-        period: "Jan 2026 – Present", category: "Work",
+        name: "NYU — Office of Faculty Affairs", role: "Software Engineer — Faculty Operations Platform",
+        period: "Jan 2026 – Aug 2026", category: "Work",
         detail: "Records management & dashboarding systems · full-stack · faculty administration",
         color: "#22c55e",
       },

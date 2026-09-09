@@ -132,7 +132,7 @@ export const experiences: Experience[] = [
   {
     title: "Software Engineer — Faculty Operations Platform",
     company: "NYU — Office of Faculty Affairs",
-    period: "Jan 2026 – Present",
+    period: "Jan 2026 – Aug 2026",
     location: "New York, NY",
     description: [
       "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management, workflow orchestration, and an AI-powered FAQ chatbot.",
@@ -235,6 +235,24 @@ export const projects: Project[] = [
     tags: ["RAG", "LangChain", "FAISS", "Hugging Face", "Python", "Streamlit"],
     github: "https://github.com/Namantyagi2727/ragbase",
     highlight: "1,000+ docs · sub-2s retrieval",
+  },
+  {
+    title: "Immune Cell Population Analysis",
+    description:
+      "Take-home assessment for Teiko — analysis pipeline and interactive dashboard for a clinical-trial immune cell population dataset. Converts per-sample cell counts to relative frequencies across 5 immune cell populations, statistically compares treatment responders vs. non-responders with FDR-corrected significance testing, and breaks down baseline cohorts by project, sex, and response. Reproducible SQLite-backed pipeline with a 15-test suite and a live dashboard.",
+    tags: ["Take-Home Assessment", "Python", "Pandas", "SQLite", "Streamlit", "Statistics", "Bioinformatics"],
+    github: "https://github.com/Namantyagi2727/teiko-cell-population-analysis",
+    demo: "https://teiko-cell-population-analysis-dashboard.streamlit.app/",
+    highlight: "656 samples analyzed",
+  },
+  {
+    title: "ConTicx",
+    description:
+      "Take-home assessment for Juspay — a concert ticket booking prototype with a real payment integration against Hyperswitch's Unified Checkout sandbox. Server-side amount computation that never trusts client-submitted prices, Redis-backed atomic inventory holds with lazy expiry, and webhook-safe payment-intent cancellation to prevent overselling seats during the 10-minute checkout hold.",
+    tags: ["Take-Home Assessment", "Next.js", "TypeScript", "Redis", "Payments", "Hyperswitch"],
+    github: "https://github.com/Namantyagi2727/ConTicx",
+    demo: "https://conticx.vercel.app",
+    highlight: "Atomic oversell protection",
   },
   {
     title: "Sign Language Recognition",
