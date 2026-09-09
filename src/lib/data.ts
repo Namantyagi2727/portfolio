@@ -237,6 +237,14 @@ export const projects: Project[] = [
     highlight: "1,000+ docs · sub-2s retrieval",
   },
   {
+    title: "ChainGuard",
+    description:
+      "LLM-based auditing tool detecting smart contract vulnerabilities (reentrancy, overflow, access control) with 85%+ accuracy across 100+ test contracts. Fine-tuned transformers for structured audit report generation.",
+    tags: ["Solidity", "Ethereum", "Web3", "Security", "Python", "LLMs"],
+    github: "https://github.com/Namantyagi2727/BlockGuard",
+    highlight: "85%+ accuracy · 100+ test contracts",
+  },
+  {
     title: "Immune Cell Population Analysis",
     description:
       "Take-home assessment for Teiko — analysis pipeline and interactive dashboard for a clinical-trial immune cell population dataset. Converts per-sample cell counts to relative frequencies across 5 immune cell populations, statistically compares treatment responders vs. non-responders with FDR-corrected significance testing, and breaks down baseline cohorts by project, sex, and response. Reproducible SQLite-backed pipeline with a 15-test suite and a live dashboard.",
@@ -266,13 +274,6 @@ export const projects: Project[] = [
     description:
       "LLM-driven conversational therapy agent using GPT-4, NLP, and sentiment analysis. Analyzes emotional state during live interactions and implements sentiment scoring + trend tracking.",
     tags: ["LLMs", "GPT-4", "NLP", "Sentiment Analysis", "Python", "Streamlit"],
-  },
-  {
-    title: "ChainGuard",
-    description:
-      "LLM-based auditing tool detecting smart contract vulnerabilities (reentrancy, overflow, access control) with 85%+ accuracy across 100+ test contracts. Fine-tuned transformers for structured audit report generation.",
-    tags: ["Solidity", "Ethereum", "Web3", "Security", "Python", "LLMs"],
-    github: "https://github.com/Namantyagi2727/BlockGuard",
   },
   {
     title: "Photo Search & Recognition",
