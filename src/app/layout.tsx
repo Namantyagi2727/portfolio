@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import CommandPalette from "@/components/CommandPalette";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -71,6 +72,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased bg-[#14100d] text-[#f5f0e8]`}
       >
         {children}
+        <CommandPalette />
         <Analytics />
       </body>
     </html>
