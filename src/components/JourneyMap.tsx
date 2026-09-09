@@ -10,6 +10,7 @@ import {
   Marker,
 } from "react-simple-maps";
 import { geoInterpolate } from "d3-geo";
+import { X } from "lucide-react";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -203,29 +204,6 @@ export default function JourneyMap() {
         className="relative w-full rounded-2xl overflow-hidden border border-[#2a231c] bg-[#0c0908]"
         style={{ boxShadow: "0 0 80px rgba(217,123,63,0.04), inset 0 0 120px rgba(0,0,0,0.7)" }}
       >
-        <div
-          className="pointer-events-none absolute inset-0 z-10 opacity-[0.02]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(217,123,63,0.2) 2px, rgba(217,123,63,0.2) 3px)",
-          }}
-        />
-
-        {[
-          "top-3 left-3 border-t border-l",
-          "top-3 right-3 border-t border-r",
-          "bottom-3 left-3 border-b border-l",
-          "bottom-3 right-3 border-b border-r",
-        ].map((cls) => (
-          <div key={cls} className={`absolute w-5 h-5 border-[#d97b3f]/28 ${cls}`} />
-        ))}
-
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-          <div className="w-1 h-1 rounded-full bg-[#d97b3f]/60 animate-pulse" />
-          <span className="text-[10px] font-mono text-[#d97b3f]/50 uppercase tracking-[0.28em]">GLOBAL JOURNEY LOG</span>
-          <div className="w-1 h-1 rounded-full bg-[#d97b3f]/60 animate-pulse" />
-        </div>
-
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{ scale: 130, center: [20, 30] }}
@@ -395,9 +373,10 @@ export default function JourneyMap() {
                 </div>
                 <button
                   onClick={() => setActiveNode(null)}
-                  className="text-[#8a8073] hover:text-[#f5f0e8] transition-colors text-xs font-mono px-2 py-1 rounded border border-[#2a231c] hover:border-[#3a3025]"
+                  className="text-[#8a8073] hover:text-[#f5f0e8] transition-colors p-1.5 rounded border border-[#2a231c] hover:border-[#3a3025]"
+                  aria-label="Close"
                 >
-                  [×]
+                  <X size={14} />
                 </button>
               </div>
 
