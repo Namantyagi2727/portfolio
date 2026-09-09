@@ -115,6 +115,7 @@ export type CaseStudy = {
   description: string;
   metrics: Metric[];
   stack: string[];
+  figures?: Figure[];      // factual figure metadata/assets; components may render differently
   links: { label: string; href: string; external?: boolean }[];
 };
 ```
@@ -187,17 +188,19 @@ point.
 figures from `docs/architecture.md` and `README.md` in the local `LLM
 Gateway` repo (source of truth if anything ever conflicts):
 
-**Results** (10-concurrent-user test, called out as such — not presented
-as a universal number):
-- `245–259 req/s` combined throughput, `0%` unintended error rate
-- `p50 ~25ms / p95 ~80ms` gateway overhead at 10 concurrent users
-- At 50 concurrent users: `p50 ~130ms / p95 ~250ms / p99 ~340ms` — preserved
-  honestly as the point where the <50ms p95 target is exceeded under load,
-  not hidden.
-- Fallback chain during simulated total Ollama outage: `0.00%` failure on
-  fast-model requests (1 stray timeout / 31,488 requests)
-- Cache hit rate ~20%; guardrail block rate ~9.9% (matches the load test's
-  intentional 10% PII-triggering traffic mix)
+**Verified benchmark results** (each metric labeled by its actual test
+context, not presented as one universal number):
+- `245–259 req/s` combined throughput, `0%` unintended error rate — main
+  combined load test
+- `p50 ~25ms / p95 ~80ms` gateway overhead — isolated from provider
+  latency, at 10 concurrent users
+- `p50 ~130ms / p95 ~250ms / p99 ~340ms` gateway overhead — at 50
+  concurrent users; preserved honestly as the point where the <50ms p95
+  target is exceeded under load, not hidden
+- `0.00%` failure on fast-model requests (1 stray timeout / 31,488
+  requests) — fallback chain during a simulated total Ollama outage
+- ~20% cache hit rate; ~9.9% guardrail block rate — matches the load
+  test's intentional 10% PII-triggering traffic mix
 
 **What broke:** the rate limiter and exact cache each opened a new Redis
 connection per request; at ~300 req/s this produced a 77% error rate under
@@ -221,7 +224,9 @@ Jaeger / Ollama / Docker Compose`.
 
 Cycle 1's definition of done: this section alone should look shippable —
 figures, metrics, stack line, screenshots, "what broke" narrative, links
-(GitHub, live demo) all in place and responsive at 375/430/768/1024/1440px.
+(GitHub and any genuinely available demo/documentation links — no public
+demo required or invented) all in place and responsive at
+375/430/768/1024/1440px.
 
 ### Selected Work — remaining three (Cycle 2, not built in Cycle 1)
 
@@ -234,7 +239,7 @@ figures, metrics, stack line, screenshots, "what broke" narrative, links
   Explicitly excludes accuracy/FPS/latency/dataset-size/model-choice claims
   per the user's explicit "do not currently claim" list.
 - **003 Faculty Ops** — software-structure composition. Headline metrics
-  `12 apps / 306 automated tests / 29 test files` (both numbers
+  `12 apps / 306 automated tests / 29 test files` (all three figures
   independently verified against the local `OFA/office-affairs-workflow-
   portal` repo during this spec's research — exact match). Visual is a
   **module/system map** listing the 12 apps (core, workflows, approvals,
