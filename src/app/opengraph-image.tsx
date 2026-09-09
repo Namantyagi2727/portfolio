@@ -12,7 +12,7 @@ export default async function Image() {
         style={{
           width: "1200px",
           height: "630px",
-          background: "#0a0a0a",
+          background: "#14100d",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -28,7 +28,7 @@ export default async function Image() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px)",
+              "linear-gradient(rgba(217,123,63,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(217,123,63,0.04) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -43,7 +43,7 @@ export default async function Image() {
             height: "600px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(0,212,255,0.12) 0%, rgba(168,85,247,0.06) 50%, transparent 70%)",
+              "radial-gradient(circle, rgba(217,123,63,0.06) 0%, transparent 70%)",
           }}
         />
 
@@ -55,13 +55,13 @@ export default async function Image() {
             marginBottom: "48px",
           }}
         >
-          <span style={{ color: "#00d4ff", fontSize: "22px", fontWeight: 700 }}>&lt;</span>
-          <span style={{ color: "#ededed", fontSize: "22px", fontWeight: 700 }}>NT</span>
-          <span style={{ color: "#00d4ff", fontSize: "22px", fontWeight: 700 }}>/&gt;</span>
+          <span style={{ color: "#d97b3f", fontSize: "22px", fontWeight: 700 }}>&lt;</span>
+          <span style={{ color: "#f5f0e8", fontSize: "22px", fontWeight: 700 }}>NT</span>
+          <span style={{ color: "#d97b3f", fontSize: "22px", fontWeight: 700 }}>/&gt;</span>
           <span
             style={{
               marginLeft: "16px",
-              color: "#6b7280",
+              color: "#8a8073",
               fontSize: "14px",
               fontFamily: "monospace",
               letterSpacing: "0.15em",
@@ -77,7 +77,7 @@ export default async function Image() {
           style={{
             fontSize: "88px",
             fontWeight: 900,
-            color: "#ededed",
+            color: "#f5f0e8",
             lineHeight: 0.9,
             letterSpacing: "-3px",
             marginBottom: "24px",
@@ -91,10 +91,10 @@ export default async function Image() {
           style={{
             fontSize: "28px",
             fontWeight: 600,
-            color: "#00d4ff",
+            color: "#d97b3f",
             fontFamily: "monospace",
             marginBottom: "40px",
-            textShadow: "0 0 30px rgba(0,212,255,0.5)",
+            textShadow: "0 0 30px rgba(217,123,63,0.4)",
           }}
         >
           AI/ML Engineer · Full-Stack · Cloud Architect
@@ -109,9 +109,9 @@ export default async function Image() {
                 style={{
                   padding: "8px 18px",
                   borderRadius: "8px",
-                  border: "1px solid rgba(0,212,255,0.25)",
-                  background: "rgba(0,212,255,0.06)",
-                  color: "#9ca3af",
+                  border: "1px solid rgba(217,123,63,0.25)",
+                  background: "rgba(217,123,63,0.06)",
+                  color: "#c7bcae",
                   fontSize: "14px",
                   fontFamily: "monospace",
                   letterSpacing: "0.05em",
