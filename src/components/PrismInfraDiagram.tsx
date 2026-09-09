@@ -11,9 +11,9 @@ const HOST = { x: 90, y: 60, label: "Ollama" };
 
 const COMPOSE_NODES = {
   app: { x: 260, y: 70, label: "App" },
-  postgres: { x: 460, y: 40, label: "Postgres · pgvector" },
-  redis: { x: 460, y: 100, label: "Redis" },
-  jaeger: { x: 460, y: 160, label: "Jaeger" },
+  postgres: { x: 520, y: 40, label: "Postgres · pgvector" },
+  redis: { x: 520, y: 100, label: "Redis" },
+  jaeger: { x: 520, y: 160, label: "Jaeger" },
   prometheus: { x: 260, y: 160, label: "Prometheus" },
   grafana: { x: 260, y: 220, label: "Grafana" },
 } as const;
@@ -83,10 +83,10 @@ export default function PrismInfraDiagram() {
             strokeWidth={1.2}
           />
 
-          <text x={352} y={28} fontSize={8} fontFamily="var(--font-geist-mono)" fill={MUTED}>
+          <text x={372} y={28} fontSize={8} fontFamily="var(--font-geist-mono)" fill={MUTED}>
             SQL · asyncpg
           </text>
-          <text x={352} y={92} fontSize={8} fontFamily="var(--font-geist-mono)" fill={MUTED}>
+          <text x={365} y={92} fontSize={8} fontFamily="var(--font-geist-mono)" fill={MUTED}>
             cache + rate limit
           </text>
           <text x={352} y={148} fontSize={8} fontFamily="var(--font-geist-mono)" fill={MUTED}>
