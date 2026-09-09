@@ -509,3 +509,140 @@ export const certifications: Certification[] = [
   { name: "Azure Cloud Completion Badge", issuer: "Microsoft Azure", category: "Cloud" },
   { name: "Salesforce Administrator & Developer", issuer: "Salesforce", category: "Platform" },
 ];
+
+export type Metric = {
+  value: string;
+  label: string;
+};
+
+export type Figure = {
+  id: string; // "FIG. 01"
+  caption: string;
+  kind: "screenshot" | "diagram" | "placeholder";
+  src?: string; // present when kind is "screenshot"
+};
+
+export type CaseStudy = {
+  slug: string;
+  caseNumber: string; // "001"
+  category: string; // "AI Infrastructure"
+  year: string;
+  title: string;
+  problem: string; // one-sentence problem statement
+  description: string;
+  metrics: Metric[];
+  stack: string[];
+  figures?: Figure[];
+  links: { label: string; href: string; external?: boolean }[];
+};
+
+export const caseStudies: CaseStudy[] = [
+  {
+    slug: "prism",
+    caseNumber: "001",
+    category: "AI Infrastructure",
+    year: "2026",
+    title: "Prism",
+    problem:
+      "Teams that scale past calling a provider directly from the app run into unpredictable cost, no visibility into failures, PII/prompt-injection exposure, and no resilience when a provider degrades — usually all at once.",
+    description:
+      "Prism is a self-hosted LLM gateway and control plane that sits between applications and providers — OpenAI, Anthropic, self-hosted Ollama. A one-line base_url swap, no other code changes. It adds cost visibility, automatic failover through a hand-rolled circuit breaker, PII and prompt-injection guardrails, exact-match caching, and full observability, backed by Postgres with pgvector, Redis, and Prometheus/Grafana/Jaeger.",
+    metrics: [
+      {
+        value: "245–259 req/s",
+        label: "combined throughput · 0% unintended errors — main load test",
+      },
+      {
+        value: "p50 ~25ms / p95 ~80ms",
+        label: "gateway overhead isolated from provider latency — 10 concurrent users",
+      },
+      {
+        value: "p50 ~130 / p95 ~250 / p99 ~340ms",
+        label: "gateway overhead at 50 concurrent users — the <50ms p95 target holds at low concurrency and is exceeded here, which is what a load test is for",
+      },
+      {
+        value: "0.00%",
+        label: "fast-model failure rate during a simulated total Ollama outage — 1 stray timeout in 31,488 requests",
+      },
+      {
+        value: "~20% / ~9.9%",
+        label: "cache hit rate / guardrail block rate — matches the load test's 10% PII-triggering traffic mix",
+      },
+    ],
+    stack: [
+      "FastAPI",
+      "PostgreSQL",
+      "pgvector",
+      "Redis",
+      "Prometheus",
+      "Grafana",
+      "Jaeger",
+      "Ollama",
+      "Docker Compose",
+    ],
+    figures: [
+      {
+        id: "FIG. 01",
+        caption: "Request flow — auth, guardrails, cache, provider routing with fallback",
+        kind: "diagram",
+      },
+      {
+        id: "FIG. 02",
+        caption: "Infrastructure topology — docker-compose services and the host-run Ollama process",
+        kind: "diagram",
+      },
+      {
+        id: "FIG. 03",
+        caption: "Admin dashboard — Overview tab",
+        kind: "screenshot",
+        src: "/case-studies/prism/dashboard-overview.png",
+      },
+      {
+        id: "FIG. 04",
+        caption: "Admin dashboard — Cost & Teams tab",
+        kind: "screenshot",
+        src: "/case-studies/prism/dashboard-cost.png",
+      },
+      {
+        id: "FIG. 05",
+        caption: "Admin dashboard — Performance tab",
+        kind: "screenshot",
+        src: "/case-studies/prism/dashboard-performance.png",
+      },
+      {
+        id: "FIG. 06",
+        caption: "Admin dashboard — Safety tab",
+        kind: "screenshot",
+        src: "/case-studies/prism/dashboard-safety.png",
+      },
+      {
+        id: "FIG. 07",
+        caption: "Grafana operational dashboard",
+        kind: "screenshot",
+        src: "/case-studies/prism/grafana.png",
+      },
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/Namantyagi2727/prism", external: true },
+      { label: "Project page", href: "https://namantyagi2727.github.io/prism/", external: true },
+    ],
+  },
+];
+
+export const hero = {
+  metaTop: ["N / 2026", "BROOKLYN, NEW YORK"],
+  statement: ["I build AI systems", "that operate on", "real-world data."],
+  supporting:
+    "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
+  metaSecondary: ["MS Computer Science · NYU Tandon", "New York"],
+  now: {
+    label: "NOW",
+    title: "Computer Vision Research",
+    detail: "NYU FAMS Lab",
+  },
+  recently: {
+    label: "RECENTLY",
+    title: "Built Prism",
+    detail: "LLM Gateway & Control Plane",
+  },
+};
