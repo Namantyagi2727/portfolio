@@ -5,81 +5,187 @@ import { motion } from "framer-motion";
 
 type CacheState = "hit" | "miss";
 
+const ACCENT = "#355C8A";
+const ACCENT_SECONDARY = "#A54A42";
+const SURFACE = "#ECEAE4";
+const BORDER_STRONG = "#C4C1B6";
+const MUTED = "#6A6963";
+const FOREGROUND = "#171715";
+
+const NODE_W = 156;
+const NODE_H = 36;
+
 const NODES = {
-  app: { x: 30, y: 90, label: "App" },
-  prism: { x: 190, y: 90, label: "Prism" },
-  cache: { x: 190, y: 24, label: "Cache" },
-  provider: { x: 350, y: 90, label: "Provider" },
+  client: { x: 230, y: 24, label: "Client" },
+  auth: { x: 230, y: 100, label: "Auth" },
+  guardrail: { x: 230, y: 176, label: "Guardrail" },
+  cache: { x: 230, y: 252, label: "Cache lookup" },
+  router: { x: 230, y: 328, label: "Router + breaker" },
+  provider: { x: 230, y: 404, label: "Provider" },
+  cost: { x: 230, y: 480, label: "Cost calc + log" },
+  write: { x: 230, y: 556, label: "Cache write" },
+  response: { x: 230, y: 616, label: "Response" },
 } as const;
+
+const ORDER: (keyof typeof NODES)[] = [
+  "client",
+  "auth",
+  "guardrail",
+  "cache",
+  "router",
+  "provider",
+  "cost",
+  "write",
+  "response",
+];
 
 export default function PrismFlowDiagram() {
   const [cacheState, setCacheState] = useState<CacheState>("miss");
   const [breakerTripped, setBreakerTripped] = useState(false);
 
-  const providerLineColor = breakerTripped ? "#8a8073" : "#d97b3f";
-  const cacheLineColor = cacheState === "hit" ? "#d97b3f" : "#3a3025";
+  const bypassActive = cacheState === "hit";
 
   return (
-    <div className="w-full" style={{ maxWidth: 420 }}>
-      <svg
-        viewBox="0 0 380 150"
-        className="w-full h-auto"
-        role="img"
-        aria-label={`Prism request flow diagram — cache ${cacheState}, circuit breaker ${breakerTripped ? "open" : "closed"}`}
-      >
-        {/* App -> Prism */}
-        <motion.line
-          x1={NODES.app.x + 32} y1={NODES.app.y}
-          x2={NODES.prism.x - 32} y2={NODES.prism.y}
-          stroke="#d97b3f" strokeWidth={1.5} strokeDasharray="4 4"
-          animate={{ strokeDashoffset: [0, -16] }}
-          transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
-        />
-        {/* Prism -> Cache */}
-        <line
-          x1={NODES.prism.x} y1={NODES.prism.y - 22}
-          x2={NODES.cache.x} y2={NODES.cache.y + 14}
-          stroke={cacheLineColor} strokeWidth={1.5}
-        />
-        {/* Prism -> Provider (skipped when cache hits, dimmed when breaker trips) */}
-        <motion.line
-          x1={NODES.prism.x + 32} y1={NODES.prism.y}
-          x2={NODES.provider.x - 32} y2={NODES.provider.y}
-          stroke={providerLineColor} strokeWidth={1.5}
-          strokeDasharray={cacheState === "hit" ? "2 6" : "4 4"}
-          strokeOpacity={cacheState === "hit" ? 0.35 : 1}
-          animate={cacheState === "hit" ? {} : { strokeDashoffset: [0, -16] }}
-          transition={{ duration: 1.1, repeat: Infinity, ease: "linear" }}
-        />
+    <div className="w-full overflow-x-auto">
+      <div style={{ minWidth: 460 }}>
+        <svg
+          viewBox="0 0 460 640"
+          className="w-full h-auto"
+          role="img"
+          aria-label={`Prism request flow — cache ${cacheState}, circuit breaker ${
+            breakerTripped ? "open" : "closed"
+          }`}
+        >
+          {ORDER.slice(0, -1).map((key, i) => {
+            const from = NODES[key];
+            const to = NODES[ORDER[i + 1]];
+            const dimmed = (key === "cache" || key === "provider") && bypassActive;
+            return (
+              <motion.line
+                key={key}
+                x1={from.x}
+                y1={from.y + NODE_H / 2}
+                x2={to.x}
+                y2={to.y - NODE_H / 2}
+                stroke={dimmed ? BORDER_STRONG : ACCENT}
+                strokeWidth={1.5}
+                strokeDasharray="4 4"
+                strokeOpacity={dimmed ? 0.4 : 1}
+                animate={dimmed ? {} : { strokeDashoffset: [0, -16] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+              />
+            );
+          })}
 
-        {Object.entries(NODES).map(([key, n]) => (
-          <g key={key} transform={`translate(${n.x}, ${n.y})`}>
-            <rect x={-32} y={-16} width={64} height={32} rx={8} fill="#1c1712" stroke="#2a231c" strokeWidth={1} />
-            <text textAnchor="middle" dominantBaseline="middle" fontSize={10} fontFamily="var(--font-geist-mono)" fill="#f5f0e8">
-              {n.label}
+          {/* Cache-hit bypass: cache lookup straight to response, cost $0 */}
+          <path
+            d={`M ${NODES.cache.x + NODE_W / 2} ${NODES.cache.y} C 400 ${NODES.cache.y}, 400 ${NODES.response.y}, ${
+              NODES.response.x + NODE_W / 2
+            } ${NODES.response.y}`}
+            fill="none"
+            stroke={bypassActive ? ACCENT : BORDER_STRONG}
+            strokeWidth={1.5}
+            strokeDasharray="3 5"
+            strokeOpacity={bypassActive ? 1 : 0.35}
+          />
+          <text
+            x={412}
+            y={(NODES.cache.y + NODES.response.y) / 2}
+            textAnchor="middle"
+            fontSize={9}
+            fontFamily="var(--font-geist-mono)"
+            fill={bypassActive ? ACCENT : MUTED}
+            transform={`rotate(90 412 ${(NODES.cache.y + NODES.response.y) / 2})`}
+          >
+            cache hit · cost $0
+          </text>
+
+          {/* Provider failure retries the next in the chain */}
+          <path
+            d={`M ${NODES.provider.x - NODE_W / 2} ${NODES.provider.y - 8} C 60 ${NODES.provider.y}, 60 ${NODES.router.y}, ${
+              NODES.router.x - NODE_W / 2
+            } ${NODES.router.y + 8}`}
+            fill="none"
+            stroke={breakerTripped ? ACCENT_SECONDARY : ACCENT}
+            strokeWidth={1.2}
+            strokeDasharray="2 4"
+            strokeOpacity={0.6}
+          />
+          <text
+            x={48}
+            y={(NODES.provider.y + NODES.router.y) / 2}
+            textAnchor="middle"
+            fontSize={8}
+            fontFamily="var(--font-geist-mono)"
+            fill={MUTED}
+            transform={`rotate(-90 48 ${(NODES.provider.y + NODES.router.y) / 2})`}
+          >
+            failure → next in chain
+          </text>
+
+          {[
+            { node: NODES.auth, text: "401 / 429" },
+            { node: NODES.guardrail, text: "400 blocked" },
+            { node: NODES.provider, text: "503 · all failed", trigger: breakerTripped },
+          ].map(({ node, text, trigger }) => (
+            <text
+              key={text}
+              x={node.x + NODE_W / 2 + 10}
+              y={node.y + 3}
+              fontSize={9}
+              fontFamily="var(--font-geist-mono)"
+              fill={trigger ? ACCENT_SECONDARY : MUTED}
+            >
+              {text}
             </text>
-          </g>
-        ))}
-      </svg>
+          ))}
 
-      <div className="mt-4 flex flex-wrap items-center gap-3 font-mono text-xs">
-        <button
-          onClick={() => setCacheState((s) => (s === "hit" ? "miss" : "hit"))}
-          aria-pressed={cacheState === "hit"}
-          className="px-3 py-1.5 rounded-md border border-[#2a231c] text-[#c7bcae] hover:border-[#d97b3f]/50 hover:text-[#d97b3f] transition-colors"
-        >
-          cache: {cacheState}
-        </button>
-        <button
-          onClick={() => setBreakerTripped((b) => !b)}
-          aria-pressed={breakerTripped}
-          className="px-3 py-1.5 rounded-md border border-[#2a231c] text-[#c7bcae] hover:border-[#d97b3f]/50 hover:text-[#d97b3f] transition-colors"
-        >
-          breaker: {breakerTripped ? "open" : "closed"}
-        </button>
+          {ORDER.map((key) => {
+            const n = NODES[key];
+            const providerDimmed = key === "provider" && breakerTripped;
+            return (
+              <g key={key} transform={`translate(${n.x}, ${n.y})`}>
+                <rect
+                  x={-NODE_W / 2}
+                  y={-NODE_H / 2}
+                  width={NODE_W}
+                  height={NODE_H}
+                  rx={6}
+                  fill={SURFACE}
+                  stroke={providerDimmed ? ACCENT_SECONDARY : BORDER_STRONG}
+                  strokeWidth={1}
+                />
+                <text
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize={11}
+                  fontFamily="var(--font-geist-mono)"
+                  fill={FOREGROUND}
+                >
+                  {n.label}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+
+        <div className="mt-4 flex flex-wrap items-center gap-3 font-mono text-xs">
+          <button
+            onClick={() => setCacheState((s) => (s === "hit" ? "miss" : "hit"))}
+            aria-pressed={cacheState === "hit"}
+            className="px-3 py-1.5 rounded-md border border-border text-muted hover:border-accent hover:text-accent transition-colors"
+          >
+            cache: {cacheState}
+          </button>
+          <button
+            onClick={() => setBreakerTripped((b) => !b)}
+            aria-pressed={breakerTripped}
+            className="px-3 py-1.5 rounded-md border border-border text-muted hover:border-accent hover:text-accent transition-colors"
+          >
+            breaker: {breakerTripped ? "open" : "closed"}
+          </button>
+        </div>
       </div>
-
-      <p className="mt-3 text-[11px] font-mono text-[#8a8073]">~250 req/s · p95 ~80ms overhead</p>
     </div>
   );
 }
