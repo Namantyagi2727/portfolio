@@ -14,10 +14,11 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
   scholar: "https://scholar.google.com/citations?hl=en&user=JNOaY9YAAAAJ",
   bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Wiley (2025), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
+  photo: undefined as string | undefined,
 };
 
 export const awayFromKeyboard =
-  "F1 on race weekends, badminton and tennis, the gym, chess, always hunting for a new restaurant, and planning the next trip.";
+  "F1 on race weekends, badminton and tennis, the gym, gaming, chess, always hunting for a new restaurant, and planning the next trip.";
 
 export type Experience = {
   title: string;
@@ -267,6 +268,7 @@ export type Publication = {
   highlight?: string;
   authors?: string;
   doi?: string;
+  highlighted?: boolean;
 };
 
 export const publications: Publication[] = [
@@ -281,6 +283,7 @@ export const publications: Publication[] = [
     highlight: "97.15% Model Accuracy",
     authors: "Anushka Singh (Amity) · Naman Tyagi (Amity) · Fahad Eqbal (Amity) · Dolly Sharma (Amity) · Aikaterini Bourazeri (Essex, Corresponding Author)",
     doi: "10.1155/hbe2/8902875",
+    highlighted: true,
   },
   {
     type: "book",
@@ -405,8 +408,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     figures: [
       {
-        id: "FIG. 01",
-        caption: "Request flow — auth, guardrails, cache, provider routing with fallback",
+        id: "FIG. 01A",
+        caption:
+          "Nominal request path — the default straight-through flow. Cache-hit bypass and failure-retry paths are not shown here; see the complete flow for those.",
+        kind: "diagram",
+      },
+      {
+        id: "FIG. 01B",
+        caption: "Complete request flow — auth, guardrails, cache, provider routing with fallback",
         kind: "diagram",
       },
       {
@@ -462,9 +471,7 @@ export const caseStudies: CaseStudy[] = [
       "Ongoing computer vision research at NYU's FAMS Lab, contributing to a real-time detection pipeline over a continuous endoscopic camera feed inside a simulated renal environment — water and calcium-based model kidney stones standing in for real tissue and stone material during development, as part of the lab's Vertically Integrated Project.",
     stack: ["PyTorch", "OpenCV", "Computer Vision"],
     figures: [
-      { id: "FIG. 08A", caption: "Raw endoscopic feed", kind: "placeholder" },
-      { id: "FIG. 08B", caption: "Detection overlay", kind: "placeholder" },
-      { id: "FIG. 08C", caption: "Segmentation mask", kind: "placeholder" },
+      { id: "FIG. 08", caption: "Experimental pipeline", kind: "diagram" },
     ],
     links: [],
   },
@@ -485,7 +492,12 @@ export const caseStudies: CaseStudy[] = [
     ],
     stack: ["Django", "PostgreSQL", "AWS S3", "Azure Blob Storage", "Azure Logic Apps"],
     figures: [
-      { id: "FIG. 09", caption: "Module map — the 12 Django apps that make up the platform", kind: "diagram" },
+      {
+        id: "FIG. 09",
+        caption:
+          "Functional index — 12 Django apps grouped by function for presentation; not a dependency graph.",
+        kind: "diagram",
+      },
     ],
     links: [],
   },
@@ -526,6 +538,11 @@ export const hero = {
   supporting:
     "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
   metaSecondary: ["MS Computer Science · NYU Tandon", "New York"],
+  globeCities: [
+    { label: "Brooklyn, NY", lat: 40.6782, lng: -73.9442 },
+    { label: "London", lat: 51.5074, lng: -0.1278 },
+    { label: "New Delhi", lat: 28.6139, lng: 77.209 },
+  ],
   now: {
     label: "NOW",
     title: "Computer Vision Research",
