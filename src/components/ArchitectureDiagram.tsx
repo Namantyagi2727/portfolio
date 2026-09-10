@@ -8,6 +8,7 @@ export type ArchNode = {
   h?: number;
   label: string;
   sublabel?: string;
+  dashed?: boolean;
 };
 
 export type ArchEdge = {
@@ -85,14 +86,24 @@ export default function ArchitectureDiagram({
             const h = n.h ?? DEFAULT_NODE_H;
             return (
               <g key={n.id} transform={`translate(${n.x}, ${n.y})`}>
-                <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={6} fill={SURFACE} stroke={BORDER_STRONG} strokeWidth={1} />
+                <rect
+                  x={-w / 2}
+                  y={-h / 2}
+                  width={w}
+                  height={h}
+                  rx={6}
+                  fill={SURFACE}
+                  stroke={BORDER_STRONG}
+                  strokeWidth={1}
+                  strokeDasharray={n.dashed ? "3 3" : undefined}
+                />
                 <text
                   textAnchor="middle"
                   dominantBaseline={n.sublabel ? undefined : "middle"}
                   y={n.sublabel ? -3 : 0}
                   fontSize={9.5}
                   fontFamily="var(--font-geist-mono)"
-                  fill={FOREGROUND}
+                  fill={n.dashed ? MUTED : FOREGROUND}
                 >
                   {n.label}
                 </text>

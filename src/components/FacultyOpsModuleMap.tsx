@@ -1,28 +1,35 @@
 import ArchitectureDiagram, { type ArchNode } from "./ArchitectureDiagram";
 
 const NODES: ArchNode[] = [
-  { id: "core", x: 110, y: 60, w: 140, label: "core" },
-  { id: "workflows", x: 270, y: 60, w: 140, label: "workflows" },
-  { id: "approvals", x: 430, y: 60, w: 140, label: "approvals" },
-  { id: "notifications", x: 590, y: 60, w: 140, label: "notifications" },
-  { id: "documents", x: 110, y: 120, w: 140, label: "documents" },
-  { id: "audit", x: 270, y: 120, w: 140, label: "audit" },
-  { id: "chatbot", x: 430, y: 120, w: 140, label: "chatbot" },
-  { id: "workload", x: 590, y: 120, w: 140, label: "workload" },
-  { id: "export", x: 110, y: 180, w: 140, label: "export" },
-  { id: "tenure_promotion", x: 270, y: 180, w: 140, label: "tenure_promotion" },
-  { id: "faculty", x: 430, y: 180, w: 140, label: "faculty" },
-  { id: "ami", x: 590, y: 180, w: 140, label: "ami" },
+  // CORE PLATFORM
+  { id: "core", x: 110, y: 70, w: 140, label: "core" },
+  { id: "faculty", x: 110, y: 120, w: 140, label: "faculty" },
+  { id: "workflows", x: 110, y: 170, w: 140, label: "workflows" },
+  // OPERATIONS
+  { id: "approvals", x: 310, y: 70, w: 140, label: "approvals" },
+  { id: "workload", x: 310, y: 120, w: 140, label: "workload" },
+  { id: "tenure_promotion", x: 310, y: 170, w: 140, label: "tenure_promotion" },
+  { id: "ami", x: 310, y: 220, w: 140, label: "ami" },
+  // SYSTEM SERVICES
+  { id: "notifications", x: 510, y: 70, w: 140, label: "notifications" },
+  { id: "documents", x: 510, y: 120, w: 140, label: "documents" },
+  { id: "audit", x: 510, y: 170, w: 140, label: "audit" },
+  { id: "export", x: 510, y: 220, w: 140, label: "export" },
+  { id: "chatbot", x: 510, y: 270, w: 140, label: "chatbot (planned)", dashed: true },
 ];
 
-const GROUPS = [{ x: 30, y: 30, w: 630, h: 190, label: "12 DJANGO APPS — backend/apps/" }];
+const GROUPS = [
+  { x: 20, y: 30, w: 180, h: 165, label: "CORE PLATFORM" },
+  { x: 220, y: 30, w: 180, h: 215, label: "OPERATIONS" },
+  { x: 420, y: 30, w: 180, h: 265, label: "SYSTEM SERVICES" },
+];
 
 export default function FacultyOpsModuleMap() {
   return (
     <ArchitectureDiagram
-      viewBox="0 0 690 250"
-      minWidth={600}
-      ariaLabel="Faculty Operations Platform module map — 12 Django apps, no inter-app data flow implied"
+      viewBox="0 0 620 320"
+      minWidth={560}
+      ariaLabel="Faculty Operations Platform functional index — 12 Django apps grouped by function for presentation, not a dependency graph. Chatbot is a planned, not yet implemented, feature."
       nodes={NODES}
       groups={GROUPS}
     />
