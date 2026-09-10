@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import createGlobe from "cobe";
 import { useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/data";
+import { ACCENT, SURFACE, BACKGROUND } from "@/lib/diagram-tokens";
 
 // Deliberate tradeoff, documented in the design spec: cobe renders landmass
 // as a dot-matrix texture, not vector line borders. Tuned here as a fine
 // stippled technical texture (low mapSamples, muted base, no glow) rather
 // than the neon/glow/dark-globe config this codebase used before.
-const BACKGROUND = "#F6F5F0"; // page bg — glowColor is matched to this so the glow blends away, not the globe's own surface tone
-const SURFACE = "#ECEAE4";
-const ACCENT = "#355C8A";
+// glowColor is matched to the page background so the glow blends away,
+// rather than rendering as a visible halo around the globe's own surface tone.
 
 function hexToRgbNorm(hex: string): [number, number, number] {
   const n = parseInt(hex.slice(1), 16);

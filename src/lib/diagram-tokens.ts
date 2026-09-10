@@ -8,3 +8,4 @@ export const SURFACE = "#ECEAE4";
 export const BORDER_STRONG = "#C4C1B6";
 export const MUTED = "#6A6963";
 export const FOREGROUND = "#171715";
+export const BACKGROUND = "#F6F5F0";
