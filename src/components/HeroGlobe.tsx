@@ -5,6 +5,7 @@ import createGlobe from "cobe";
 import { useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/data";
 import { ACCENT, SURFACE, BACKGROUND } from "@/lib/diagram-tokens";
+import { formatCoord } from "@/lib/geo";
 
 // Deliberate tradeoff, documented in the design spec: cobe renders landmass
 // as a dot-matrix texture, not vector line borders. Tuned here as a fine
@@ -28,12 +29,6 @@ const CITIES = hero.globeCities.map((c) => ({
 const HOLD_MS = 9000; // long, calm hold — infrequent city changes, not a carousel
 const LERP = 0.01; // slow glide between cities
 const ARRIVAL = 0.01;
-
-function formatCoord(lat: number, lng: number): string {
-  const latDir = lat >= 0 ? "N" : "S";
-  const lngDir = lng >= 0 ? "E" : "W";
-  return `${Math.abs(lat).toFixed(4)}°${latDir} ${Math.abs(lng).toFixed(4)}°${lngDir}`;
-}
 
 export default function HeroGlobe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -144,14 +139,23 @@ export default function HeroGlobe() {
         onPointerDown={(e) => {
           if (shouldReduceMotion) return;
           pointerInteracting.current = e.clientX;
+          pointerInteractionMovement.current = 0;
           e.currentTarget.style.cursor = "grabbing";
         }}
         onPointerUp={(e) => {
+          if (pointerInteracting.current !== null) {
+            phiRef.current += pointerInteractionMovement.current;
+          }
           pointerInteracting.current = null;
+          pointerInteractionMovement.current = 0;
           e.currentTarget.style.cursor = "grab";
         }}
         onPointerOut={(e) => {
+          if (pointerInteracting.current !== null) {
+            phiRef.current += pointerInteractionMovement.current;
+          }
           pointerInteracting.current = null;
+          pointerInteractionMovement.current = 0;
           e.currentTarget.style.cursor = "grab";
         }}
         onMouseMove={(e) => {
@@ -167,7 +171,10 @@ export default function HeroGlobe() {
       >
         <canvas
           ref={canvasRef}
-          style={{ width: "100%", height: "100%", contain: "layout paint size" }}
+          // touch-action: none (not e.preventDefault() in onTouchMove) suppresses
+          // native scroll during drag — React attaches touch listeners passively,
+          // so preventDefault() there would silently no-op.
+          style={{ width: "100%", height: "100%", contain: "layout paint size", touchAction: "none" }}
         />
       </div>
       <p className="font-mono text-[11px] uppercase tracking-widest text-muted text-center">

@@ -1,4 +1,5 @@
 import { personalInfo, hero } from "@/lib/data";
+import { formatCoord } from "@/lib/geo";
 
 export default function Footer() {
   return (
@@ -37,8 +38,8 @@ export default function Footer() {
         </div>
 
         <p className="font-mono text-xs text-muted mb-16">
-          {hero.globeCities[0].label} — {Math.abs(hero.globeCities[0].lat).toFixed(4)}°N{" "}
-          {Math.abs(hero.globeCities[0].lng).toFixed(4)}°W
+          {hero.globeCities[0].label} —{" "}
+          {formatCoord(hero.globeCities[0].lat, hero.globeCities[0].lng)}
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-border">
