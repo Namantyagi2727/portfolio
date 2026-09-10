@@ -1,5 +1,6 @@
 import SectionLabel from "./SectionLabel";
 import PrismCaseStudy from "./PrismCaseStudy";
+import MedicalVisionCaseStudy from "./MedicalVisionCaseStudy";
 
 export default function SelectedWork() {
   return (
@@ -9,6 +10,7 @@ export default function SelectedWork() {
           <SectionLabel label="Selected Work" />
         </div>
         <PrismCaseStudy />
+        <MedicalVisionCaseStudy />
       </div>
     </section>
   );
