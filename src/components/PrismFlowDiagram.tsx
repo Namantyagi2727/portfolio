@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type CacheState = "hit" | "miss";
 
@@ -42,6 +42,7 @@ const ORDER: (keyof typeof NODES)[] = [
 export default function PrismFlowDiagram() {
   const [cacheState, setCacheState] = useState<CacheState>("miss");
   const [breakerTripped, setBreakerTripped] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const bypassActive = cacheState === "hit";
 
@@ -71,7 +72,7 @@ export default function PrismFlowDiagram() {
                 strokeWidth={1.5}
                 strokeDasharray="4 4"
                 strokeOpacity={dimmed ? 0.4 : 1}
-                animate={dimmed ? {} : { strokeDashoffset: [0, -16] }}
+                animate={dimmed || shouldReduceMotion ? {} : { strokeDashoffset: [0, -16] }}
                 transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
               />
             );
