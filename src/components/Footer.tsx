@@ -1,4 +1,4 @@
-import { personalInfo } from "@/lib/data";
+import { personalInfo, hero } from "@/lib/data";
 
 export default function Footer() {
   return (
@@ -7,9 +7,8 @@ export default function Footer() {
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-4">
           Let&apos;s talk
         </p>
-        <p className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground max-w-xl mb-8">
-          Open to full-time roles, research collaborations, and interesting problems in AI
-          infrastructure and computer vision.
+        <p className="text-2xl sm:text-3xl font-medium tracking-tight uppercase text-foreground max-w-xl mb-8">
+          Let&apos;s build something useful.
         </p>
 
         <div className="flex flex-wrap gap-x-8 gap-y-3 mb-16">
@@ -36,6 +35,11 @@ export default function Footer() {
             GitHub ↗
           </a>
         </div>
+
+        <p className="font-mono text-xs text-muted mb-16">
+          {hero.globeCities[0].label} — {Math.abs(hero.globeCities[0].lat).toFixed(4)}°N{" "}
+          {Math.abs(hero.globeCities[0].lng).toFixed(4)}°W
+        </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-border">
           <p className="text-sm text-muted font-mono">
