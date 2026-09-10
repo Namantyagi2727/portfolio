@@ -2,16 +2,51 @@ import { personalInfo } from "@/lib/data";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border py-8 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-muted font-mono">
-          <span className="text-accent-secondary">&lt;</span>
-          {personalInfo.name}
-          <span className="text-accent-secondary">/&gt;</span>
+    <footer id="contact" className="border-t border-border px-6 py-20">
+      <div className="max-w-5xl mx-auto">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-4">
+          Let&apos;s talk
         </p>
-        <p className="text-xs text-muted">
-          Built with Next.js &amp; Tailwind CSS · {new Date().getFullYear()}
+        <p className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground max-w-xl mb-8">
+          Open to full-time roles, research collaborations, and interesting problems in AI
+          infrastructure and computer vision.
         </p>
+
+        <div className="flex flex-wrap gap-x-8 gap-y-3 mb-16">
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+          >
+            Email ↗
+          </a>
+          <a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+          >
+            LinkedIn ↗
+          </a>
+          <a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+          >
+            GitHub ↗
+          </a>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-border">
+          <p className="text-sm text-muted font-mono">
+            <span className="text-accent-secondary">&lt;</span>
+            {personalInfo.name}
+            <span className="text-accent-secondary">/&gt;</span>
+          </p>
+          <p className="text-xs text-muted">
+            Built with Next.js &amp; Tailwind CSS · {new Date().getFullYear()}
+          </p>
+        </div>
       </div>
     </footer>
   );
