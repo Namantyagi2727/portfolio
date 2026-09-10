@@ -83,6 +83,17 @@ a large 3D object to reach the left column's links or Selected Work. Only
 fall back to hiding it at some breakpoint if implementation/testing shows no
 workable layout exists there — this is a last resort, not the default.
 
+**Explicit escape hatch at 375–430px:** the narrowest phones are where a
+240–280px globe is most likely to feel like dead weight relative to the
+content above it. If at these specific widths the globe meaningfully hurts
+pacing (excess scroll before Selected Work, or the globe simply doesn't
+render legibly at that size), the defined fallback is: shrink it further
+(down to ~180–200px) before considering hiding it outright, and hide it
+entirely only at 375–430px specifically if even that doesn't work — not a
+vague "test and see," a concrete two-step fallback scoped to exactly the
+narrow range where it's most likely to be needed. 768px and above always
+keep some visible globe per the rule above.
+
 ### The globe: technical tradeoff, decided
 
 Reuses `cobe` (~5KB WebGL globe library), the same library the site's
@@ -131,9 +142,19 @@ considered tradeoff, not an oversight.
 - Pointer interaction may allow slight manual rotation (reuse the old file's
   drag-to-rotate pattern), but this is optional, not the primary interaction.
 - **`prefers-reduced-motion: reduce` renders one fully static orientation** —
-  no rotation loop starts at all, gated the same way `Hero.tsx`'s existing
-  `useReducedMotion()` check already gates its entrance animation. This is a
-  hard requirement, not a "reduce speed" — no motion runs.
+  this is a hard requirement, gated the same way `Hero.tsx`'s existing
+  `useReducedMotion()` check already gates its entrance animation, and it is
+  not a "reduce speed" partial measure. The requirement is defined by what's
+  **visually perceptible**: no rotation, no spotlight cycling, no marker
+  motion of any kind reaches the screen. It does **not** require the
+  underlying canvas to have zero internal render calls — `cobe` (and WebGL
+  canvases generally) may need at least one `onRender` pass to paint the
+  static frame, and an implementation may find it simpler to keep a
+  `requestAnimationFrame` loop technically running while pinning `state.phi`
+  to a fixed value than to fully tear down and never start the render loop.
+  Either is acceptable as long as the user sees a single unmoving frame —
+  judge this requirement by what's on screen, not by whether a render
+  callback exists in memory.
 
 **Coordinate/city annotation panel:** a small fixed text block near the globe
 (not projected onto the rotating canvas — `cobe` doesn't expose 3D→2D
@@ -179,6 +200,17 @@ entry for Prism does not change shape — both components read the same
   (`dashboard-overview.png`, via the existing `Figure`/`next/image` pipeline,
   no new image-sizing work needed) → exactly 3 `ProjectMetric`s → the new
   compact diagram (below) → `Explore case study →` link to `/work/prism`.
+  **The homepage screenshot renders unnumbered** — no `FIG. NN` label, no
+  figure caption treating it as part of the numbered sequence. It's the
+  same `dashboard-overview.png` asset that carries the `FIG. 03` identity on
+  `/work/prism` (see the numbering table below), but showing that number on
+  the homepage would put `FIG. 03` on screen before `FIG. 01A`, which reads
+  on the page after it. On the homepage, present it as "the product" —
+  a plain framed image (the existing `Figure` component's visual treatment
+  without its figure-id/caption row, or an equivalent simple framed
+  `next/image`), not as figure zero in the sequence. Its `FIG. 03` identity
+  is unambiguous once the reader reaches the actual numbered sequence on
+  `/work/prism`.
 - **`PrismDetail.tsx`** (new, rendered only by the route): full 5-metric
   benchmark grid, the existing full interactive `PrismFlowDiagram.tsx`
   (**unchanged** — cache/breaker toggles and all), `PrismInfraDiagram.tsx`,
@@ -228,10 +260,11 @@ pass:
 
 | Figure | Location | Change |
 |---|---|---|
+| *(unnumbered)* | Homepage preview | `dashboard-overview.png`, shown plain — no figure label on the homepage, so `FIG. 03` never appears ahead of `FIG. 01A` on the page |
 | `FIG. 01A — NOMINAL REQUEST PATH` | Homepage preview | New label; the compact diagram |
 | `FIG. 01B — COMPLETE REQUEST FLOW` | `/work/prism` | Existing `PrismFlowDiagram.tsx`, unchanged, relabeled |
 | `FIG. 02` | `/work/prism` | Existing infra diagram, unchanged |
-| `FIG. 03–07` | `/work/prism` | Existing 5 screenshots, unchanged |
+| `FIG. 03–07` | `/work/prism` | Existing 5 screenshots (including `dashboard-overview.png` as `FIG. 03`), unchanged, in proper sequence |
 | `FIG. 08` | Medical CV | Collapses from `08A/08B/08C` (3 placeholder toggle figures) to one real schematic figure — see §3 |
 | `FIG. 09` | Faculty Ops | Unchanged |
 | `FIG. 10` | Airspace | Unchanged |
@@ -349,13 +382,24 @@ cards). One entry — the 2026 Wiley / *Human Behavior and Emerging
 Technologies* journal article — gets slightly stronger typographic
 treatment than the other three: its title renders larger/bolder than its
 siblings, and its `97.15%` figure is pulled forward with **explicit source
-context**, not presented as a generic metric. Required framing (exact
-wording may be refined at implementation time, but the shape is fixed):
+context**, not presented as a generic metric.
+
+**Use the publication's own terminology, not an assumed paraphrase.** The
+already-verified `data.ts` description for this entry reads: *"The AI model
+interpreting user input reached 97.15% accuracy on held-out test data,
+outperforming a BERT-based baseline..."* — the subtitle under the number
+must be drawn from this exact language, not a generic "AI-model accuracy"
+gloss:
 
 ```
 97.15%
-reported AI-model accuracy in the study
+AI model accuracy interpreting user input on held-out test data
 ```
+
+(Exact line-wrapping/punctuation is implementation-time polish; the
+substance — "AI model," "interpreting user input," "held-out test data" —
+must trace directly to the stored description above, not be reworded from
+memory of it.)
 
 — never bare `97.15% accuracy` with no qualifier, which would read as a
 general project/portfolio performance claim rather than a specific reported
