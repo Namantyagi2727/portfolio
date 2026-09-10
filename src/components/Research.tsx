@@ -1,0 +1,67 @@
+import { ExternalLink } from "lucide-react";
+import { publications, personalInfo } from "@/lib/data";
+import SectionLabel from "./SectionLabel";
+
+const typeLabel: Record<(typeof publications)[number]["type"], string> = {
+  book: "Book Chapter",
+  journal: "Journal",
+  conference: "Conference Paper",
+};
+
+export default function Research() {
+  return (
+    <section id="research" className="px-6 py-20">
+      <div className="max-w-5xl mx-auto">
+        <SectionLabel label="Research" meta={`${publications.length} publications`} />
+
+        <div className="mt-10 flex flex-col gap-8">
+          {publications.map((pub, i) => (
+            <div key={i} className="border-t border-border pt-6">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="text-xs px-2 py-0.5 rounded-full font-mono text-accent border border-accent/30 bg-accent/5">
+                  {typeLabel[pub.type]}
+                </span>
+                <span className="text-xs text-muted font-mono ml-auto">{pub.date}</span>
+              </div>
+
+              <h3 className="text-base font-medium text-foreground leading-snug mb-1">{pub.title}</h3>
+              <p className="text-xs font-mono text-muted mb-3">{pub.publisher}</p>
+
+              {pub.authors && <p className="text-xs text-muted mb-3 leading-relaxed">{pub.authors}</p>}
+
+              <p className="text-sm text-muted leading-relaxed mb-3 max-w-2xl">{pub.description}</p>
+
+              <div className="flex flex-wrap items-center gap-4">
+                {pub.highlight && (
+                  <span className="text-xs font-mono text-accent-secondary">{pub.highlight}</span>
+                )}
+                {pub.doi && <p className="text-xs font-mono text-muted">DOI: {pub.doi}</p>}
+                {pub.url && (
+                  <a
+                    href={pub.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:text-foreground transition-colors"
+                  >
+                    <ExternalLink size={12} />
+                    View publication
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <a
+          href={personalInfo.scholar}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors mt-10"
+        >
+          Google Scholar
+          <ExternalLink size={14} />
+        </a>
+      </div>
+    </section>
+  );
+}
