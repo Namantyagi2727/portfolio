@@ -104,6 +104,12 @@ export default function Hero() {
             LinkedIn ↗
           </a>
           <a
+            href={`mailto:${personalInfo.email}`}
+            className="text-sm font-medium text-muted hover:text-accent transition-colors"
+          >
+            Email ↗
+          </a>
+          <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
