@@ -3,6 +3,7 @@ import PrismCaseStudy from "./PrismCaseStudy";
 import MedicalVisionCaseStudy from "./MedicalVisionCaseStudy";
 import FacultyOpsCaseStudy from "./FacultyOpsCaseStudy";
 import AirspaceCaseStudy from "./AirspaceCaseStudy";
+import OtherProjects from "./OtherProjects";
 
 export default function SelectedWork() {
   return (
@@ -15,6 +16,7 @@ export default function SelectedWork() {
         <MedicalVisionCaseStudy />
         <FacultyOpsCaseStudy />
         <AirspaceCaseStudy />
+        <OtherProjects />
       </div>
     </section>
   );
