@@ -1,12 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SelectedWork from "@/components/SelectedWork";
+import Experience from "@/components/Experience";
+import Research from "@/components/Research";
+import About from "@/components/About";
 import Footer from "@/components/Footer";
 
-// Cycle 1 ships an intentionally short slice of the redesign — the legacy
-// dark-themed sections (About, Skills, Experience, Projects, Publications,
-// Side Quests, Contact) are gated out here, not deleted, until Cycle 2
-// re-skins them for the new light palette.
 export default function Home() {
   return (
     <>
@@ -14,6 +13,9 @@ export default function Home() {
       <main>
         <Hero />
         <SelectedWork />
+        <Experience />
+        <Research />
+        <About />
       </main>
       <Footer />
     </>
