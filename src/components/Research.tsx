@@ -24,15 +24,32 @@ export default function Research() {
                 <span className="text-xs text-muted font-mono ml-auto">{pub.date}</span>
               </div>
 
-              <h3 className="text-base font-medium text-foreground leading-snug mb-1">{pub.title}</h3>
+              <h3
+                className={
+                  pub.highlighted
+                    ? "text-lg font-semibold text-foreground leading-snug mb-1"
+                    : "text-base font-medium text-foreground leading-snug mb-1"
+                }
+              >
+                {pub.title}
+              </h3>
               <p className="text-xs font-mono text-muted mb-3">{pub.publisher}</p>
 
               {pub.authors && <p className="text-xs text-muted mb-3 leading-relaxed">{pub.authors}</p>}
 
               <p className="text-sm text-muted leading-relaxed mb-3 max-w-2xl">{pub.description}</p>
 
+              {pub.highlighted && (
+                <div className="mb-3">
+                  <p className="text-2xl font-semibold text-accent leading-none">97.15%</p>
+                  <p className="text-xs text-muted mt-1">
+                    AI model accuracy interpreting user input on held-out test data
+                  </p>
+                </div>
+              )}
+
               <div className="flex flex-wrap items-center gap-4">
-                {pub.highlight && (
+                {pub.highlight && !pub.highlighted && (
                   <span className="text-xs font-mono text-accent-secondary">{pub.highlight}</span>
                 )}
                 {pub.doi && <p className="text-xs font-mono text-muted">DOI: {pub.doi}</p>}
