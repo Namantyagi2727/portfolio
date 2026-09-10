@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { personalInfo } from "@/lib/data";
 
 const navLinks = [
@@ -28,22 +29,22 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a
-          href="#hero"
+        <Link
+          href="/#hero"
           className="text-sm font-medium tracking-tight text-foreground hover:text-accent transition-colors"
         >
           {personalInfo.name}
-        </a>
+        </Link>
 
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
+              <Link
+                href={`/${link.href}`}
                 className="text-sm text-muted hover:text-accent transition-colors duration-200"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -77,14 +78,14 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-background border-t border-border px-6 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              href={`/${link.href}`}
               onClick={() => setMenuOpen(false)}
               className="text-sm text-muted hover:text-accent transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href={personalInfo.github}

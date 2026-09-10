@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { personalInfo } from "@/lib/data";
 
@@ -16,6 +17,8 @@ const itemClass =
   "px-3 py-2 rounded-md text-sm normal-case tracking-normal text-muted data-[selected=true]:bg-accent/10 data-[selected=true]:text-accent cursor-pointer outline-none";
 
 export default function CommandPaletteContent({ onClose }: { onClose: () => void }) {
+  const router = useRouter();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
@@ -30,7 +33,11 @@ export default function CommandPaletteContent({ onClose }: { onClose: () => void
 
   const go = (href: string) => {
     onClose();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    // router.push handles the hash-scroll whether we're already on "/" (same-page
+    // scroll, same as clicking an in-page anchor) or on a nested route like
+    // /work/prism (navigates to "/" first, then scrolls) — same mechanism the
+    // existing "Selected Work" back-link on /work/prism already relies on.
+    router.push(`/${href}`);
   };
 
   const openLink = (url: string) => {
