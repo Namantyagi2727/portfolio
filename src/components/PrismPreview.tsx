@@ -11,6 +11,12 @@ const nominalFlowFigure = prism.figures?.find((f) => f.id === "FIG. 01A");
 
 // Preview shows exactly these 3 headline metrics, in this order, with their
 // exact verified contexts intact — see the spec's "Preview metrics" section.
+// KNOWN CLEANUP ITEM (deferred, not a blocker): matched by exact value text
+// rather than a stable id, since Metric has no id field. If a future data.ts
+// edit reformats one of these three value strings, its tile silently drops
+// from the preview with no build error. Fixing this properly means adding an
+// id field to the shared Metric type used by every case study — out of
+// scope for this pass; revisit if this array is ever touched again.
 const PREVIEW_METRIC_VALUES = ["245–259 req/s", "p50 ~25ms / p95 ~80ms", "0.00%"];
 const previewMetrics = PREVIEW_METRIC_VALUES.map(
   (value) => prism.metrics?.find((m) => m.value === value)
