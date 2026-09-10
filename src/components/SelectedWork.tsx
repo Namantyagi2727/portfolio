@@ -2,6 +2,7 @@ import SectionLabel from "./SectionLabel";
 import PrismCaseStudy from "./PrismCaseStudy";
 import MedicalVisionCaseStudy from "./MedicalVisionCaseStudy";
 import FacultyOpsCaseStudy from "./FacultyOpsCaseStudy";
+import AirspaceCaseStudy from "./AirspaceCaseStudy";
 
 export default function SelectedWork() {
   return (
@@ -13,6 +14,7 @@ export default function SelectedWork() {
         <PrismCaseStudy />
         <MedicalVisionCaseStudy />
         <FacultyOpsCaseStudy />
+        <AirspaceCaseStudy />
       </div>
     </section>
   );
