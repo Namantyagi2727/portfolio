@@ -4,9 +4,10 @@ import type { Figure as FigureData } from "@/lib/data";
 type FigureProps = {
   figure: FigureData;
   children?: React.ReactNode;
+  showCaption?: boolean;
 };
 
-export default function Figure({ figure, children }: FigureProps) {
+export default function Figure({ figure, children, showCaption = true }: FigureProps) {
   return (
     <figure className="flex flex-col gap-3">
       <div className="border border-border bg-surface rounded-sm overflow-hidden">
@@ -27,10 +28,12 @@ export default function Figure({ figure, children }: FigureProps) {
           children
         )}
       </div>
-      <figcaption className="flex items-baseline gap-2 text-xs font-mono">
-        <span className="text-accent-secondary uppercase tracking-widest">{figure.id}</span>
-        <span className="text-muted">{figure.caption}</span>
-      </figcaption>
+      {showCaption && (
+        <figcaption className="flex items-baseline gap-2 text-xs font-mono">
+          <span className="text-accent-secondary uppercase tracking-widest">{figure.id}</span>
+          <span className="text-muted">{figure.caption}</span>
+        </figcaption>
+      )}
     </figure>
   );
 }
