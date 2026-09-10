@@ -94,6 +94,38 @@ const [flowFigure, infraFigure] = diagramFigures;
 const screenshotFigures = prism.figures?.filter((f) => f.kind === "screenshot") ?? [];
 ```
 
+**Also in this same file:** Step 1 widens `CaseStudy.metrics` to optional (`Metric[] | undefined`). `PrismCaseStudy.tsx` renders it unconditionally today:
+
+```tsx
+      <div className="mb-12">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
+          Verified benchmark results
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
+          {prism.metrics.map((m) => (
+            <ProjectMetric key={m.label} value={m.value} label={m.label} />
+          ))}
+        </div>
+      </div>
+```
+
+Once `metrics` is optional, `prism.metrics.map(...)` is a `tsc` error (`Object is possibly 'undefined'`) even though Prism's entry is always populated at runtime — the type no longer guarantees it. Wrap this block the same way Tasks 5 and 6 guard their own `metrics` reads, so the pattern is consistent across every case study:
+
+```tsx
+      {prism.metrics && prism.metrics.length > 0 && (
+        <div className="mb-12">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
+            Verified benchmark results
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
+            {prism.metrics.map((m) => (
+              <ProjectMetric key={m.label} value={m.value} label={m.label} />
+            ))}
+          </div>
+        </div>
+      )}
+```
+
 No other change to this file — the rest of the component already consumes `flowFigure`/`infraFigure`/`screenshotFigures` by name, and Prism's actual figure order (2 diagrams, then 5 screenshots) still resolves to the exact same two figures, so this is a pure refactor.
 
 - [ ] **Step 3: Add the `awayFromKeyboard` export**
@@ -1188,7 +1220,7 @@ git rm src/components/Publications.tsx
 - [ ] **Step 3: Verify**
 
 Run: `npx tsc --noEmit`.
-Expected: no errors — confirms nothing else imports `Publications` (it's currently only imported by `page.tsx`, which Task 12 updates; if `tsc` reports a missing-module error from anywhere else, find that import and point it at `Research` instead before proceeding).
+Expected: no errors. `page.tsx` does not currently import `Publications` at all — Cycle 1 already gated it out of the homepage (it was never re-added) — so this is expected to be a clean no-op removal, not a rewire. If `tsc` reports a missing-module error from anywhere unexpected, find that import and point it at `Research` instead before proceeding.
 
 For a visual check now, temporarily add `<Research />` to `page.tsx`, verify all four entries render at equal visual weight (no gold card for Cambridge Scholars), the Scholar link works, then remove the temporary addition.
 
