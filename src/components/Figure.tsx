@@ -16,6 +16,7 @@ export default function Figure({ figure, children }: FigureProps) {
             alt={figure.caption}
             width={2906}
             height={1652}
+            sizes="(min-width: 1072px) 496px, (min-width: 640px) calc(50vw - 40px), calc(100vw - 48px)"
             className="w-full h-auto"
           />
         ) : figure.kind === "placeholder" ? (
