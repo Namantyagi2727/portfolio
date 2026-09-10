@@ -39,6 +39,23 @@ const ORDER: (keyof typeof NODES)[] = [
   "response",
 ];
 
+// Everything from "cache" onward is the provider path. An exact cache hit
+// terminates at cache lookup and takes the bypass straight to response, so
+// none of this — including the edge leaving cache lookup — actually runs.
+const PROVIDER_PATH_EDGE_KEYS = new Set<keyof typeof NODES>([
+  "cache",
+  "router",
+  "provider",
+  "cost",
+  "write",
+]);
+const PROVIDER_PATH_NODE_KEYS = new Set<keyof typeof NODES>([
+  "router",
+  "provider",
+  "cost",
+  "write",
+]);
+
 export default function PrismFlowDiagram() {
   const [cacheState, setCacheState] = useState<CacheState>("miss");
   const [breakerTripped, setBreakerTripped] = useState(false);
@@ -60,7 +77,7 @@ export default function PrismFlowDiagram() {
           {ORDER.slice(0, -1).map((key, i) => {
             const from = NODES[key];
             const to = NODES[ORDER[i + 1]];
-            const dimmed = (key === "cache" || key === "provider") && bypassActive;
+            const dimmed = bypassActive && PROVIDER_PATH_EDGE_KEYS.has(key);
             return (
               <motion.line
                 key={key}
@@ -101,16 +118,16 @@ export default function PrismFlowDiagram() {
             cache hit · cost $0
           </text>
 
-          {/* Provider failure retries the next in the chain */}
+          {/* Provider failure retries the next in the chain — moot once a cache hit bypasses the provider path entirely */}
           <path
             d={`M ${NODES.provider.x - NODE_W / 2} ${NODES.provider.y - 8} C 60 ${NODES.provider.y}, 60 ${NODES.router.y}, ${
               NODES.router.x - NODE_W / 2
             } ${NODES.router.y + 8}`}
             fill="none"
-            stroke={breakerTripped ? ACCENT_SECONDARY : ACCENT}
+            stroke={breakerTripped && !bypassActive ? ACCENT_SECONDARY : ACCENT}
             strokeWidth={1.2}
             strokeDasharray="2 4"
-            strokeOpacity={0.6}
+            strokeOpacity={bypassActive ? 0.25 : 0.6}
           />
           <text
             x={48}
@@ -119,23 +136,30 @@ export default function PrismFlowDiagram() {
             fontSize={8}
             fontFamily="var(--font-geist-mono)"
             fill={MUTED}
+            fillOpacity={bypassActive ? 0.4 : 1}
             transform={`rotate(-90 48 ${(NODES.provider.y + NODES.router.y) / 2})`}
           >
             failure → next in chain
           </text>
 
           {[
-            { node: NODES.auth, text: "401 / 429" },
-            { node: NODES.guardrail, text: "400 blocked" },
-            { node: NODES.provider, text: "503 · all failed", trigger: breakerTripped },
-          ].map(({ node, text, trigger }) => (
+            { node: NODES.auth, text: "401 / 429", providerPath: false },
+            { node: NODES.guardrail, text: "400 blocked", providerPath: false },
+            {
+              node: NODES.provider,
+              text: "503 · all failed",
+              trigger: breakerTripped,
+              providerPath: true,
+            },
+          ].map(({ node, text, trigger, providerPath }) => (
             <text
               key={text}
               x={node.x + NODE_W / 2 + 10}
               y={node.y + 3}
               fontSize={9}
               fontFamily="var(--font-geist-mono)"
-              fill={trigger ? ACCENT_SECONDARY : MUTED}
+              fill={trigger && !bypassActive ? ACCENT_SECONDARY : MUTED}
+              fillOpacity={providerPath && bypassActive ? 0.4 : 1}
             >
               {text}
             </text>
@@ -143,9 +167,10 @@ export default function PrismFlowDiagram() {
 
           {ORDER.map((key) => {
             const n = NODES[key];
-            const providerDimmed = key === "provider" && breakerTripped;
+            const bypassed = bypassActive && PROVIDER_PATH_NODE_KEYS.has(key);
+            const errored = key === "provider" && breakerTripped && !bypassActive;
             return (
-              <g key={key} transform={`translate(${n.x}, ${n.y})`}>
+              <g key={key} transform={`translate(${n.x}, ${n.y})`} opacity={bypassed ? 0.4 : 1}>
                 <rect
                   x={-NODE_W / 2}
                   y={-NODE_H / 2}
@@ -153,7 +178,7 @@ export default function PrismFlowDiagram() {
                   height={NODE_H}
                   rx={6}
                   fill={SURFACE}
-                  stroke={providerDimmed ? ACCENT_SECONDARY : BORDER_STRONG}
+                  stroke={errored ? ACCENT_SECONDARY : BORDER_STRONG}
                   strokeWidth={1}
                 />
                 <text
@@ -161,7 +186,7 @@ export default function PrismFlowDiagram() {
                   dominantBaseline="middle"
                   fontSize={11}
                   fontFamily="var(--font-geist-mono)"
-                  fill={FOREGROUND}
+                  fill={bypassed ? MUTED : FOREGROUND}
                 >
                   {n.label}
                 </text>
