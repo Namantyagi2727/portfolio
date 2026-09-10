@@ -14,10 +14,13 @@ export default function Hero() {
     },
   };
 
+  // No opacity in either state: Framer Motion embeds `initial` inline in the
+  // SSR HTML, so animating from opacity:0 made the entire Hero invisible
+  // until JS hydrated. Content is always fully opaque and readable pre-JS;
+  // the slide-up is a pure progressive enhancement once motion resolves.
   const itemVariants = {
-    hidden: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+    hidden: shouldReduceMotion ? { y: 0 } : { y: 16 },
     visible: {
-      opacity: 1,
       y: 0,
       transition: shouldReduceMotion
         ? { duration: 0 }

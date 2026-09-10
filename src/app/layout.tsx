@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://namantyagi.dev"),
   title: "Naman Tyagi | AI/ML Engineer",
   description:
-    "AI/ML engineer and MS CS student at NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+    "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
   keywords: [
     "Naman Tyagi",
     "AI Engineer",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Naman Tyagi | AI/ML Engineer",
     description:
-      "AI/ML engineer and MS CS student at NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+      "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
     type: "website",
     url: "https://namantyagi.dev",
     siteName: "Naman Tyagi Portfolio",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Naman Tyagi | AI/ML Engineer",
     description:
-      "AI/ML engineer and MS CS student at NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+      "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
   },
 };
 

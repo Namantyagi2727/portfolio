@@ -1,9 +1,16 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Naman Tyagi — AI/ML Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const BACKGROUND = "#F6F5F0";
+const FOREGROUND = "#171715";
+const MUTED = "#6A6963";
+const ACCENT = "#355C8A";
+const ACCENT_SECONDARY = "#A54A42";
+const BORDER = "#D8D6CF";
+const SURFACE = "#ECEAE4";
 
 export default async function Image() {
   return new ImageResponse(
@@ -12,115 +19,89 @@ export default async function Image() {
         style={{
           width: "1200px",
           height: "630px",
-          background: "#14100d",
+          background: BACKGROUND,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "flex-start",
           padding: "80px 96px",
           position: "relative",
-          overflow: "hidden",
         }}
       >
-        {/* Grid background */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(217,123,63,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(217,123,63,0.04) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        {/* Glow blob */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-100px",
-            right: "-100px",
-            width: "600px",
-            height: "600px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(217,123,63,0.06) 0%, transparent 70%)",
-          }}
-        />
-
-        {/* Logo mark */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            marginBottom: "48px",
+            fontSize: "14px",
+            fontFamily: "monospace",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: MUTED,
+            marginBottom: "40px",
           }}
         >
-          <span style={{ color: "#d97b3f", fontSize: "22px", fontWeight: 700 }}>&lt;</span>
-          <span style={{ color: "#f5f0e8", fontSize: "22px", fontWeight: 700 }}>NT</span>
-          <span style={{ color: "#d97b3f", fontSize: "22px", fontWeight: 700 }}>/&gt;</span>
-          <span
-            style={{
-              marginLeft: "16px",
-              color: "#8a8073",
-              fontSize: "14px",
-              fontFamily: "monospace",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-            }}
-          >
-            namantyagi.dev
-          </span>
+          N / 2026 · BROOKLYN, NEW YORK
         </div>
 
-        {/* Name */}
         <div
           style={{
-            fontSize: "88px",
-            fontWeight: 900,
-            color: "#f5f0e8",
-            lineHeight: 0.9,
-            letterSpacing: "-3px",
-            marginBottom: "24px",
+            fontSize: "84px",
+            fontWeight: 600,
+            color: FOREGROUND,
+            lineHeight: 1,
+            letterSpacing: "-2px",
+            marginBottom: "20px",
           }}
         >
           Naman Tyagi
         </div>
 
-        {/* Title */}
         <div
           style={{
+            display: "flex",
             fontSize: "28px",
-            fontWeight: 600,
-            color: "#d97b3f",
-            fontFamily: "monospace",
-            marginBottom: "40px",
-            textShadow: "0 0 30px rgba(217,123,63,0.4)",
+            fontWeight: 500,
+            color: ACCENT,
+            marginBottom: "48px",
           }}
         >
-          AI/ML Engineer · Full-Stack · Cloud Architect
+          AI/ML Engineer — AI infrastructure &amp; computer vision
         </div>
 
-        {/* Badges */}
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          {["MS CS @ NYU Tandon", "IEEE Published 2024", "Cambridge Scholars 2025", "6+ Internships"].map(
+          {["MS CS · NYU Tandon", "IEEE Published 2024", "Cambridge Scholars 2025", "6+ Internships"].map(
             (badge) => (
               <div
                 key={badge}
                 style={{
+                  display: "flex",
                   padding: "8px 18px",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(217,123,63,0.25)",
-                  background: "rgba(217,123,63,0.06)",
-                  color: "#c7bcae",
+                  borderRadius: "6px",
+                  border: `1px solid ${BORDER}`,
+                  background: SURFACE,
+                  color: MUTED,
                   fontSize: "14px",
                   fontFamily: "monospace",
-                  letterSpacing: "0.05em",
+                  letterSpacing: "0.03em",
                 }}
               >
                 {badge}
               </div>
             )
           )}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            bottom: "80px",
+            right: "96px",
+            fontSize: "14px",
+            fontFamily: "monospace",
+            letterSpacing: "0.1em",
+            color: ACCENT_SECONDARY,
+          }}
+        >
+          namantyagi.dev
         </div>
       </div>
     ),
