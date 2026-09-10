@@ -2,15 +2,9 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { ACCENT, ACCENT_SECONDARY, SURFACE, BORDER_STRONG, MUTED, FOREGROUND } from "@/lib/diagram-tokens";
 
 type CacheState = "hit" | "miss";
-
-const ACCENT = "#355C8A";
-const ACCENT_SECONDARY = "#A54A42";
-const SURFACE = "#ECEAE4";
-const BORDER_STRONG = "#C4C1B6";
-const MUTED = "#6A6963";
-const FOREGROUND = "#171715";
 
 const NODE_W = 156;
 const NODE_H = 36;

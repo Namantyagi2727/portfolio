@@ -1,8 +1,4 @@
-const ACCENT = "#355C8A";
-const SURFACE = "#ECEAE4";
-const BORDER_STRONG = "#C4C1B6";
-const MUTED = "#6A6963";
-const FOREGROUND = "#171715";
+import { ACCENT, SURFACE, BORDER_STRONG, MUTED, FOREGROUND } from "@/lib/diagram-tokens";
 
 const NODE_W = 120;
 const NODE_H = 32;
