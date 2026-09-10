@@ -7,11 +7,11 @@ import PrismFlowDiagram from "./PrismFlowDiagram";
 import PrismInfraDiagram from "./PrismInfraDiagram";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
-const diagramFigures = prism.figures?.filter((f) => f.kind === "diagram") ?? [];
-const [flowFigure, infraFigure] = diagramFigures;
+const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01B");
+const infraFigure = prism.figures?.find((f) => f.id === "FIG. 02");
 const screenshotFigures = prism.figures?.filter((f) => f.kind === "screenshot") ?? [];
 
-export default function PrismCaseStudy() {
+export default function PrismDetail() {
   return (
     <article className="py-12">
       <SectionLabel
@@ -19,9 +19,9 @@ export default function PrismCaseStudy() {
         meta={`${prism.category} · ${prism.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
         {prism.title}
-      </h3>
+      </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{prism.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{prism.description}</p>

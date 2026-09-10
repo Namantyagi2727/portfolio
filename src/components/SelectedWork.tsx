@@ -1,5 +1,5 @@
 import SectionLabel from "./SectionLabel";
-import PrismCaseStudy from "./PrismCaseStudy";
+import PrismPreview from "./PrismPreview";
 import MedicalVisionCaseStudy from "./MedicalVisionCaseStudy";
 import FacultyOpsCaseStudy from "./FacultyOpsCaseStudy";
 import AirspaceCaseStudy from "./AirspaceCaseStudy";
@@ -12,7 +12,7 @@ export default function SelectedWork() {
         <div className="pt-20">
           <SectionLabel label="Selected Work" as="h2" />
         </div>
-        <PrismCaseStudy />
+        <PrismPreview />
         <MedicalVisionCaseStudy />
         <FacultyOpsCaseStudy />
         <AirspaceCaseStudy />
