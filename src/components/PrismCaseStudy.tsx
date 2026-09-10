@@ -7,7 +7,9 @@ import PrismFlowDiagram from "./PrismFlowDiagram";
 import PrismInfraDiagram from "./PrismInfraDiagram";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
-const [flowFigure, infraFigure, ...screenshotFigures] = prism.figures ?? [];
+const diagramFigures = prism.figures?.filter((f) => f.kind === "diagram") ?? [];
+const [flowFigure, infraFigure] = diagramFigures;
+const screenshotFigures = prism.figures?.filter((f) => f.kind === "screenshot") ?? [];
 
 export default function PrismCaseStudy() {
   return (
@@ -40,16 +42,18 @@ export default function PrismCaseStudy() {
         </div>
       )}
 
-      <div className="mb-12">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
-          Verified benchmark results
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
-          {prism.metrics.map((m) => (
-            <ProjectMetric key={m.label} value={m.value} label={m.label} />
-          ))}
+      {prism.metrics && prism.metrics.length > 0 && (
+        <div className="mb-12">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
+            Verified benchmark results
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
+            {prism.metrics.map((m) => (
+              <ProjectMetric key={m.label} value={m.value} label={m.label} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-2">

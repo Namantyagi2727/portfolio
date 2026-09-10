@@ -16,6 +16,9 @@ export const personalInfo = {
   bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Wiley (2025), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
 };
 
+export const awayFromKeyboard =
+  "F1 on race weekends, badminton and tennis, the gym, chess, and always planning the next trip.";
+
 export type Skill = {
   category: string;
   items: string[];
@@ -130,6 +133,17 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    title: "Computer Vision Research",
+    company: "NYU FAMS Lab",
+    period: "Sep 2026 – Present",
+    location: "Brooklyn, NY",
+    description: [
+      "Contributing to a real-time detection pipeline over a continuous endoscopic camera feed, as part of a Vertically Integrated Project.",
+      "Developing and validating detection in a simulated renal environment — water and calcium-based model kidney stones — before any real-tissue application.",
+    ],
+    tags: ["Computer Vision", "YOLOv5", "U-Net", "PyTorch", "OpenCV"],
+  },
+  {
     title: "Software Engineer — Faculty Operations Platform",
     company: "NYU — Office of Faculty Affairs",
     period: "Jan 2026 – Aug 2026",
@@ -137,8 +151,6 @@ export const experiences: Experience[] = [
     description: [
       "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management, workflow orchestration, and an AI-powered FAQ chatbot.",
       "Deploying workflow automation pipelines using cloud-based orchestration (AWS, Azure Logic Apps) to digitize manual form processes with routing, compliance checks, and approval chain tracking.",
-      "Architecting cloud storage strategies with metadata tagging and classification systems to convert unstructured legacy documents into searchable, analytics-ready datasets.",
-      "Coordinating with IT and platform teams to ensure system integration, compliance, and security standards across NYU's existing infrastructure.",
     ],
     tags: ["Full-Stack", "Cloud", "AWS", "Azure", "AI", "Workflow Automation", "Records Management"],
   },
@@ -211,23 +223,6 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  {
-    title: "Prism",
-    description:
-      "Self-hosted LLM gateway and control plane sitting between applications and providers (OpenAI, Anthropic, self-hosted Ollama) — a one-line base_url swap, no other code changes. Adds cost visibility, automatic provider failover via a hand-rolled circuit breaker, PII/prompt-injection guardrails, semantic + exact caching, and a live four-tab admin dashboard, backed by Postgres/pgvector, Redis, and full Prometheus/Grafana/Jaeger observability.",
-    tags: ["FastAPI", "Python", "LLM Gateway", "Redis", "PostgreSQL", "pgvector", "Docker", "Observability"],
-    github: "https://github.com/Namantyagi2727/prism",
-    demo: "https://namantyagi2727.github.io/prism/",
-    highlight: "~250 req/s · p95 ~80ms overhead",
-  },
-  {
-    title: "Airspace Congestion Monitoring System",
-    description:
-      "Real-time big data pipeline processing 475K+ flight records using Apache Spark and Kafka. Visualizes airspace congestion patterns with live streaming analytics and alerting.",
-    tags: ["Apache Spark", "Kafka", "Python", "Big Data", "ETL"],
-    github: "https://github.com/Namantyagi2727/airspace-congestion-monitoring",
-    highlight: "475K+ flight records",
-  },
   {
     title: "RAGBase: Enterprise Document Q&A System",
     description:
@@ -313,13 +308,6 @@ export const projects: Project[] = [
       "Data visualization dashboard analyzing student performance metrics. Uncovers trends across grades, subjects, and demographics using interactive charts and statistical insights.",
     tags: ["Python", "Data Visualization", "Pandas", "Matplotlib", "EDA"],
     github: "https://github.com/Namantyagi2727/Student-Performance-Visualization",
-  },
-  {
-    title: "Todo App",
-    description:
-      "A clean, responsive task management application with CRUD operations, local persistence, and a minimal UI.",
-    tags: ["JavaScript", "HTML", "CSS", "LocalStorage"],
-    github: "https://github.com/Namantyagi2727/Todo-App",
   },
 ];
 
@@ -530,7 +518,7 @@ export type CaseStudy = {
   title: string;
   problem: string; // one-sentence problem statement
   description: string;
-  metrics: Metric[];
+  metrics?: Metric[]; // absent when nothing is verified yet (e.g. ongoing research)
   stack: string[];
   figures?: Figure[];
   links: { label: string; href: string; external?: boolean }[];
@@ -625,6 +613,74 @@ export const caseStudies: CaseStudy[] = [
     links: [
       { label: "GitHub", href: "https://github.com/Namantyagi2727/prism", external: true },
       { label: "Project page", href: "https://namantyagi2727.github.io/prism/", external: true },
+    ],
+  },
+  {
+    slug: "medical-cv",
+    caseNumber: "002",
+    category: "Applied Research",
+    year: "2026",
+    title: "Endoscopic Stone Detection",
+    problem:
+      "Endoscopic procedures produce a continuous camera feed with no automated way to flag stone material in real time — detection still depends entirely on the surgeon's eye.",
+    description:
+      "Ongoing computer vision research at NYU's FAMS Lab, contributing to a real-time detection pipeline over a continuous endoscopic camera feed inside a simulated renal environment — water and calcium-based model kidney stones standing in for real tissue and stone material during development, as part of the lab's Vertically Integrated Project.",
+    stack: ["YOLOv5", "U-Net", "PyTorch", "OpenCV", "Computer Vision"],
+    figures: [
+      { id: "FIG. 08A", caption: "Raw endoscopic feed", kind: "placeholder" },
+      { id: "FIG. 08B", caption: "Detection overlay", kind: "placeholder" },
+      { id: "FIG. 08C", caption: "Segmentation mask", kind: "placeholder" },
+    ],
+    links: [],
+  },
+  {
+    slug: "faculty-ops",
+    caseNumber: "003",
+    category: "Software Systems",
+    year: "2026",
+    title: "Faculty Operations Platform",
+    problem:
+      "500+ NYU faculty ran records management, workflow routing, and approvals through manual, form-based processes with no shared system of record.",
+    description:
+      "A cloud-integrated Django platform replacing manual faculty-affairs paperwork with structured workflows, approval-chain tracking, and an AI-powered FAQ chatbot — compatible with NYU Box, AWS S3, and Azure Blob Storage. Twelve Django apps split by domain, covering the core platform, workflow engine, approvals, notifications, document storage, audit trail, chatbot, workload tracking, data export, tenure and promotion, faculty records, and access management.",
+    metrics: [
+      { value: "12", label: "Django apps, split by domain — see module map" },
+      { value: "306", label: "automated tests" },
+      { value: "29", label: "test files" },
+    ],
+    stack: ["Django", "PostgreSQL", "AWS S3", "Azure Blob Storage", "Azure Logic Apps"],
+    figures: [
+      { id: "FIG. 09", caption: "Module map — the 12 Django apps that make up the platform", kind: "diagram" },
+    ],
+    links: [],
+  },
+  {
+    slug: "airspace",
+    caseNumber: "004",
+    category: "Data Systems",
+    year: "2026",
+    title: "Airspace Congestion Monitoring",
+    problem:
+      "Airspace congestion has to be understood while it's happening, not after the fact — which means ingesting live flight telemetry and scoring risk in-stream, not in a nightly batch job.",
+    description:
+      "A streaming pipeline that ingests flight telemetry from the OpenSky API (plus historical replay) into three Kafka topics — flight-stream, flight-metrics, flight-aggregates — processes it in Spark Structured Streaming for risk scoring, anomaly detection, and spatial grid aggregation over 30-second tumbling / 10-second sliding windows, and fans results out to InfluxDB for real-time queries, MongoDB for historical lookups, and HDFS for batch archival, visualized in a live Streamlit dashboard.",
+    metrics: [
+      {
+        value: "475,000+ records",
+        label:
+          "generated historical dataset modeling realistic OpenSky-shaped traffic, used for testing at volume — live ingestion pulls the real OpenSky API",
+      },
+      {
+        value: "30s / 10s",
+        label: "tumbling window / sliding interval — Spark Structured Streaming risk scoring and anomaly detection",
+      },
+    ],
+    stack: ["Apache Spark", "Kafka", "InfluxDB", "MongoDB", "HDFS", "Streamlit", "Python"],
+    figures: [
+      { id: "FIG. 10", caption: "Stream processing architecture — OpenSky ingestion to Streamlit", kind: "diagram" },
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/Namantyagi2727/airspace-congestion-monitoring", external: true },
     ],
   },
 ];
