@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { personalInfo, education, certifications, awayFromKeyboard } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
@@ -8,7 +9,19 @@ export default function About() {
       <div className="max-w-5xl mx-auto">
         <SectionLabel label="About" as="h2" />
 
-        <p className="text-xl sm:text-2xl leading-relaxed text-foreground max-w-2xl mt-10 mb-4">
+        {personalInfo.photo && (
+          <div className="mt-10 mb-6">
+            <Image
+              src={personalInfo.photo}
+              alt={personalInfo.name}
+              width={160}
+              height={160}
+              className="rounded-sm object-cover border border-border"
+            />
+          </div>
+        )}
+
+        <p className="text-xl sm:text-2xl leading-relaxed text-foreground max-w-2xl mb-4">
           {personalInfo.bio}
         </p>
         <div className="flex items-center gap-2 text-sm text-muted mb-12">
