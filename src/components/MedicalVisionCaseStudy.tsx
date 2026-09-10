@@ -1,18 +1,18 @@
-"use client";
-
-import { useState } from "react";
 import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import Figure from "./Figure";
+import MedicalPipelineSchematic from "./MedicalPipelineSchematic";
 
 const medicalCv = caseStudies.find((c) => c.slug === "medical-cv")!;
+const schematicFigure = medicalCv.figures?.find((f) => f.id === "FIG. 08");
 
-const VIEWS = ["Raw", "Detection", "Segmentation"] as const;
+const CURRENT_FOCUS = [
+  "Continuous video ingestion",
+  "Real-time stone identification",
+  "CV pipeline development",
+];
 
 export default function MedicalVisionCaseStudy() {
-  const [active, setActive] = useState<(typeof VIEWS)[number]>("Raw");
-  const activeFigure = medicalCv.figures?.[VIEWS.indexOf(active)];
-
   return (
     <article className="py-12 border-t border-border">
       <SectionLabel
@@ -27,24 +27,24 @@ export default function MedicalVisionCaseStudy() {
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{medicalCv.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{medicalCv.description}</p>
 
-      <div className="mb-6">
-        <div className="flex flex-wrap gap-2 mb-4 font-mono text-xs">
-          {VIEWS.map((view) => (
-            <button
-              key={view}
-              onClick={() => setActive(view)}
-              aria-pressed={active === view}
-              className={`px-3 py-1.5 rounded-md border transition-colors ${
-                active === view
-                  ? "border-accent text-accent bg-accent/10"
-                  : "border-border text-muted hover:border-accent hover:text-accent"
-              }`}
-            >
-              {view}
-            </button>
-          ))}
+      {schematicFigure && (
+        <div className="mb-12">
+          <Figure figure={schematicFigure}>
+            <MedicalPipelineSchematic />
+          </Figure>
         </div>
-        {activeFigure && <Figure figure={activeFigure} />}
+      )}
+
+      <div className="mb-12">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Current focus</p>
+        <ul className="flex flex-col gap-1.5 max-w-2xl">
+          {CURRENT_FOCUS.map((item) => (
+            <li key={item} className="text-sm text-muted flex items-start gap-2">
+              <span className="mt-1.5 w-1 h-1 rounded-full bg-border-strong flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="mb-8">
