@@ -39,21 +39,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://namantyagi.dev",
     siteName: "Naman Tyagi Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Naman Tyagi — AI/ML Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Naman Tyagi | AI/ML Engineer",
     description:
       "AI/ML engineer and MS CS student at NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
-    images: ["/og-image.png"],
   },
 };
 

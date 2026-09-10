@@ -10,7 +10,7 @@ export default function SelectedWork() {
     <section id="work" className="px-6">
       <div className="max-w-5xl mx-auto">
         <div className="pt-20">
-          <SectionLabel label="Selected Work" />
+          <SectionLabel label="Selected Work" as="h2" />
         </div>
         <PrismCaseStudy />
         <MedicalVisionCaseStudy />

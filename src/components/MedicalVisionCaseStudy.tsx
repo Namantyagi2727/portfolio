@@ -27,27 +27,25 @@ export default function MedicalVisionCaseStudy() {
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{medicalCv.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{medicalCv.description}</p>
 
-      {activeFigure && (
-        <div className="mb-6">
-          <div className="flex flex-wrap gap-2 mb-4 font-mono text-xs">
-            {VIEWS.map((view) => (
-              <button
-                key={view}
-                onClick={() => setActive(view)}
-                aria-pressed={active === view}
-                className={`px-3 py-1.5 rounded-md border transition-colors ${
-                  active === view
-                    ? "border-accent text-accent bg-accent/10"
-                    : "border-border text-muted hover:border-accent hover:text-accent"
-                }`}
-              >
-                {view}
-              </button>
-            ))}
-          </div>
-          <Figure figure={activeFigure} />
+      <div className="mb-6">
+        <div className="flex flex-wrap gap-2 mb-4 font-mono text-xs">
+          {VIEWS.map((view) => (
+            <button
+              key={view}
+              onClick={() => setActive(view)}
+              aria-pressed={active === view}
+              className={`px-3 py-1.5 rounded-md border transition-colors ${
+                active === view
+                  ? "border-accent text-accent bg-accent/10"
+                  : "border-border text-muted hover:border-accent hover:text-accent"
+              }`}
+            >
+              {view}
+            </button>
+          ))}
         </div>
-      )}
+        {activeFigure && <Figure figure={activeFigure} />}
+      </div>
 
       <div className="mb-8">
         <p className="font-mono text-xs uppercase tracking-widest text-muted mb-3">Stack</p>

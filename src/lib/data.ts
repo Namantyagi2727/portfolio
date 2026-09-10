@@ -17,7 +17,7 @@ export const personalInfo = {
 };
 
 export const awayFromKeyboard =
-  "F1 on race weekends, badminton and tennis, the gym, chess, and always planning the next trip.";
+  "F1 on race weekends, badminton and tennis, the gym, chess, always hunting for a new restaurant, and planning the next trip.";
 
 export type Experience = {
   title: string;
@@ -38,7 +38,7 @@ export const experiences: Experience[] = [
       "Contributing to a real-time detection pipeline over a continuous endoscopic camera feed, as part of a Vertically Integrated Project.",
       "Developing and validating detection in a simulated renal environment — water and calcium-based model kidney stones — before any real-tissue application.",
     ],
-    tags: ["Computer Vision", "YOLOv5", "U-Net", "PyTorch", "OpenCV"],
+    tags: ["Computer Vision", "PyTorch", "OpenCV"],
   },
   {
     title: "Software Engineer — Faculty Operations Platform",
@@ -198,13 +198,6 @@ export const projects: Project[] = [
       "Serverless dining recommendation chatbot built on AWS. Uses Lex for natural language understanding, Lambda for business logic, and DynamoDB to serve personalized restaurant suggestions.",
     tags: ["AWS Lex", "Lambda", "DynamoDB", "Serverless", "Chatbot"],
     github: "https://github.com/Namantyagi2727/DiningBot-on-AWS",
-  },
-  {
-    title: "Student Performance Visualization",
-    description:
-      "Data visualization dashboard analyzing student performance metrics. Uncovers trends across grades, subjects, and demographics using interactive charts and statistical insights.",
-    tags: ["Python", "Data Visualization", "Pandas", "Matplotlib", "EDA"],
-    github: "https://github.com/Namantyagi2727/Student-Performance-Visualization",
   },
 ];
 
@@ -467,7 +460,7 @@ export const caseStudies: CaseStudy[] = [
       "Endoscopic procedures produce a continuous camera feed with no automated way to flag stone material in real time — detection still depends entirely on the surgeon's eye.",
     description:
       "Ongoing computer vision research at NYU's FAMS Lab, contributing to a real-time detection pipeline over a continuous endoscopic camera feed inside a simulated renal environment — water and calcium-based model kidney stones standing in for real tissue and stone material during development, as part of the lab's Vertically Integrated Project.",
-    stack: ["YOLOv5", "U-Net", "PyTorch", "OpenCV", "Computer Vision"],
+    stack: ["PyTorch", "OpenCV", "Computer Vision"],
     figures: [
       { id: "FIG. 08A", caption: "Raw endoscopic feed", kind: "placeholder" },
       { id: "FIG. 08B", caption: "Detection overlay", kind: "placeholder" },

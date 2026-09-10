@@ -12,7 +12,7 @@ export default function Research() {
   return (
     <section id="research" className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
-        <SectionLabel label="Research" meta={`${publications.length} publications`} />
+        <SectionLabel label="Research" meta={`${publications.length} publications`} as="h2" />
 
         <div className="mt-10 flex flex-col gap-8">
           {publications.map((pub, i) => (

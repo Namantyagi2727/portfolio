@@ -6,7 +6,7 @@ export default function Experience() {
   return (
     <section id="experience" className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
-        <SectionLabel label="Experience" />
+        <SectionLabel label="Experience" as="h2" />
 
         <div className="mt-10 flex flex-col gap-8">
           {experiences.map((exp, i) => (

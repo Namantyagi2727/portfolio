@@ -1,4 +1,4 @@
-import { Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { projects } from "@/lib/data";
 
 export default function OtherProjects() {
@@ -22,17 +22,30 @@ export default function OtherProjects() {
               <p className="text-sm text-muted mt-1 leading-relaxed">{project.description}</p>
               <p className="text-xs font-mono text-muted mt-1.5">{project.tags.join(" / ")}</p>
             </div>
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors flex-shrink-0"
-              >
-                <Github size={14} />
-                GitHub ↗
-              </a>
-            )}
+            <div className="flex items-center gap-4 flex-shrink-0">
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors"
+                >
+                  <ExternalLink size={14} />
+                  Demo ↗
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors"
+                >
+                  <Github size={14} />
+                  GitHub ↗
+                </a>
+              )}
+            </div>
           </div>
         ))}
       </div>

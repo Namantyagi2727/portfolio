@@ -6,7 +6,7 @@ export default function About() {
   return (
     <section id="about" className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
-        <SectionLabel label="About" />
+        <SectionLabel label="About" as="h2" />
 
         <p className="text-xl sm:text-2xl leading-relaxed text-foreground max-w-2xl mt-10 mb-4">
           {personalInfo.bio}
