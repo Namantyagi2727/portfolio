@@ -3,12 +3,9 @@
 import { useState, useEffect } from "react";
 import { personalInfo } from "@/lib/data";
 
-const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Research", href: "#publications" },
-  { label: "About", href: "#about" },
-];
+// Cycle 1 only renders the Work section — the rest resolve once Cycle 2
+// brings the remaining sections onto the new palette.
+const navLinks = [{ label: "Work", href: "#work" }];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);

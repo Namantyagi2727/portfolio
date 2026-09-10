@@ -4,16 +4,9 @@ import { useEffect } from "react";
 import { Command } from "cmdk";
 import { personalInfo } from "@/lib/data";
 
-const SECTIONS = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Publications", href: "#publications" },
-  { label: "Side Quests", href: "#sidequests" },
-  { label: "Contact", href: "#contact" },
-];
+// Cycle 1 only renders the Work section — the rest resolve once Cycle 2
+// brings the remaining sections onto the new palette.
+const SECTIONS = [{ label: "Work", href: "#work" }];
 
 const itemClass =
   "px-3 py-2 rounded-md text-sm normal-case tracking-normal text-muted data-[selected=true]:bg-accent/10 data-[selected=true]:text-accent cursor-pointer outline-none";
