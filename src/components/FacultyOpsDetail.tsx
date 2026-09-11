@@ -2,25 +2,30 @@ import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
+import FacultyOpsCoverMotif from "./FacultyOpsCoverMotif";
 import FacultyOpsModuleMap from "./FacultyOpsModuleMap";
 
 const facultyOps = caseStudies.find((c) => c.slug === "faculty-ops")!;
 const moduleMapFigure = facultyOps.figures?.find((f) => f.kind === "diagram");
 
-export default function FacultyOpsCaseStudy() {
+export default function FacultyOpsDetail() {
   return (
-    <article className="py-12 border-t border-border">
+    <article className="py-12">
       <SectionLabel
         label={`Case Study / ${facultyOps.caseNumber}`}
         meta={`${facultyOps.category} · ${facultyOps.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
         {facultyOps.title}
-      </h3>
+      </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{facultyOps.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{facultyOps.description}</p>
+
+      <div className="mb-12">
+        <FacultyOpsCoverMotif />
+      </div>
 
       {facultyOps.metrics && facultyOps.metrics.length > 0 && (
         <div className="mb-12">

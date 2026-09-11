@@ -1,8 +1,8 @@
 import SectionLabel from "./SectionLabel";
 import PrismPreview from "./PrismPreview";
-import MedicalVisionCaseStudy from "./MedicalVisionCaseStudy";
-import FacultyOpsCaseStudy from "./FacultyOpsCaseStudy";
-import AirspaceCaseStudy from "./AirspaceCaseStudy";
+import MedicalVisionPreview from "./MedicalVisionPreview";
+import FacultyOpsPreview from "./FacultyOpsPreview";
+import AirspacePreview from "./AirspacePreview";
 import OtherProjects from "./OtherProjects";
 
 export default function SelectedWork() {
@@ -13,9 +13,9 @@ export default function SelectedWork() {
           <SectionLabel label="Selected Work" as="h2" index="01" />
         </div>
         <PrismPreview />
-        <MedicalVisionCaseStudy />
-        <FacultyOpsCaseStudy />
-        <AirspaceCaseStudy />
+        <MedicalVisionPreview />
+        <FacultyOpsPreview />
+        <AirspacePreview />
         <OtherProjects />
       </div>
     </section>

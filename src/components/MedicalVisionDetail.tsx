@@ -12,17 +12,21 @@ const CURRENT_FOCUS = [
   "CV pipeline development",
 ];
 
-export default function MedicalVisionCaseStudy() {
+// Short by design, not by omission: this is ongoing research with limited
+// verified material. Constraints/Decisions/Evidence/What-broke sections are
+// left out entirely rather than filled with invented content — see the
+// design spec's case-study depth rules.
+export default function MedicalVisionDetail() {
   return (
-    <article className="py-12 border-t border-border">
+    <article className="py-12">
       <SectionLabel
         label={`Case Study / ${medicalCv.caseNumber}`}
         meta={`${medicalCv.category} · ${medicalCv.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
         {medicalCv.title}
-      </h3>
+      </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{medicalCv.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{medicalCv.description}</p>
@@ -45,6 +49,18 @@ export default function MedicalVisionCaseStudy() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-2">
+          Current status
+        </p>
+        <p className="text-sm text-foreground leading-relaxed">
+          Ongoing research at NYU&apos;s FAMS Lab. No accuracy, FPS, latency, dataset-size, or model
+          benchmarks exist yet — none are claimed here. This page will grow as real results become
+          available; until then, it documents the verified experimental setup and current focus, not
+          a finished capability.
+        </p>
       </div>
 
       <div className="mb-8">
