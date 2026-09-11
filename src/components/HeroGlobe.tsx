@@ -158,14 +158,14 @@ export default function HeroGlobe() {
   const city = CITIES[activeCity];
 
   return (
-    <div ref={wrapperRef} className="flex flex-col items-center gap-4">
+    <div ref={wrapperRef} className="flex flex-col items-center gap-5">
       <div className="relative w-full aspect-square">
         {/* Drafting-style orbital ring — decorative, independent of the WebGL
             canvas, reinforces the "spatial instrument" identity and gives the
             globe a defined edge against the page. */}
         <svg
           viewBox="0 0 100 100"
-          className="absolute inset-[-6%] pointer-events-none"
+          className="absolute inset-[-2.5%] pointer-events-none"
           aria-hidden="true"
         >
           <circle
