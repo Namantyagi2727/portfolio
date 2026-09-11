@@ -1,0 +1,11 @@
+import { chromium } from "playwright";
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 390, height: 900 } });
+await page.goto("http://localhost:3000/work/faculty-ops", { waitUntil: "networkidle" });
+await page.waitForTimeout(600);
+const svg = await page.$("svg[aria-label*='functional index']");
+await svg.scrollIntoViewIfNeeded();
+await page.waitForTimeout(300);
+await svg.screenshot({ path: "/tmp/redesign-screenshots/faculty-diagram-mobile.png" });
+console.log("saved");
+await browser.close();

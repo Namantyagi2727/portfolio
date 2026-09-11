@@ -1,0 +1,13 @@
+import { chromium } from "playwright";
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await page.goto("http://localhost:3000/", { waitUntil: "networkidle" });
+await page.waitForTimeout(800);
+const heroBox = await (await page.$("#hero")).boundingBox();
+const workBox = await (await page.$("#work")).boundingBox();
+const heading = await page.$("h2 :text('Selected Work')");
+const headingBox = heading ? await heading.boundingBox() : null;
+console.log("hero:", heroBox);
+console.log("work section starts at y:", workBox.y);
+console.log("'Selected Work' heading top:", headingBox?.y);
+await browser.close();
