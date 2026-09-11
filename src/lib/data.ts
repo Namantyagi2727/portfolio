@@ -534,7 +534,7 @@ export const caseStudies: CaseStudy[] = [
 
 export const hero = {
   metaTop: ["N / 2026", "BROOKLYN, NEW YORK"],
-  statement: ["I build AI systems", "that operate on", "real-world data."],
+  statement: ["I build AI", "systems that", "operate on", "real-world data."],
   supporting:
     "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
   metaSecondary: ["MS Computer Science · NYU Tandon", "New York"],
