@@ -14,11 +14,15 @@ import { formatCoord } from "@/lib/geo";
 // "blue ocean + green land" isn't reachable through the public API (traced
 // through cobe's own fragment shader: the land/ocean split multiplies one
 // `baseColor` by a per-pixel brightness factor, it never blends a second
-// color in). BASE_COLOR below is tuned as an ocean blue; land reads as a
-// brighter variation of that same blue, not a genuinely different hue —
-// the closest honest approximation available in this library.
+// color in — confirmed empirically too: shifting the hue toward teal to
+// help land read greener just makes the whole sphere uniformly teal,
+// since ocean is the *same* hue at higher brightness). BASE_COLOR below is
+// tuned as an ocean blue; land reads as a brighter variation of that same
+// blue, not a genuinely different hue — the closest honest approximation
+// available in this library without swapping to a texture-capable one.
 const BASE_COLOR: [number, number, number] = [0.11, 0.36, 0.55]; // ocean blue
 const GLOW_COLOR: [number, number, number] = [0.25, 0.55, 0.75]; // restrained atmospheric edge
+const MARKER_ELEVATION = 0.05; // cobe's own default — kept explicit so cobeProject below can match it exactly
 
 function hexToRgbNorm(hex: string): [number, number, number] {
   const n = parseInt(hex.slice(1), 16);
@@ -48,7 +52,10 @@ const TRAVEL_MS = 7000; // one point's travel time along its route, end to end
 // Great-circle interpolation (slerp) between two [lat,lng] points, at
 // progress t in [0,1] — this is what makes the traveling point track the
 // same curved path cobe's own arc rendering draws, not a straight
-// lat/lng lerp (which would visibly cut across the globe).
+// lat/lng lerp (which would visibly cut across the globe). This uses its
+// own [x,y,z] convention (z = up) purely as an interpolation space — it's
+// converted back to lat/lng afterward, so the convention doesn't need to
+// match cobe's own (see cobeUnitVector below for that).
 function latLngToVec3(lat: number, lng: number): [number, number, number] {
   const latRad = (lat * Math.PI) / 180;
   const lngRad = (lng * Math.PI) / 180;
@@ -76,9 +83,42 @@ function slerp(a: [number, number, number], b: [number, number, number], t: numb
   ];
 }
 
+// Exact reimplementation of cobe's own internal U() (lat/lng -> 3D unit
+// vector) and marker-projection math, traced line-by-line from
+// node_modules/cobe/dist/index.esm.js. Used to position a real DOM plane
+// icon over the traveling point precisely, frame to frame — deliberately
+// not using the newer CSS Anchor Positioning API cobe also exposes (`id` +
+// `--cobe-{id}` / `--cobe-visible-{id}`), since that spec's cross-browser
+// support is still inconsistent enough to risk the icon rendering in the
+// wrong place in an unsupported browser. Plain computed inline styles work
+// everywhere.
+function cobeUnitVector(lat: number, lng: number): [number, number, number] {
+  const latRad = (lat * Math.PI) / 180;
+  const lngRad = (lng * Math.PI) / 180;
+  const cosLat = Math.cos(latRad);
+  return [cosLat * Math.cos(lngRad), Math.sin(latRad), -cosLat * Math.sin(lngRad)];
+}
+
+function cobeProject(
+  point: [number, number, number],
+  phi: number,
+  theta: number
+): { x: number; y: number; visible: boolean } {
+  const cosTheta = Math.cos(theta);
+  const cosPhi = Math.cos(phi);
+  const sinTheta = Math.sin(theta);
+  const sinPhi = Math.sin(phi);
+  const c = cosPhi * point[0] + sinPhi * point[2];
+  const s = sinPhi * sinTheta * point[0] + cosTheta * point[1] - cosPhi * sinTheta * point[2];
+  const front = -sinPhi * cosTheta * point[0] + sinTheta * point[1] + cosPhi * cosTheta * point[2] >= 0;
+  const withinDisc = c * c + s * s >= 0.64;
+  return { x: (c + 1) / 2, y: (-s + 1) / 2, visible: front || withinDisc };
+}
+
 export default function HeroGlobe() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const planeRefs = useRef<(HTMLDivElement | null)[]>([]);
   const shouldReduceMotion = useReducedMotion();
   const [activeCity, setActiveCity] = useState(0);
 
@@ -122,6 +162,7 @@ export default function HeroGlobe() {
       baseColor: BASE_COLOR,
       markerColor: hexToRgbNorm(ACCENT_SECONDARY),
       glowColor: GLOW_COLOR,
+      markerElevation: MARKER_ELEVATION,
       markers: cityMarkers,
       arcs: shouldReduceMotion
         ? []
@@ -180,23 +221,34 @@ export default function HeroGlobe() {
         phi = phiRef.current;
       }
 
-      // A small traveling point per route, tracing the same great-circle
-      // path cobe's arc rendering draws (not a straight lat/lng lerp) —
-      // "tiny travelling points," calm and sparse, each route offset so
-      // they don't move in lockstep.
+      // A small traveling plane per route, tracing the same great-circle
+      // path cobe's arc rendering draws (not a straight lat/lng lerp), and
+      // rendered as a real DOM icon (not a cobe marker dot) positioned via
+      // cobe's own projection math each frame. Ping-pongs back and forth
+      // along the route rather than snapping to the start on loop.
       const now = Date.now();
-      const travelers = ROUTES.map((r, i) => {
+      ROUTES.forEach((r, i) => {
         const from = latLngToVec3(CITIES[r.from].lat, CITIES[r.from].lng);
         const to = latLngToVec3(CITIES[r.to].lat, CITIES[r.to].lng);
         const phase = (now / TRAVEL_MS + i / ROUTES.length) % 1;
-        // Ping-pong 0->1->0 so the point travels back and forth along the
-        // route rather than snapping back to the start each loop.
         const t = phase < 0.5 ? phase * 2 : (1 - phase) * 2;
+        const forward = phase < 0.5;
         const [lat, lng] = vec3ToLatLng(slerp(from, to, t));
-        return { location: [lat, lng] as [number, number], size: 0.045, color: [1, 1, 1] as [number, number, number] };
+
+        const unit = cobeUnitVector(lat, lng);
+        const radius = 0.8 + MARKER_ELEVATION;
+        const projected = cobeProject([unit[0] * radius, unit[1] * radius, unit[2] * radius], phi, 0.24);
+
+        const el = planeRefs.current[i];
+        if (el) {
+          el.style.left = `${projected.x * 100}%`;
+          el.style.top = `${projected.y * 100}%`;
+          el.style.opacity = projected.visible ? "1" : "0";
+          el.style.transform = `translate(-50%, -50%) scaleX(${forward ? 1 : -1})`;
+        }
       });
 
-      globe.update({ phi, width, height: width, markers: [...cityMarkers, ...travelers] });
+      globe.update({ phi, width, height: width, markers: cityMarkers });
       frameIdRef.current = requestAnimationFrame(renderFrame);
     };
 
@@ -291,6 +343,32 @@ export default function HeroGlobe() {
             style={{ width: "100%", height: "100%", contain: "layout paint size", touchAction: "none" }}
           />
         </div>
+
+        {/* Traveling plane icons — hidden (opacity 0) until the render loop
+            positions and reveals them; never rendered at all under reduced
+            motion, since that branch of the loop never touches these refs. */}
+        {!shouldReduceMotion &&
+          ROUTES.map((r, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                planeRefs.current[i] = el;
+              }}
+              className="absolute w-4 h-4 pointer-events-none"
+              style={{ opacity: 0, left: "50%", top: "50%" }}
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-sm">
+                <path
+                  d="M2 16.5 L22 12 L2 7.5 L2 10.5 L15 12 L2 13.5 Z"
+                  fill="#F3F0E8"
+                  stroke="#171715"
+                  strokeWidth="0.6"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          ))}
       </div>
 
       <div className="flex flex-col items-center gap-2">
