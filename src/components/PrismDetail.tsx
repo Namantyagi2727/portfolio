@@ -7,7 +7,7 @@ import PrismFlowDiagram from "./PrismFlowDiagram";
 import PrismInfraDiagram from "./PrismInfraDiagram";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
-const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01B");
+const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01");
 const infraFigure = prism.figures?.find((f) => f.id === "FIG. 02");
 const screenshotFigures = prism.figures?.filter((f) => f.kind === "screenshot") ?? [];
 

@@ -408,13 +408,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     figures: [
       {
-        id: "FIG. 01A",
-        caption:
-          "Nominal request path — the default straight-through flow. Cache-hit bypass and failure-retry paths are not shown here; see the complete flow for those.",
-        kind: "diagram",
-      },
-      {
-        id: "FIG. 01B",
+        id: "FIG. 01",
         caption: "Complete request flow — auth, guardrails, cache, provider routing with fallback",
         kind: "diagram",
       },

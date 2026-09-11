@@ -3,11 +3,10 @@ import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
-import PrismFlowDiagramCompact from "./PrismFlowDiagramCompact";
+import PrismRoutingMotif from "./PrismRoutingMotif";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
 const overviewFigure = prism.figures?.find((f) => f.id === "FIG. 03");
-const nominalFlowFigure = prism.figures?.find((f) => f.id === "FIG. 01A");
 
 // Preview shows exactly these 3 headline metrics, in this order, with their
 // exact verified contexts intact — see the spec's "Preview metrics" section.
@@ -53,13 +52,12 @@ export default function PrismPreview() {
         </div>
       )}
 
-      {nominalFlowFigure && (
-        <div className="mb-12">
-          <Figure figure={nominalFlowFigure}>
-            <PrismFlowDiagramCompact />
-          </Figure>
-        </div>
-      )}
+      <div className="mb-12 flex flex-col items-center gap-2">
+        <PrismRoutingMotif />
+        <p className="font-mono text-[11px] text-muted text-center">
+          Illustrative — request routing with automatic provider fallback
+        </p>
+      </div>
 
       <a
         href="/work/prism"
