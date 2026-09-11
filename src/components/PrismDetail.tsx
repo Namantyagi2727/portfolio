@@ -24,10 +24,30 @@ export default function PrismDetail() {
       </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{prism.problem}</p>
-      <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{prism.description}</p>
+      <p className="text-base text-muted leading-relaxed mb-8 max-w-2xl">{prism.description}</p>
+
+      {/* On-page contents — this is the longest case-study page on the site. */}
+      <nav aria-label="On this page" className="flex flex-wrap gap-x-5 gap-y-2 mb-12 pb-6 border-b border-border">
+        {[
+          { href: "#request-flow", label: "Request flow" },
+          { href: "#infrastructure", label: "Infrastructure" },
+          { href: "#benchmarks", label: "Benchmarks" },
+          { href: "#what-broke", label: "What broke" },
+          { href: "#screenshots", label: "Screenshots" },
+          { href: "#stack", label: "Stack & links" },
+        ].map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            className="font-mono text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
       {flowFigure && (
-        <div className="mb-12">
+        <div id="request-flow" className="mb-12 scroll-mt-24">
           <Figure figure={flowFigure}>
             <PrismFlowDiagram />
           </Figure>
@@ -35,7 +55,7 @@ export default function PrismDetail() {
       )}
 
       {infraFigure && (
-        <div className="mb-12">
+        <div id="infrastructure" className="mb-12 scroll-mt-24">
           <Figure figure={infraFigure}>
             <PrismInfraDiagram />
           </Figure>
@@ -43,7 +63,7 @@ export default function PrismDetail() {
       )}
 
       {prism.metrics && prism.metrics.length > 0 && (
-        <div className="mb-12">
+        <div id="benchmarks" className="mb-12 scroll-mt-24">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
             Verified benchmark results
           </p>
@@ -55,7 +75,7 @@ export default function PrismDetail() {
         </div>
       )}
 
-      <div className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5">
+      <div id="what-broke" className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5 scroll-mt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-2">
           What broke
         </p>
@@ -69,14 +89,14 @@ export default function PrismDetail() {
       </div>
 
       {screenshotFigures.length > 0 && (
-        <div className="mb-12 grid sm:grid-cols-2 gap-8">
+        <div id="screenshots" className="mb-12 grid sm:grid-cols-2 gap-8 scroll-mt-24">
           {screenshotFigures.map((fig) => (
             <Figure key={fig.id} figure={fig} />
           ))}
         </div>
       )}
 
-      <div className="mb-8">
+      <div id="stack" className="mb-8 scroll-mt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-muted mb-3">Stack</p>
         <p className="font-mono text-sm text-foreground leading-relaxed">{prism.stack.join(" / ")}</p>
       </div>
