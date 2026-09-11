@@ -1,67 +1,68 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
-import Figure from "./Figure";
 import PrismRoutingMotif from "./PrismRoutingMotif";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
 const overviewFigure = prism.figures?.find((f) => f.id === "FIG. 03");
 
-// Preview shows exactly these 3 headline metrics, in this order, with their
-// exact verified contexts intact — see the spec's "Preview metrics" section.
-// KNOWN CLEANUP ITEM (deferred, not a blocker): matched by exact value text
-// rather than a stable id, since Metric has no id field. If a future data.ts
-// edit reformats one of these three value strings, its tile silently drops
-// from the preview with no build error. Fixing this properly means adding an
-// id field to the shared Metric type used by every case study — out of
-// scope for this pass; revisit if this array is ever touched again.
-const PREVIEW_METRIC_VALUES = ["245–259 req/s", "p50 ~25ms / p95 ~80ms", "0.00%"];
+// Homepage preview shows at most two evidence points, per the brief — the
+// full 5-metric benchmark grid stays on the case-study page. These two
+// carry the most weight: overall throughput and the outage-resilience
+// result, each with its verified test condition intact.
+const PREVIEW_METRIC_VALUES = ["245–259 req/s", "0.00%"];
 const previewMetrics = PREVIEW_METRIC_VALUES.map(
   (value) => prism.metrics?.find((m) => m.value === value)
 ).filter((m): m is NonNullable<typeof m> => Boolean(m));
 
 export default function PrismPreview() {
   return (
-    <article className="py-12">
+    <article className="flex flex-col">
+      <div
+        className="rounded-lg overflow-hidden mb-5"
+        style={{ background: COVERS.prism.surface }}
+      >
+        {overviewFigure?.src && (
+          <div className="relative aspect-[21/9]">
+            <Image
+              src={overviewFigure.src}
+              alt="Prism admin dashboard — request volume and cost overview"
+              fill
+              sizes="(min-width: 1024px) 560px, 100vw"
+              className="object-cover object-top"
+            />
+          </div>
+        )}
+        <div className="p-5">
+          <PrismRoutingMotif />
+        </div>
+      </div>
+
       <SectionLabel
         label={`Case Study / ${prism.caseNumber}`}
         meta={`${prism.category} · ${prism.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-3">
         {prism.title}
       </h3>
 
-      <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{prism.problem}</p>
-      <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{prism.description}</p>
-
-      {overviewFigure && (
-        <div className="mb-12">
-          <Figure figure={overviewFigure} showCaption={false} />
-        </div>
-      )}
+      <p className="text-base text-muted leading-relaxed mb-5 max-w-lg">{prism.problem}</p>
 
       {previewMetrics.length > 0 && (
-        <div className="mb-12">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6">
-            {previewMetrics.map((m) => (
-              <ProjectMetric key={m.label} value={m.value} label={m.label} />
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-6 max-w-sm">
+          {previewMetrics.map((m) => (
+            <ProjectMetric key={m.label} value={m.value} label={m.label} />
+          ))}
         </div>
       )}
-
-      <div className="mb-12 flex flex-col items-center gap-2">
-        <PrismRoutingMotif />
-        <p className="font-mono text-[11px] text-muted text-center">
-          Illustrative — request routing with automatic provider fallback
-        </p>
-      </div>
 
       <a
         href="/work/prism"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors mt-auto"
       >
         Explore case study
         <ArrowUpRight size={14} />

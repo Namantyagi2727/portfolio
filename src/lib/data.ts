@@ -492,7 +492,13 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Django", "PostgreSQL", "AWS S3", "Azure Blob Storage", "Azure Logic Apps"],
     figures: [
       {
-        id: "FIG. 09",
+        id: "FIG. 09A",
+        caption:
+          "Simplified workflow excerpt — one generic example path with a revision loop. Internal operational details (specific rules, thresholds, approval chains, form fields) are omitted; this illustrates the shape of coordinated workflow handling, not the platform's actual internal logic.",
+        kind: "diagram",
+      },
+      {
+        id: "FIG. 09B",
         caption:
           "Functional index — 12 Django apps grouped by function for presentation; not a dependency graph.",
         kind: "diagram",

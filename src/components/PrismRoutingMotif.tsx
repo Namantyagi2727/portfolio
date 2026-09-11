@@ -1,13 +1,13 @@
-import { SURFACE, BORDER_STRONG, MUTED, FOREGROUND } from "@/lib/diagram-tokens";
-import { PRISM_ACCENT } from "@/lib/illustration-tokens";
+import { COVERS } from "@/lib/illustration-tokens";
 
-// A compact, iconic cover illustration — not a numbered documentary figure.
-// Deliberately simpler than the full request-flow diagram on the case-study
-// page: app -> Prism -> providers, one shown failed with a fallback arrow.
-// This is the "application passing through Prism to providers" motif the
-// design brief calls for, replacing the homepage's previous 9-stage compact
-// flow diagram (kept, unchanged, on the /work/prism case-study page as
-// FIG. 01 — the full technical sequence still lives there).
+// A restrained routing detail living inside Prism's ink-blue cover card —
+// recolored for that dark surface rather than the light page background,
+// since it no longer stands alone (it's now part of the cover composition,
+// beneath the dashboard screenshot crop). App -> Prism -> providers, one
+// shown failed with a fallback arrow.
+
+const { on, onMuted, line } = COVERS.prism;
+const ACCENT = "#8FB4DE"; // light blue accent — reads clearly against the ink-blue surface
 
 const PROVIDERS = [
   { label: "OpenAI", y: 20, failed: false },
@@ -26,13 +26,13 @@ export default function PrismRoutingMotif() {
       >
         {/* App */}
         <g transform="translate(30, 70)">
-          <rect x={-28} y={-16} width={56} height={32} rx={6} fill={SURFACE} stroke={BORDER_STRONG} strokeWidth={1} />
-          <text textAnchor="middle" dominantBaseline="middle" fontSize={9.5} fontFamily="var(--font-geist-mono)" fill={FOREGROUND}>
+          <rect x={-28} y={-16} width={56} height={32} rx={6} fill="none" stroke={line} strokeWidth={1.2} />
+          <text textAnchor="middle" dominantBaseline="middle" fontSize={9.5} fontFamily="var(--font-geist-mono)" fill={on}>
             App
           </text>
         </g>
 
-        <line x1={58} y1={70} x2={122} y2={70} stroke={BORDER_STRONG} strokeWidth={1.2} />
+        <line x1={58} y1={70} x2={122} y2={70} stroke={line} strokeWidth={1.2} />
 
         {/* Prism hub */}
         <g transform="translate(160, 70)">
@@ -42,12 +42,12 @@ export default function PrismRoutingMotif() {
             width={72}
             height={44}
             rx={8}
-            fill={PRISM_ACCENT}
-            fillOpacity={0.12}
-            stroke={PRISM_ACCENT}
+            fill={ACCENT}
+            fillOpacity={0.18}
+            stroke={ACCENT}
             strokeWidth={1.5}
           />
-          <text textAnchor="middle" dominantBaseline="middle" fontSize={11} fontFamily="var(--font-geist-mono)" fill={PRISM_ACCENT}>
+          <text textAnchor="middle" dominantBaseline="middle" fontSize={11} fontFamily="var(--font-geist-mono)" fill={ACCENT}>
             Prism
           </text>
         </g>
@@ -60,7 +60,7 @@ export default function PrismRoutingMotif() {
               y1={70}
               x2={252}
               y2={p.y + 8}
-              stroke={p.failed ? MUTED : BORDER_STRONG}
+              stroke={p.failed ? onMuted : line}
               strokeWidth={1.2}
               strokeDasharray={p.failed ? "3 3" : undefined}
             />
@@ -71,8 +71,8 @@ export default function PrismRoutingMotif() {
                 width={60}
                 height={28}
                 rx={6}
-                fill={p.failed ? "transparent" : SURFACE}
-                stroke={p.failed ? MUTED : BORDER_STRONG}
+                fill="none"
+                stroke={p.failed ? onMuted : line}
                 strokeWidth={1}
                 strokeDasharray={p.failed ? "3 3" : undefined}
               />
@@ -81,7 +81,7 @@ export default function PrismRoutingMotif() {
                 dominantBaseline="middle"
                 fontSize={8.5}
                 fontFamily="var(--font-geist-mono)"
-                fill={p.failed ? MUTED : FOREGROUND}
+                fill={p.failed ? onMuted : on}
               >
                 {p.label}
               </text>
@@ -93,14 +93,14 @@ export default function PrismRoutingMotif() {
         <path
           d="M 282 92 C 300 100, 300 110, 286 114"
           fill="none"
-          stroke={PRISM_ACCENT}
+          stroke={ACCENT}
           strokeWidth={1.2}
           strokeDasharray="2 3"
           markerEnd="url(#fallback-arrow)"
         />
         <defs>
           <marker id="fallback-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill={PRISM_ACCENT} />
+            <path d="M0,0 L6,3 L0,6 Z" fill={ACCENT} />
           </marker>
         </defs>
       </svg>

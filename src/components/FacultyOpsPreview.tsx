@@ -1,32 +1,38 @@
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
-import FacultyOpsCoverMotif from "./FacultyOpsCoverMotif";
+import FacultyOpsWorkflowIllustration from "./FacultyOpsWorkflowIllustration";
 
 const facultyOps = caseStudies.find((c) => c.slug === "faculty-ops")!;
 const previewMetrics = facultyOps.metrics?.filter((m) => m.value === "12" || m.value === "306") ?? [];
 
 export default function FacultyOpsPreview() {
   return (
-    <article className="py-12 border-t border-border">
+    <article className="flex flex-col">
+      <div
+        className="rounded-lg overflow-hidden mb-5 p-6 flex items-center justify-center"
+        style={{ background: COVERS.faculty.surface }}
+      >
+        <div className="max-w-xs">
+          <FacultyOpsWorkflowIllustration />
+        </div>
+      </div>
+
       <SectionLabel
         label={`Case Study / ${facultyOps.caseNumber}`}
         meta={`${facultyOps.category} · ${facultyOps.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-3">
         {facultyOps.title}
       </h3>
 
-      <p className="text-lg text-foreground leading-snug mb-8 max-w-2xl">{facultyOps.problem}</p>
-
-      <div className="mb-8">
-        <FacultyOpsCoverMotif />
-      </div>
+      <p className="text-base text-muted leading-relaxed mb-5 max-w-lg">{facultyOps.problem}</p>
 
       {previewMetrics.length > 0 && (
-        <div className="mb-8 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6 max-w-md">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-6 max-w-sm">
           {previewMetrics.map((m) => (
             <ProjectMetric key={m.label} value={m.value} label={m.label} />
           ))}
@@ -35,7 +41,7 @@ export default function FacultyOpsPreview() {
 
       <a
         href="/work/faculty-ops"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors mt-auto"
       >
         Explore case study
         <ArrowUpRight size={14} />

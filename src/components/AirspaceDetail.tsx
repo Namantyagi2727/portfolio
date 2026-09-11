@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
@@ -26,11 +27,8 @@ export default function AirspaceDetail() {
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{airspace.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{airspace.description}</p>
 
-      <div className="mb-12">
+      <div className="mb-12 rounded-lg overflow-hidden p-6 max-w-xl" style={{ background: COVERS.airspace.surface }}>
         <AirspaceCoverMotif />
-        <p className="font-mono text-[11px] text-muted text-center mt-2">
-          Illustrative — not a live map or observed flight paths
-        </p>
       </div>
 
       {airspace.metrics && airspace.metrics.length > 0 && (

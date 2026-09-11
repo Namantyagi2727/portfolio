@@ -1,12 +1,14 @@
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
-import FacultyOpsCoverMotif from "./FacultyOpsCoverMotif";
+import FacultyOpsWorkflowIllustration from "./FacultyOpsWorkflowIllustration";
 import FacultyOpsModuleMap from "./FacultyOpsModuleMap";
 
 const facultyOps = caseStudies.find((c) => c.slug === "faculty-ops")!;
-const moduleMapFigure = facultyOps.figures?.find((f) => f.kind === "diagram");
+const workflowFigure = facultyOps.figures?.find((f) => f.id === "FIG. 09A");
+const moduleMapFigure = facultyOps.figures?.find((f) => f.id === "FIG. 09B");
 
 export default function FacultyOpsDetail() {
   return (
@@ -23,9 +25,15 @@ export default function FacultyOpsDetail() {
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{facultyOps.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{facultyOps.description}</p>
 
-      <div className="mb-12">
-        <FacultyOpsCoverMotif />
-      </div>
+      {workflowFigure && (
+        <div className="mb-12">
+          <Figure figure={workflowFigure}>
+            <div className="p-6 max-w-md mx-auto" style={{ background: COVERS.faculty.surface }}>
+              <FacultyOpsWorkflowIllustration />
+            </div>
+          </Figure>
+        </div>
+      )}
 
       {facultyOps.metrics && facultyOps.metrics.length > 0 && (
         <div className="mb-12">

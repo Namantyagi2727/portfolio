@@ -1,4 +1,5 @@
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import Figure from "./Figure";
 import MedicalPipelineSchematic from "./MedicalPipelineSchematic";
@@ -34,7 +35,9 @@ export default function MedicalVisionDetail() {
       {schematicFigure && (
         <div className="mb-12">
           <Figure figure={schematicFigure}>
-            <MedicalPipelineSchematic />
+            <div className="p-6" style={{ background: COVERS.medical.surface }}>
+              <MedicalPipelineSchematic />
+            </div>
           </Figure>
         </div>
       )}
