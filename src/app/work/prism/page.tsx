@@ -16,7 +16,7 @@ export default function PrismPage() {
     <>
       <Navbar />
       <main className="px-6 pt-32 pb-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Link
             href="/#work"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors mb-12"

@@ -42,7 +42,7 @@ export default function Hero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-5xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 lg:items-center"
+        className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 lg:items-center"
       >
         <div>
           <motion.div

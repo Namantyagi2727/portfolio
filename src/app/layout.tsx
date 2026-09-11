@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/next";
 import CommandPalette from "@/components/CommandPalette";
@@ -12,6 +12,13 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// Reserved for occasional informal annotations only — never a heading, nav
+// item, button, or body paragraph. See design spec's Typography section.
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -56,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased bg-background text-foreground`}
       >
         <MotionConfig reducedMotion="user">
           {children}

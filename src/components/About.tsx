@@ -5,9 +5,9 @@ import SectionLabel from "./SectionLabel";
 
 export default function About() {
   return (
-    <section id="about" className="px-6 py-20">
-      <div className="max-w-5xl mx-auto">
-        <SectionLabel label="About" as="h2" />
+    <section id="about" className="px-6 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto">
+        <SectionLabel label="About" as="h2" index="04" />
 
         {personalInfo.photo && (
           <div className="mt-10 mb-6">

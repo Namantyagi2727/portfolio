@@ -4,7 +4,7 @@ import { formatCoord } from "@/lib/geo";
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-border px-6 py-20">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-4">
           Let&apos;s talk
         </p>
