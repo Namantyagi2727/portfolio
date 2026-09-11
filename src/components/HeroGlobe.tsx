@@ -226,7 +226,7 @@ export default function HeroGlobe() {
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <div className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-widest">
+        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide sm:tracking-widest">
           {CITIES.map((c, i) => (
             <button
               key={c.label}
@@ -242,7 +242,9 @@ export default function HeroGlobe() {
             </button>
           ))}
         </div>
-        <p className="font-mono text-[11px] text-muted text-center">
+        {/* Precise coordinate is a supporting flourish, not essential — hidden
+            below sm: to keep the mobile globe's footprint controlled. */}
+        <p className="hidden sm:block font-mono text-[11px] text-muted text-center">
           {formatCoord(city.lat, city.lng)}
         </p>
       </div>

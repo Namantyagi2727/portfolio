@@ -49,10 +49,13 @@ export default function Hero() {
         <div className="lg:col-start-1 lg:row-start-1">
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-muted mb-6 lg:mb-10"
+            className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-widest text-muted mb-4 lg:mb-6"
           >
-            {hero.metaTop.map((line) => (
-              <span key={line}>{line}</span>
+            {hero.meta.map((line, i) => (
+              <span key={line}>
+                {line}
+                {i < hero.meta.length - 1 && <span className="mx-2 text-border-strong">·</span>}
+              </span>
             ))}
           </motion.div>
 
@@ -65,8 +68,8 @@ export default function Hero() {
 
           <motion.h2
             variants={itemVariants}
-            className="font-medium tracking-tight text-foreground mb-8 leading-[1.05]"
-            style={{ fontSize: "clamp(36px, 5.5vw, 64px)" }}
+            className="font-medium tracking-tight text-foreground mb-6 lg:mb-8 leading-[1.05]"
+            style={{ fontSize: "clamp(32px, 9vw, 64px)" }}
           >
             {hero.statement.map((line) => (
               <span key={line} className="block whitespace-nowrap">
@@ -78,18 +81,6 @@ export default function Hero() {
           <motion.p variants={itemVariants} className="text-lg text-muted max-w-xl leading-relaxed mb-6 lg:mb-8">
             {hero.supporting}
           </motion.p>
-
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted mb-6 lg:mb-10"
-          >
-            {hero.metaSecondary.map((line, i) => (
-              <span key={line}>
-                {line}
-                {i < hero.metaSecondary.length - 1 && <span className="mx-2 text-border-strong">·</span>}
-              </span>
-            ))}
-          </motion.div>
 
           {/* One clear primary action, one quieter secondary, everything else
               (social/contact) stays plain text — per the design spec's
@@ -139,30 +130,31 @@ export default function Hero() {
 
         {/* Spatial illustration — right column at lg:, third in mobile DOM
             order (after actions, before the now/recently strip). */}
-        <div className="w-[190px] sm:w-[240px] lg:w-full mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1">
+        <div className="w-[180px] sm:w-[220px] lg:w-full mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1">
           <HeroGlobe />
         </div>
 
-        {/* Compact current-work strip — spans full width beneath both
-            columns at lg:, last in mobile DOM order. */}
+        {/* Compact current-work strip — one line per item (label prefix
+            inline, not a stacked 3-line block), spans full width beneath
+            both columns at lg:, last in mobile DOM order. */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap gap-x-16 gap-y-6 border-t border-border pt-6 lg:pt-8 lg:col-span-2 lg:row-start-2"
+          className="flex flex-col sm:flex-row flex-wrap gap-x-10 gap-y-2 border-t border-border pt-5 lg:pt-8 lg:col-span-2 lg:row-start-2"
         >
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mb-1.5">
+          <p className="text-sm text-foreground">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mr-2">
               {hero.now.label}
-            </p>
-            <p className="text-sm text-foreground font-medium">{hero.now.title}</p>
-            <p className="text-sm text-muted">{hero.now.detail}</p>
-          </div>
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mb-1.5">
+            </span>
+            {hero.now.title}
+            <span className="text-muted"> · {hero.now.detail}</span>
+          </p>
+          <p className="text-sm text-foreground">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mr-2">
               {hero.recently.label}
-            </p>
-            <p className="text-sm text-foreground font-medium">{hero.recently.title}</p>
-            <p className="text-sm text-muted">{hero.recently.detail}</p>
-          </div>
+            </span>
+            {hero.recently.title}
+            <span className="text-muted"> · {hero.recently.detail}</span>
+          </p>
         </motion.div>
       </motion.div>
     </section>

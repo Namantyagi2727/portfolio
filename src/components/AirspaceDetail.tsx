@@ -3,8 +3,10 @@ import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
+import ExpandableDiagram from "./ExpandableDiagram";
 import AirspaceCoverMotif from "./AirspaceCoverMotif";
 import AirspaceStreamDiagram from "./AirspaceStreamDiagram";
+import AirspaceStreamSummary from "./AirspaceStreamSummary";
 
 const airspace = caseStudies.find((c) => c.slug === "airspace")!;
 const streamFigure = airspace.figures?.find((f) => f.kind === "diagram");
@@ -45,7 +47,7 @@ export default function AirspaceDetail() {
       {streamFigure && (
         <div className="mb-12">
           <Figure figure={streamFigure}>
-            <AirspaceStreamDiagram />
+            <ExpandableDiagram summary={<AirspaceStreamSummary />} full={<AirspaceStreamDiagram />} />
           </Figure>
         </div>
       )}

@@ -532,11 +532,13 @@ export const caseStudies: CaseStudy[] = [
 ];
 
 export const hero = {
-  metaTop: ["N / 2026", "BROOKLYN, NEW YORK"],
+  // One combined metadata line — previously split across a separate
+  // metaTop block and a metaSecondary block below the headline, with
+  // "New York" repeated even though Brooklyn already establishes it.
+  meta: ["N / 2026", "Brooklyn, NY", "MS Computer Science · NYU Tandon"],
   statement: ["I build AI", "systems that", "operate on", "real-world data."],
   supporting:
     "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
-  metaSecondary: ["MS Computer Science · NYU Tandon", "New York"],
   globeCities: [
     { label: "Brooklyn, NY", lat: 40.6782, lng: -73.9442 },
     { label: "London", lat: 51.5074, lng: -0.1278 },

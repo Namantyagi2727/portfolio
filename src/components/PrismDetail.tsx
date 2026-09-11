@@ -3,8 +3,11 @@ import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
+import ExpandableDiagram from "./ExpandableDiagram";
 import PrismFlowDiagram from "./PrismFlowDiagram";
+import PrismFlowSummary from "./PrismFlowSummary";
 import PrismInfraDiagram from "./PrismInfraDiagram";
+import PrismInfraSummary from "./PrismInfraSummary";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
 const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01");
@@ -49,7 +52,7 @@ export default function PrismDetail() {
       {flowFigure && (
         <div id="request-flow" className="mb-12 scroll-mt-24">
           <Figure figure={flowFigure}>
-            <PrismFlowDiagram />
+            <ExpandableDiagram summary={<PrismFlowSummary />} full={<PrismFlowDiagram />} />
           </Figure>
         </div>
       )}
@@ -57,7 +60,7 @@ export default function PrismDetail() {
       {infraFigure && (
         <div id="infrastructure" className="mb-12 scroll-mt-24">
           <Figure figure={infraFigure}>
-            <PrismInfraDiagram />
+            <ExpandableDiagram summary={<PrismInfraSummary />} full={<PrismInfraDiagram />} />
           </Figure>
         </div>
       )}
