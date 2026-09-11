@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
-import { personalInfo, education, certifications, awayFromKeyboard } from "@/lib/data";
+import { personalInfo, education, certifications, hero } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
+import SideQuests from "./SideQuests";
 
 export default function About() {
   return (
@@ -22,12 +23,18 @@ export default function About() {
         )}
 
         <p className="text-xl sm:text-2xl leading-relaxed text-foreground max-w-2xl mb-4">
-          {personalInfo.bio}
+          {personalInfo.shortBio}
         </p>
-        <div className="flex items-center gap-2 text-sm text-muted mb-12">
+        <div className="flex items-center gap-2 text-sm text-muted mb-3">
           <MapPin size={14} />
           {personalInfo.location}
         </div>
+
+        {/* A small geographic thread, not a claimed itinerary — the same
+            three verified locations the Hero globe already uses. */}
+        <p className="font-mono text-xs text-muted mb-10">
+          {hero.globeCities.map((c) => c.label).join(" · ")}
+        </p>
 
         <div className="border-t border-border pt-8 mb-8">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Education</p>
@@ -44,17 +51,14 @@ export default function About() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 mb-8">
+        <div className="border-t border-border pt-8">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Certifications</p>
           <p className="text-sm text-muted leading-relaxed">
             {certifications.map((c) => c.name).join(" · ")}
           </p>
         </div>
 
-        <div className="border-t border-border pt-8">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-3">Away from the keyboard</p>
-          <p className="text-sm text-muted leading-relaxed max-w-2xl">{awayFromKeyboard}</p>
-        </div>
+        <SideQuests />
       </div>
     </section>
   );

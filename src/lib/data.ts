@@ -14,6 +14,11 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
   scholar: "https://scholar.google.com/citations?hl=en&user=JNOaY9YAAAAJ",
   bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Wiley (2025), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
+  // Shorter, warmer opening for the About section specifically — same
+  // verified facts as `bio` above (used for SEO/OG metadata elsewhere),
+  // condensed rather than reworded into anything new.
+  shortBio:
+    "I build AI systems that go from research to production — RAG pipelines, computer vision, agentic tools. I hold an MS in Computer Science from NYU Tandon and completed six internships across AI, cloud, and enterprise software along the way.",
   photo: undefined as string | undefined,
 };
 

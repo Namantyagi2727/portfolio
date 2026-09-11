@@ -3,7 +3,7 @@ import { formatCoord } from "@/lib/geo";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="border-t border-border px-6 py-20">
+    <footer id="contact" className="border-t border-border px-6 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-4">
           Let&apos;s talk
@@ -34,6 +34,14 @@ export default function Footer() {
             className="text-sm font-medium text-foreground hover:text-accent transition-colors"
           >
             GitHub ↗
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+          >
+            Résumé ↗
           </a>
         </div>
 
