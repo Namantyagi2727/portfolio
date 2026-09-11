@@ -52,7 +52,7 @@ export const experiences: Experience[] = [
     period: "Jan 2026 – Aug 2026",
     location: "New York, NY",
     description: [
-      "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management, workflow orchestration, and an AI-powered FAQ chatbot.",
+      "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management and workflow orchestration; a planned AI-powered FAQ chatbot is on the roadmap.",
       "Deploying workflow automation pipelines using cloud-based orchestration (AWS, Azure Logic Apps) to digitize manual form processes with routing, compliance checks, and approval chain tracking.",
     ],
     tags: ["Full-Stack", "Cloud", "AWS", "Azure", "AI", "Workflow Automation", "Records Management"],
@@ -483,7 +483,7 @@ export const caseStudies: CaseStudy[] = [
     problem:
       "500+ NYU faculty ran records management, workflow routing, and approvals through manual, form-based processes with no shared system of record.",
     description:
-      "A cloud-integrated Django platform replacing manual faculty-affairs paperwork with structured workflows, approval-chain tracking, and an AI-powered FAQ chatbot — compatible with NYU Box, AWS S3, and Azure Blob Storage. Twelve Django apps split by domain, covering the core platform, workflow engine, approvals, notifications, document storage, audit trail, chatbot, workload tracking, data export, tenure and promotion, faculty records, and access management.",
+      "A cloud-integrated Django platform replacing manual faculty-affairs paperwork with structured workflows and approval-chain tracking — compatible with NYU Box, AWS S3, and Azure Blob Storage. Twelve Django apps split by domain, covering the core platform, workflow engine, approvals, notifications, document storage, audit trail, a planned FAQ chatbot, workload tracking, data export, tenure and promotion, faculty records, and access management.",
     metrics: [
       { value: "12", label: "Django apps, split by domain — see module map" },
       { value: "306", label: "automated tests" },
