@@ -2,15 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import dynamic from "next/dynamic";
 import { personalInfo, hero } from "@/lib/data";
-
-const HeroGlobe = dynamic(() => import("./HeroGlobe"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full aspect-square rounded-full border border-dashed border-border-strong bg-surface/40" />
-  ),
-});
+import DeskScene from "./DeskScene";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -37,17 +30,17 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="px-6 pt-32 pb-20">
+    <section id="hero" className="px-6 pt-24 pb-12 lg:pt-32 lg:pb-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-5xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 lg:items-center"
+        className="max-w-5xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 lg:items-center"
       >
         <div>
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-muted mb-10"
+            className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-muted mb-6 lg:mb-10"
           >
             {hero.metaTop.map((line) => (
               <span key={line}>{line}</span>
@@ -63,23 +56,22 @@ export default function Hero() {
 
           <motion.h2
             variants={itemVariants}
-            className="font-medium tracking-tight text-foreground mb-8 leading-[1.05]"
-            style={{ fontSize: "clamp(40px, 6.5vw, 76px)" }}
+            className="font-medium tracking-tight text-foreground mb-6 lg:mb-8 leading-[1.05] text-balance"
+            style={{ fontSize: "clamp(32px, 5.2vw, 68px)" }}
           >
-            {hero.statement.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
+            {hero.statement}
           </motion.h2>
 
-          <motion.p variants={itemVariants} className="text-lg text-muted max-w-xl leading-relaxed mb-8">
+          <motion.p
+            variants={itemVariants}
+            className="text-base lg:text-lg text-muted max-w-xl leading-relaxed mb-6 lg:mb-8"
+          >
             {hero.supporting}
           </motion.p>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted mb-12"
+            className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted mb-8 lg:mb-12"
           >
             {hero.metaSecondary.map((line, i) => (
               <span key={line}>
@@ -91,7 +83,7 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center gap-x-8 gap-y-3 mb-16"
+            className="flex flex-wrap items-center gap-x-8 gap-y-3 mb-10 lg:mb-16"
           >
             <a
               href="#work"
@@ -133,7 +125,7 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-x-16 gap-y-6 border-t border-border pt-8 max-w-lg"
+            className="flex flex-wrap gap-x-16 gap-y-4 lg:gap-y-6 border-t border-border pt-8 max-w-lg"
           >
             <div>
               <p className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mb-1.5">
@@ -152,8 +144,8 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="w-[180px] sm:w-[240px] lg:w-[460px] mx-auto lg:mx-0">
-          <HeroGlobe />
+        <div className="w-full sm:w-[420px] lg:w-[480px] mx-auto lg:mx-0">
+          <DeskScene />
         </div>
       </motion.div>
     </section>

@@ -38,8 +38,7 @@ export default function Footer() {
         </div>
 
         <p className="font-mono text-xs text-muted mb-16">
-          {hero.globeCities[0].label} —{" "}
-          {formatCoord(hero.globeCities[0].lat, hero.globeCities[0].lng)}
+          {hero.location.label} — {formatCoord(hero.location.lat, hero.location.lng)}
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-border">

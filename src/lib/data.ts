@@ -18,7 +18,7 @@ export const personalInfo = {
 };
 
 export const awayFromKeyboard =
-  "F1 on race weekends, badminton and tennis, the gym, gaming, chess, always hunting for a new restaurant, and planning the next trip.";
+  "Badminton and tennis, chess, always hunting for a new restaurant, and planning the next trip.";
 
 export type Experience = {
   title: string;
@@ -534,15 +534,11 @@ export const caseStudies: CaseStudy[] = [
 
 export const hero = {
   metaTop: ["N / 2026", "BROOKLYN, NEW YORK"],
-  statement: ["I build AI systems", "that operate on", "real-world data."],
+  statement: "I build AI systems that operate on real-world data.",
   supporting:
     "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
   metaSecondary: ["MS Computer Science · NYU Tandon", "New York"],
-  globeCities: [
-    { label: "Brooklyn, NY", lat: 40.6782, lng: -73.9442 },
-    { label: "London", lat: 51.5074, lng: -0.1278 },
-    { label: "New Delhi", lat: 28.6139, lng: 77.209 },
-  ],
+  location: { label: "Brooklyn, NY", lat: 40.6782, lng: -73.9442 },
   now: {
     label: "NOW",
     title: "Computer Vision Research",
@@ -554,3 +550,51 @@ export const hero = {
     detail: "LLM Gateway & Control Plane",
   },
 };
+
+export type DeskState = {
+  id: "at-work" | "tea" | "race-weekend" | "gaming" | "training";
+  label: string;
+  caption: string;
+  image: string;
+  mobileImage?: string;
+  alt: string;
+};
+
+export const deskScene: DeskState[] = [
+  {
+    id: "at-work",
+    label: "At work",
+    caption: "Most days start here — laptop open, systems taking shape.",
+    image: "/images/desk/at-work.jpg",
+    mobileImage: "/images/desk/at-work-mobile.jpg",
+    alt: "A laptop showing an abstract data-systems diagram, next to a notebook, a tea mug, a model race car, a game controller, and a dumbbell on a desk.",
+  },
+  {
+    id: "tea",
+    label: "Tea",
+    caption: "A short reset between builds.",
+    image: "/images/desk/tea.jpg",
+    alt: "A ceramic teapot and mug with tea leaves, steam rising, on a warm terracotta surface.",
+  },
+  {
+    id: "race-weekend",
+    label: "Race weekend",
+    caption: "Catching F1 on race weekends, calendar permitting.",
+    image: "/images/desk/race-weekend.jpg",
+    alt: "A detailed open-wheel model race car with front and rear wings, on a racing-green surface with a track curve.",
+  },
+  {
+    id: "gaming",
+    label: "Gaming",
+    caption: "Winding down, controller in hand.",
+    image: "/images/desk/gaming.jpg",
+    alt: "A game controller resting on a deep blue surface.",
+  },
+  {
+    id: "training",
+    label: "Training",
+    caption: "Training keeps the rest of the week sustainable.",
+    image: "/images/desk/training.jpg",
+    alt: "A dumbbell and a folded towel on an ochre surface.",
+  },
+];
