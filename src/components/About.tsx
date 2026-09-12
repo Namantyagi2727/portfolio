@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
-import { personalInfo, education, certifications, hero } from "@/lib/data";
+import { personalInfo, education, certifications, hero, awayFromKeyboard } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
-import SideQuests from "./SideQuests";
 
 export default function About() {
   return (
@@ -31,7 +30,7 @@ export default function About() {
         </div>
 
         {/* A small geographic thread, not a claimed itinerary — the same
-            three verified locations the Hero globe already uses. */}
+            three verified locations used in the Footer coordinate line. */}
         <p className="font-mono text-xs text-muted mb-10">
           {hero.globeCities.map((c) => c.label).join(" · ")}
         </p>
@@ -51,14 +50,17 @@ export default function About() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8">
+        <div className="border-t border-border pt-8 mb-8">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Certifications</p>
           <p className="text-sm text-muted leading-relaxed">
             {certifications.map((c) => c.name).join(" · ")}
           </p>
         </div>
 
-        <SideQuests />
+        <div className="border-t border-border pt-8">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Away from the keyboard</p>
+          <p className="text-sm text-muted leading-relaxed max-w-2xl">{awayFromKeyboard}</p>
+        </div>
       </div>
     </section>
   );

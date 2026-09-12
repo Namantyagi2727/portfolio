@@ -1,16 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { personalInfo, hero } from "@/lib/data";
-
-const HeroGlobe = dynamic(() => import("./HeroGlobe"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full aspect-square rounded-full border border-dashed border-border-strong bg-surface/40" />
-  ),
-});
+import DeskScene from "./DeskScene";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -130,8 +123,8 @@ export default function Hero() {
 
         {/* Spatial illustration — right column at lg:, third in mobile DOM
             order (after actions, before the now/recently strip). */}
-        <div className="w-[180px] sm:w-[220px] lg:w-full mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1">
-          <HeroGlobe />
+        <div className="w-[260px] sm:w-[320px] lg:w-full mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1">
+          <DeskScene />
         </div>
 
         {/* Compact current-work strip — one line per item (label prefix
