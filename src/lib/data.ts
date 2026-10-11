@@ -1,24 +1,22 @@
 export const personalInfo = {
   name: "Naman Tyagi",
-  title: "AI/ML Engineer",
-  roles: [
-    "AI/ML Engineer",
-    "Full-Stack Developer",
-    "Cloud Architect",
-    "Big Data Engineer",
-  ],
+  // Matches the LinkedIn headline: broad software engineering first, with
+  // applied AI, LLM systems, computer vision, and cloud as the focus areas.
+  title: "Software Engineer",
+  headline: "Software Engineer | Applied AI & Machine Learning | LLM Systems, Computer Vision & Cloud",
+  roles: ["Software Engineer", "Applied AI / ML", "LLM Systems", "Computer Vision", "Cloud"],
   email: "namantyagi2727@gmail.com",
   phone: "+1 (929) 605-9520",
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
   scholar: "https://scholar.google.com/citations?hl=en&user=JNOaY9YAAAAJ",
-  bio: "AI/ML engineer with an MS in Computer Science from NYU Tandon building production LLM applications, RAG pipelines, and agentic AI systems. Published researcher with IEEE (2024), Wiley (2025), Cambridge Scholars Publishing (2025), and Human Behavior and Emerging Technologies (2026). 6+ internships across AI, cloud, and enterprise software — I bring ideas from research to production.",
+  bio: "Software engineer and NYU Tandon MS Computer Science graduate (May 2026) working across applied AI and machine learning, LLM systems, computer vision, and cloud. Experience spans Django and FastAPI services, RAG applications, data pipelines, and real-time computer vision research; publications include a journal article, an IEEE conference paper, and two book chapters.",
   // Shorter, warmer opening for the About section specifically — same
   // verified facts as `bio` above (used for SEO/OG metadata elsewhere),
   // condensed rather than reworded into anything new.
   shortBio:
-    "I build AI systems that go from research to production — RAG pipelines, computer vision, agentic tools. I hold an MS in Computer Science from NYU Tandon and completed six internships across AI, cloud, and enterprise software along the way.",
+    "I'm a software engineer working across applied AI, LLM systems, computer vision, and cloud — from Django and FastAPI services and RAG applications to real-time computer vision research. I completed my MS in Computer Science at NYU Tandon in May 2026.",
   photo: undefined as string | undefined,
 };
 
@@ -32,54 +30,63 @@ export type Experience = {
   location: string;
   description: string[];
   tags: string[];
+  // Internal case-study route that goes deeper on this role, when one exists.
+  caseStudy?: { href: string; label: string };
 };
 
 export const experiences: Experience[] = [
   {
-    title: "Computer Vision Research",
-    company: "NYU FAMS Lab",
-    period: "Sep 2026 – Present",
+    title: "Computer Vision Researcher",
+    company: "FAMS Lab, NYU Tandon",
+    period: "Sep 2025 – Present",
     location: "Brooklyn, NY",
     description: [
-      "Contributing to a real-time detection pipeline over a continuous endoscopic camera feed, as part of a Vertically Integrated Project.",
-      "Developing and validating detection in a simulated renal environment — water and calcium-based model kidney stones — before any real-tissue application.",
+      "Ongoing academic research at the Flexible AI-Enabled Mechatronic Systems Lab: developing a real-time pipeline that detects and localizes kidney stones in microscopic-camera video, covering image/video preprocessing, model development and evaluation, and live-stream inference.",
+      "Earlier lab work on endoscopic image analysis: YOLOv5 object detection, U-Net segmentation, and visualization in 3D Slicer.",
+      "Involved through NYU's Vertically Integrated Projects program since Fall 2025; Volunteer Research Assistant since September 2026.",
     ],
-    tags: ["Computer Vision", "PyTorch", "OpenCV"],
+    tags: ["Computer Vision", "PyTorch", "OpenCV", "YOLOv5", "U-Net", "3D Slicer"],
+    caseStudy: { href: "/work/medical-cv", label: "Research notes" },
   },
   {
-    title: "Software Engineer — Faculty Operations Platform",
-    company: "NYU — Office of Faculty Affairs",
+    title: "Software Engineer",
+    company: "NYU Office of Faculty Affairs",
     period: "Jan 2026 – Aug 2026",
     location: "New York, NY",
     description: [
-      "Leading system design for a cloud-integrated digital platform compatible with NYU Box, AWS S3, and Azure Blob Storage, serving 500+ faculty with automated records management and workflow orchestration; a planned AI-powered FAQ chatbot is on the roadmap.",
-      "Deploying workflow automation pipelines using cloud-based orchestration (AWS, Azure Logic Apps) to digitize manual form processes with routing, compliance checks, and approval chain tracking.",
+      "Developed Django REST Framework APIs and PostgreSQL-backed workflows on a team-built platform supporting faculty operations for 500+ faculty.",
+      "Automated administrative workflows with Celery Beat scheduling, including approval and escalation logic.",
+      "Built an Excel data importer validated against 20 test cases, and wrote integration tests that surfaced 3 pre-release defects.",
+      "Developed AI-powered document classification across AWS S3 and Azure Blob Storage, reducing manual record lookup time by an estimated 60%.",
+      "Built a LangChain/FAISS RAG chatbot for natural-language search of faculty policy information.",
     ],
-    tags: ["Full-Stack", "Cloud", "AWS", "Azure", "AI", "Workflow Automation", "Records Management"],
+    tags: ["Django REST Framework", "PostgreSQL", "Celery", "LangChain", "FAISS", "AWS S3", "Azure Blob Storage"],
+    caseStudy: { href: "/work/faculty-ops", label: "Platform case study" },
   },
   {
-    title: "AI & Power BI Intern",
+    // Official designation: "AI and Power BI Intern". This is the
+    // public-facing functional title, matching LinkedIn.
+    title: "Software Engineer Intern (AI & Power BI)",
     company: "Mast-Jägermeister US, Inc.",
     period: "Jun 2025 – Aug 2025",
     location: "White Plains, NY",
     description: [
-      "Designed and deployed a fully offline RAG-based AI chatbot using LangChain, vector embeddings, and semantic retrieval workflows, enabling secure knowledge access across 1,000+ enterprise documents for 50+ field team members.",
-      "Built automated document ingestion and semantic indexing pipelines, reducing information retrieval time by ~70% compared to manual search.",
-      "Enhanced NLP query interpretation in Power BI Q&A using custom semantic models; integrated Azure AI and Python NLP frameworks into production.",
+      "Developed an Azure-connected RAG application with LangChain and FAISS, letting 50+ internal staff search 1,000+ enterprise documents and reducing information retrieval time by approximately 70%.",
+      "Automated document ingestion, embedding generation, and semantic indexing to keep the knowledge base current.",
+      "Built Power BI Q&A semantic models supporting natural-language queries and self-service analytics.",
     ],
-    tags: ["AI", "RAG", "LangChain", "Power BI", "NLP", "Azure AI", "Python"],
+    tags: ["RAG", "LangChain", "FAISS", "Azure", "Power BI", "Python"],
   },
   {
-    title: "AI Research Intern",
+    title: "Artificial Intelligence Researcher (Part-time)",
     company: "University of Essex",
     period: "Sep 2023 – Aug 2024",
-    location: "Remote",
+    location: "Remote, UK",
     description: [
-      "Conducted NLP and sentiment analysis research for early BDD detection, achieving 12% F1-score improvement through transformer fine-tuning on ~10K annotated clinical text samples.",
-      "Automated end-to-end text preprocessing, feature extraction, and model evaluation workflows, reducing experiment iteration time by ~40%.",
-      "Published findings in IEEE Xplore (2024) via CNN-based sign language recognition project.",
+      "Transformer-based NLP research on early detection of body dysmorphic disorder: text classification, named entity recognition, and topic analysis over ~10,000 annotated samples.",
+      "Findings were published in Human Behavior and Emerging Technologies (2026).",
     ],
-    tags: ["NLP", "Transformers", "CNN", "Research", "IEEE Published"],
+    tags: ["NLP", "Transformers", "Text Classification", "NER", "Research"],
   },
   {
     title: "Global Technical Support Engineer",
@@ -87,10 +94,10 @@ export const experiences: Experience[] = [
     period: "Jan 2024 – Jun 2024",
     location: "Gurugram, India",
     description: [
-      "Performed data-driven diagnostics on optical networks for 15+ global telecom clients (99.5% uptime SLAs); authored automation scripts reducing case resolution time by ~25%.",
-      "Managed 50+ monthly escalations with cross-functional coordination across global support teams.",
+      "Troubleshot optical and packet-network issues for global enterprise and telecom customers using logs, packet captures, and CLI diagnostics, handling 50+ escalations a month across 15+ clients.",
+      "Wrote automation scripts and technical documentation that cut case resolution time by approximately 25%.",
     ],
-    tags: ["Networking", "Automation", "Data Analysis"],
+    tags: ["Networking", "Troubleshooting", "Automation", "Technical Documentation"],
   },
   {
     title: "Salesforce Developer & Administrator",
@@ -109,10 +116,121 @@ export const experiences: Experience[] = [
     period: "Jan 2023 – Apr 2023",
     location: "Singapore (Remote)",
     description: [
-      "Designed responsive frontends for travel platforms, improving user experience and performance by 15%.",
+      "Built a responsive travel website from UI/UX designs in HTML, CSS, and JavaScript, with cross-browser testing.",
       "Collaborated in iterative feature rollout using Agile and version control best practices.",
     ],
     tags: ["Frontend", "JavaScript", "Responsive Design", "Agile"],
+  },
+];
+
+// Featured projects shown in the Selected Work gallery next to Prism (which
+// has its own full case study under `caseStudies`). Every claim here is
+// taken from the project's own README/BENCHMARKS file — benchmark numbers
+// carry their test conditions in the label, never on their own.
+export type FeaturedProject = {
+  slug: "ragbase" | "conticx" | "immune";
+  title: string;
+  category: string;
+  date: string;
+  context?: string; // how/why it was built, e.g. a take-home assessment
+  summary: string;
+  // Cover diagram stages, in order — the project's real architecture as
+  // described in its README, not decoration.
+  pipeline: string[];
+  metrics: Metric[];
+  stack: string[];
+  github: string;
+  demo?: string;
+};
+
+export const featuredProjects: FeaturedProject[] = [
+  {
+    slug: "ragbase",
+    title: "RAGBase",
+    category: "Applied AI",
+    date: "Apr 2026 · updated Sep 2026",
+    summary:
+      "Fully local document Q&A: ingests PDFs, Word files, spreadsheets, and images (with OCR), retrieves with hybrid FAISS semantic and TF-IDF keyword search, reranks with a cross-encoder, and answers through a local Ollama model, with source citations on every answer.",
+    pipeline: [
+      "PDF · DOCX · XLSX · CSV · images",
+      "OCR + chunking",
+      "FAISS + TF-IDF hybrid search",
+      "Cross-encoder rerank",
+      "Local LLM (Ollama)",
+      "Answer + citations",
+    ],
+    metrics: [
+      {
+        value: "~17 ms median",
+        label:
+          "hybrid retrieval + reranking over a generated 1,200-file / 4,750-chunk corpus — local benchmark on one machine; the OCR path wasn't part of it",
+      },
+      {
+        value: "~0.4 s median",
+        label: "end-to-end answer including local llama3.2 generation, same local benchmark",
+      },
+    ],
+    stack: ["Python", "LangChain", "FAISS", "TF-IDF", "Hugging Face", "Ollama", "Streamlit"],
+    github: "https://github.com/Namantyagi2727/ragbase",
+  },
+  {
+    slug: "conticx",
+    title: "ConTicx",
+    category: "Full-Stack",
+    date: "Aug 2026",
+    context: "Built for a Juspay take-home",
+    summary:
+      "Event discovery and ticket booking with 10-minute Redis inventory holds, server-side pricing the client can't override, and checkout, webhooks, and refunds integrated against Hyperswitch's sandbox — test payments only, not live commercial processing.",
+    pipeline: [
+      "Pick event + tier",
+      "Server-side pricing",
+      "Atomic Redis hold (10 min)",
+      "Hyperswitch checkout (sandbox)",
+      "Webhook + status reconcile",
+      "Ticket · refund",
+    ],
+    metrics: [
+      {
+        value: "15 → 10",
+        label: "concurrent requests vs. tickets left in the spike test — exactly 10 orders succeed, no oversell",
+      },
+      {
+        value: "10 min",
+        label: "inventory hold per order, expired lazily with payment-intent cancellation first",
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Redis", "Hyperswitch", "Vercel"],
+    github: "https://github.com/Namantyagi2727/ConTicx",
+    demo: "https://conticx.vercel.app",
+  },
+  {
+    slug: "immune",
+    title: "Immune Cell Population Analysis",
+    category: "Data & Analysis",
+    date: "Aug 2026",
+    context: "Built for a Teiko take-home",
+    summary:
+      "A reproducible pipeline and dashboard for the cell-count dataset supplied with the assignment (framed as a clinical-trial scenario): a normalized SQLite schema, per-sample relative frequencies across five immune-cell populations, and responder vs. non-responder statistics reported with effect sizes.",
+    pipeline: [
+      "cell-count.csv",
+      "Normalized SQLite schema",
+      "Relative frequencies",
+      "Mann-Whitney U + BH-FDR",
+      "Streamlit dashboard",
+    ],
+    metrics: [
+      {
+        value: "15 tests",
+        label: "pytest suite run by GitHub Actions CI on every push and pull request",
+      },
+      {
+        value: "0 of 5",
+        label: "populations significant after FDR correction — reported as a null result, with effect sizes",
+      },
+    ],
+    stack: ["Python", "SQLite", "pandas", "Streamlit", "pytest", "GitHub Actions"],
+    github: "https://github.com/Namantyagi2727/teiko-cell-population-analysis",
+    demo: "https://teiko-cell-population-analysis-dashboard.streamlit.app/",
   },
 ];
 
@@ -122,43 +240,36 @@ export type Project = {
   tags: string[];
   github?: string;
   demo?: string;
+  caseStudy?: string; // internal route, e.g. "/work/airspace"
   highlight?: string;
 };
 
+// Compact index under the featured gallery. OtherProjects always shows the
+// entries with a public repo, demo, or case study; the rest stay collapsed
+// behind "Show more" rather than being removed.
 export const projects: Project[] = [
   {
-    title: "RAGBase: Enterprise Document Q&A System",
+    title: "Airspace Congestion Monitoring",
     description:
-      "Open-source offline RAG chatbot with semantic document search using FAISS vector indexing and LangChain retrieval chains, supporting PDF/DOCX ingestion across 1,000+ documents with sub-2-second latency. Modular pipeline with configurable embedding models, chunking strategies, and reranking.",
-    tags: ["RAG", "LangChain", "FAISS", "Hugging Face", "Python", "Streamlit"],
-    github: "https://github.com/Namantyagi2727/ragbase",
-    highlight: "1,000+ docs · sub-2s retrieval",
+      "Real-time flight-congestion pipeline: Kafka ingestion and Spark Structured Streaming risk scoring over live OpenSky data and a ~475,000-record generated historical dataset, with InfluxDB, MongoDB, and a Streamlit dashboard.",
+    tags: ["Kafka", "Spark Structured Streaming", "InfluxDB", "MongoDB", "Streamlit", "Python"],
+    github: "https://github.com/Namantyagi2727/airspace-congestion-monitoring",
+    caseStudy: "/work/airspace",
+    highlight: "May 2025",
   },
   {
-    title: "ChainGuard",
+    title: "BlockGuard",
     description:
-      "LLM-based auditing tool detecting smart contract vulnerabilities (reentrancy, overflow, access control) with 85%+ accuracy across 100+ test contracts. Fine-tuned transformers for structured audit report generation.",
-    tags: ["Solidity", "Ethereum", "Web3", "Security", "Python", "LLMs"],
+      "Streamlit tool that runs Slither static analysis on Solidity contracts, ranks findings by severity, and summarizes each in plain language with a local FLAN-T5 model; a second tab forecasts next-block Ethereum base fees with a small PyTorch GRU.",
+    tags: ["Solidity", "Slither", "Python", "PyTorch", "Hugging Face Transformers", "Streamlit"],
     github: "https://github.com/Namantyagi2727/BlockGuard",
-    highlight: "85%+ accuracy · 100+ test contracts",
   },
   {
-    title: "Immune Cell Population Analysis",
+    title: "Photo Search & Recognition",
     description:
-      "Take-home assessment for Teiko — analysis pipeline and interactive dashboard for a clinical-trial immune cell population dataset. Converts per-sample cell counts to relative frequencies across 5 immune cell populations, statistically compares treatment responders vs. non-responders with FDR-corrected significance testing, and breaks down baseline cohorts by project, sex, and response. Reproducible SQLite-backed pipeline with a 15-test suite and a live dashboard.",
-    tags: ["Take-Home Assessment", "Python", "Pandas", "SQLite", "Streamlit", "Statistics", "Bioinformatics"],
-    github: "https://github.com/Namantyagi2727/teiko-cell-population-analysis",
-    demo: "https://teiko-cell-population-analysis-dashboard.streamlit.app/",
-    highlight: "656 samples analyzed",
-  },
-  {
-    title: "ConTicx",
-    description:
-      "Take-home assessment for Juspay — a concert ticket booking prototype with a real payment integration against Hyperswitch's Unified Checkout sandbox. Server-side amount computation that never trusts client-submitted prices, Redis-backed atomic inventory holds with lazy expiry, and webhook-safe payment-intent cancellation to prevent overselling seats during the 10-minute checkout hold.",
-    tags: ["Take-Home Assessment", "Next.js", "TypeScript", "Redis", "Payments", "Hyperswitch"],
-    github: "https://github.com/Namantyagi2727/ConTicx",
-    demo: "https://conticx.vercel.app",
-    highlight: "Atomic oversell protection",
+      "Serverless photo search on AWS: S3 uploads trigger a Lambda that labels images with Rekognition and indexes them in OpenSearch; natural-language queries are parsed with Lex and served through API Gateway, with infrastructure in CloudFormation.",
+    tags: ["AWS Lambda", "Rekognition", "OpenSearch", "Lex", "API Gateway", "CloudFormation"],
+    github: "https://github.com/Namantyagi2727/Photo-Search-Project",
   },
   {
     title: "Sign Language Recognition",
@@ -168,17 +279,17 @@ export const projects: Project[] = [
     highlight: "IEEE Published 2024",
   },
   {
+    title: "DiningBot on AWS",
+    description:
+      "Serverless dining-concierge chatbot on AWS: Lex for conversation, Lambda for business logic, and restaurant data scraped from Yelp into DynamoDB and Elasticsearch, served through API Gateway.",
+    tags: ["AWS Lex", "Lambda", "DynamoDB", "Elasticsearch", "Serverless", "Chatbot"],
+    github: "https://github.com/Namantyagi2727/DiningBot-on-AWS",
+  },
+  {
     title: "MindMend",
     description:
       "LLM-driven conversational therapy agent using GPT-4, NLP, and sentiment analysis. Analyzes emotional state during live interactions and implements sentiment scoring + trend tracking.",
     tags: ["LLMs", "GPT-4", "NLP", "Sentiment Analysis", "Python", "Streamlit"],
-  },
-  {
-    title: "Photo Search & Recognition",
-    description:
-      "Automated face/object detection pipeline using AWS Rekognition with intelligent metadata tagging. Enables semantic queries for image search via REST APIs and event-driven inference.",
-    tags: ["AWS Rekognition", "Lambda", "OpenSearch", "REST API", "Computer Vision"],
-    github: "https://github.com/Namantyagi2727/Photo-Search-Project",
   },
   {
     title: "SmartScholar",
@@ -197,13 +308,6 @@ export const projects: Project[] = [
     description:
       "Cloud + blockchain hybrid file storage and verification system. Files stored on cloud with cryptographic proofs anchored on Ethereum for tamper-proof verification.",
     tags: ["Blockchain", "Ethereum", "Cloud", "Solidity", "AWS"],
-  },
-  {
-    title: "DiningBot on AWS",
-    description:
-      "Serverless dining recommendation chatbot built on AWS. Uses Lex for natural language understanding, Lambda for business logic, and DynamoDB to serve personalized restaurant suggestions.",
-    tags: ["AWS Lex", "Lambda", "DynamoDB", "Serverless", "Chatbot"],
-    github: "https://github.com/Namantyagi2727/DiningBot-on-AWS",
   },
 ];
 
@@ -276,6 +380,10 @@ export type Publication = {
   highlighted?: boolean;
 };
 
+// 1 journal article, 1 IEEE conference paper, 2 book chapters — four
+// publications, not "four research papers". Research.tsx groups papers
+// and book chapters separately; keep `type` accurate. Ordered newest first
+// within each group.
 export const publications: Publication[] = [
   {
     type: "journal",
@@ -291,12 +399,24 @@ export const publications: Publication[] = [
     highlighted: true,
   },
   {
+    type: "conference",
+    title: "Impact of Colour Image and Skeleton Plotting on Sign Language Recognition Using Convolutional Neural Networks (CNN)",
+    publisher: "IEEE Xplore — 2024 14th International Conference on Cloud Computing, Data Science & Engineering (Confluence)",
+    date: "January 2024",
+    description:
+      "Introduced a CNN-based model for American Sign Language recognition trained on color and skeleton-plotted image datasets, examining how preprocessing strategy affects recognition across varied backgrounds.",
+    url: "https://ieeexplore.ieee.org/document/10463239",
+    highlight: "8 citations",
+    authors: "Anushka Singh · Fahad Eqbal Hashmi · Naman Tyagi · Anant Kumar Jayswal",
+    doi: "10.1109/Confluence60223.2024.10463239",
+  },
+  {
     type: "book",
     title: "Decentralized Smart Cities: Enhancing Urban Living Through IoT, Metaverse, and Blockchain Integration",
     publisher: "Cambridge Scholars Publishing — Next Generation Healthcare: Deep Learning and Blockchain for Precision Clinical Decision-Making",
     date: "December 23, 2025",
     description:
-      "Authored chapter investigating the collaborative integration of Blockchain, the Metaverse, and IoT toward decentralized smart urban ecosystems. Explores resource optimization, citizen experience, security, and sustainability — with focus on data privacy via blockchain and real-time urban service management via IoT.",
+      "Co-authored chapter investigating the collaborative integration of Blockchain, the Metaverse, and IoT toward decentralized smart urban ecosystems. Explores resource optimization, citizen experience, security, and sustainability — with focus on data privacy via blockchain and real-time urban service management via IoT.",
     url: "https://www.cambridgescholars.com/product/978-1-0364-6498-1/",
     highlight: "Cambridge Scholars Publishing",
     authors: "Naman Tyagi (NYU) · Anushka Singh (Johns Hopkins) · Fahad Eqbal Hashmi · Dolly Sharma (Amity)",
@@ -312,33 +432,26 @@ export const publications: Publication[] = [
     authors: "Anushka Singh · Naman Tyagi · Dolly Sharma",
     doi: "10.1002/9781394275311.ch12",
   },
-  {
-    type: "conference",
-    title: "Impact of Colour Image and Skeleton Plotting on Sign Language Recognition Using Convolutional Neural Networks (CNN)",
-    publisher: "IEEE Xplore — 2024 14th International Conference on Cloud Computing, Data Science & Engineering (Confluence)",
-    date: "January 2024",
-    description:
-      "Introduced a CNN-based model for American Sign Language recognition achieving ~99% accuracy using color + skeleton-mapped image datasets. Demonstrated significant impact of preprocessing strategy on model accuracy across varied backgrounds.",
-    url: "https://ieeexplore.ieee.org/document/10463239",
-    highlight: "8 Citations · 183 Views",
-    authors: "Anushka Singh · Fahad Eqbal Hashmi · Naman Tyagi · Anant Kumar Jayswal",
-    doi: "10.1109/Confluence60223.2024.10463239",
-  },
 ];
 
 export type Certification = {
   name: string;
   issuer: string;
-  category: string;
+  // "certificate" = a completed certificate program; "course" = an individual
+  // course or vendor training. Neither is a professional AWS/Azure/GCP cloud
+  // certification, and the site never labels them as one.
+  kind: "certificate" | "course";
 };
 
+// The Google Cybersecurity Certificate's component courses (e.g. "Play It
+// Safe", "Connect and Protect") are covered by the certificate itself rather
+// than listed separately.
 export const certifications: Certification[] = [
-  { name: "Google Cybersecurity Program Certificate", issuer: "Google", category: "Security" },
-  { name: "Big Data & Machine Learning Fundamentals", issuer: "Google Cloud / Coursera", category: "Cloud" },
-  { name: "AWS Cloud Completion Badge", issuer: "Amazon Web Services", category: "Cloud" },
-  { name: "GCP Cloud Completion Badge", issuer: "Google Cloud", category: "Cloud" },
-  { name: "Azure Cloud Completion Badge", issuer: "Microsoft Azure", category: "Cloud" },
-  { name: "Salesforce Administrator & Developer", issuer: "Salesforce", category: "Platform" },
+  { name: "Google Cybersecurity Certificate", issuer: "Google", kind: "certificate" },
+  { name: "Google Cloud Big Data and Machine Learning Fundamentals", issuer: "Google Cloud", kind: "course" },
+  { name: "Introduction to Digital Transformation with Google Cloud", issuer: "Google Cloud", kind: "course" },
+  { name: "Crash Course on Python", issuer: "Google", kind: "course" },
+  { name: "Optical Communications — Associate", issuer: "Ciena Technology Program", kind: "course" },
 ];
 
 export type Metric = {
@@ -362,6 +475,9 @@ export type CaseStudy = {
   problem: string; // one-sentence problem statement
   description: string;
   metrics?: Metric[]; // absent when nothing is verified yet (e.g. ongoing research)
+  // For team-built work: what Naman personally did, so platform-level
+  // totals never read as individual accomplishments.
+  contributions?: string[];
   stack: string[];
   figures?: Figure[];
   links: { label: string; href: string; external?: boolean }[];
@@ -372,20 +488,23 @@ export const caseStudies: CaseStudy[] = [
     slug: "prism",
     caseNumber: "001",
     category: "AI Infrastructure",
-    year: "2026",
+    year: "Jul 2026",
     title: "Prism",
     problem:
       "Teams that scale past calling a provider directly from the app run into unpredictable cost, no visibility into failures, PII/prompt-injection exposure, and no resilience when a provider degrades — usually all at once.",
     description:
-      "Prism is a self-hosted LLM gateway and control plane that sits between applications and providers — OpenAI, Anthropic, self-hosted Ollama. A one-line base_url swap, no other code changes. It adds cost visibility, automatic failover through a hand-rolled circuit breaker, PII and prompt-injection guardrails, exact-match caching, and full observability, backed by Postgres with pgvector, Redis, and Prometheus/Grafana/Jaeger.",
+      "Prism is a self-hosted, multi-provider LLM gateway that sits between applications and providers — OpenAI, Anthropic, self-hosted Ollama — behind one OpenAI-compatible endpoint: a one-line base_url swap, no other code changes. It adds request cost tracking, automatic provider failover through a hand-rolled circuit breaker, PII and prompt-injection guardrails, exact-match Redis caching, and observability through Prometheus, Grafana, and OpenTelemetry tracing. It runs locally under Docker Compose and was load-tested on one machine against local Ollama and mock OpenAI/Anthropic providers — it is not a production deployment.",
+    // All figures come from local Locust runs on one machine (single uvicorn
+    // process) with mixed Ollama + mock-provider traffic — keep that
+    // qualifier attached; they are not production or universal numbers.
     metrics: [
       {
         value: "245–259 req/s",
-        label: "combined throughput · 0% unintended errors — main load test",
+        label: "combined throughput in a local load test (one machine, mixed Ollama + mock-provider traffic) · 0% unintended errors",
       },
       {
         value: "p50 ~25ms / p95 ~80ms",
-        label: "gateway overhead isolated from provider latency — 10 concurrent users",
+        label: "gateway overhead isolated from provider latency — 10 concurrent users, same local setup",
       },
       {
         value: "p50 ~130 / p95 ~250 / p99 ~340ms",
@@ -393,7 +512,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         value: "0.00%",
-        label: "fast-model failure rate during a simulated total Ollama outage — 1 stray timeout in 31,488 requests",
+        label: "fast-model failure rate with local Ollama made unreachable — traffic failed over to mock providers; 1 stray timeout in 31,488 requests",
       },
       {
         value: "~20% / ~9.9%",
@@ -401,15 +520,16 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     stack: [
+      "Python",
       "FastAPI",
       "PostgreSQL",
-      "pgvector",
       "Redis",
+      "Docker Compose",
       "Prometheus",
       "Grafana",
+      "OpenTelemetry",
       "Jaeger",
       "Ollama",
-      "Docker Compose",
     ],
     figures: [
       {
@@ -462,15 +582,19 @@ export const caseStudies: CaseStudy[] = [
     slug: "medical-cv",
     caseNumber: "002",
     category: "Applied Research",
-    year: "2026",
-    title: "Endoscopic Stone Detection",
+    year: "2025 – present",
+    title: "Real-Time Kidney-Stone Detection",
     problem:
-      "Endoscopic procedures produce a continuous camera feed with no automated way to flag stone material in real time — detection still depends entirely on the surgeon's eye.",
+      "Kidney-stone material has to be spotted and localized in continuous microscopic-camera video as it streams — a real-time detection problem, not an offline image-classification one.",
     description:
-      "Ongoing computer vision research at NYU's FAMS Lab, contributing to a real-time detection pipeline over a continuous endoscopic camera feed inside a simulated renal environment — water and calcium-based model kidney stones standing in for real tissue and stone material during development, as part of the lab's Vertically Integrated Project.",
-    stack: ["PyTorch", "OpenCV", "Computer Vision"],
+      "Ongoing academic computer vision research at NYU Tandon's Flexible AI-Enabled Mechatronic Systems (FAMS) Lab. The current work develops a real-time pipeline that detects and localizes kidney stones in microscopic-camera video: preparing and preprocessing image/video data, developing and evaluating detection models, and running inference on a live stream. Earlier work in the lab covered endoscopic image analysis with YOLOv5 object detection, U-Net segmentation, and visualization in 3D Slicer. Involvement began through NYU's Vertically Integrated Projects program in Fall 2025; Volunteer Research Assistant since September 2026.",
+    stack: ["PyTorch", "OpenCV", "YOLOv5", "U-Net", "3D Slicer"],
     figures: [
-      { id: "FIG. 08", caption: "Experimental pipeline", kind: "diagram" },
+      {
+        id: "FIG. 08",
+        caption: "Conceptual computer vision pipeline — illustrative only; not the lab's experimental setup, hardware, or data.",
+        kind: "diagram",
+      },
     ],
     links: [],
   },
@@ -481,15 +605,24 @@ export const caseStudies: CaseStudy[] = [
     year: "2026",
     title: "Faculty Operations Platform",
     problem:
-      "500+ NYU faculty ran records management, workflow routing, and approvals through manual, form-based processes with no shared system of record.",
+      "NYU's Office of Faculty Affairs ran records, workflow routing, and approvals for 500+ faculty through manual, form-based processes.",
     description:
-      "A cloud-integrated Django platform replacing manual faculty-affairs paperwork with structured workflows and approval-chain tracking — compatible with NYU Box, AWS S3, and Azure Blob Storage. Twelve Django apps split by domain, covering the core platform, workflow engine, approvals, notifications, document storage, audit trail, a planned FAQ chatbot, workload tracking, data export, tenure and promotion, faculty records, and access management.",
+      "A team-built Django REST Framework and PostgreSQL platform that moves faculty-affairs paperwork into structured workflows with approval tracking, scheduled automation, and document storage across AWS S3 and Azure Blob Storage. I worked on it as a Software Engineer from January to August 2026 alongside other engineers — this page covers my contributions, not the whole platform.",
+    // Only individually attributable figures. Platform-level totals (app and
+    // test counts) belong to the whole team and are deliberately not shown.
     metrics: [
-      { value: "12", label: "Django apps, split by domain — see module map" },
-      { value: "306", label: "automated tests" },
-      { value: "29", label: "test files" },
+      { value: "20", label: "test cases validating the Excel importer I built" },
+      { value: "3", label: "pre-release defects surfaced by integration tests I wrote" },
+      { value: "~60% (est.)", label: "estimated reduction in manual record lookup time from AI document classification" },
     ],
-    stack: ["Django", "PostgreSQL", "AWS S3", "Azure Blob Storage", "Azure Logic Apps"],
+    contributions: [
+      "Django REST Framework APIs and PostgreSQL-backed workflows supporting faculty operations.",
+      "Celery Beat scheduling for administrative workflows, including approval and escalation logic.",
+      "An Excel data importer, plus end-to-end integration tests for the workflow paths.",
+      "AI-powered document classification across AWS S3 and Azure Blob Storage.",
+      "A LangChain/FAISS RAG chatbot for natural-language search of faculty policy information.",
+    ],
+    stack: ["Django REST Framework", "PostgreSQL", "Celery Beat", "LangChain", "FAISS", "AWS S3", "Azure Blob Storage"],
     figures: [
       {
         id: "FIG. 09A",
@@ -500,7 +633,7 @@ export const caseStudies: CaseStudy[] = [
       {
         id: "FIG. 09B",
         caption:
-          "Functional index — 12 Django apps grouped by function for presentation; not a dependency graph.",
+          "Functional index of the platform's main Django apps, grouped by function for presentation — a team-built codebase; not a dependency graph or a map of individual ownership.",
         kind: "diagram",
       },
     ],
@@ -510,12 +643,12 @@ export const caseStudies: CaseStudy[] = [
     slug: "airspace",
     caseNumber: "004",
     category: "Data Systems",
-    year: "2026",
+    year: "May 2025",
     title: "Airspace Congestion Monitoring",
     problem:
       "Airspace congestion has to be understood while it's happening, not after the fact — which means ingesting live flight telemetry and scoring risk in-stream, not in a nightly batch job.",
     description:
-      "A streaming pipeline that ingests flight telemetry from the OpenSky API (plus historical replay) into three Kafka topics — flight-stream, flight-metrics, flight-aggregates — processes it in Spark Structured Streaming for risk scoring, anomaly detection, and spatial grid aggregation over 30-second tumbling / 10-second sliding windows, and fans results out to InfluxDB for real-time queries, MongoDB for historical lookups, and HDFS for batch archival, visualized in a live Streamlit dashboard.",
+      "A streaming pipeline that ingests flight telemetry from the OpenSky API (plus historical replay) into three Kafka topics — flight-stream, flight-metrics, flight-aggregates — processes it in Spark Structured Streaming for risk scoring, anomaly detection, and spatial grid aggregation over 30-second windows sliding every 10 seconds, and fans results out to InfluxDB for real-time queries, MongoDB for historical lookups, and HDFS for batch archival, visualized in a live Streamlit dashboard.",
     metrics: [
       {
         value: "475,000+ records",
@@ -524,7 +657,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         value: "30s / 10s",
-        label: "tumbling window / sliding interval — Spark Structured Streaming risk scoring and anomaly detection",
+        label: "window length / slide interval — Spark Structured Streaming risk scoring and anomaly detection",
       },
     ],
     stack: ["Apache Spark", "Kafka", "InfluxDB", "MongoDB", "HDFS", "Streamlit", "Python"],
@@ -541,10 +674,12 @@ export const hero = {
   // One combined metadata line — previously split across a separate
   // metaTop block and a metaSecondary block below the headline, with
   // "New York" repeated even though Brooklyn already establishes it.
-  meta: ["N / 2026", "Brooklyn, NY", "MS Computer Science · NYU Tandon"],
-  statement: ["I build AI", "systems that", "operate on", "real-world data."],
+  meta: ["N / 2026", "Brooklyn, NY", "MS Computer Science · NYU Tandon, 2026"],
+  // Each line renders whitespace-nowrap at up to 9vw — keep every line at
+  // 16 characters or fewer so it still fits a 390px-wide phone.
+  statement: ["I build software", "and AI systems", "that operate on", "real-world data."],
   supporting:
-    "Software engineer working across AI infrastructure, computer vision, and data-intensive systems.",
+    "Software engineer working across applied AI and machine learning, LLM systems, computer vision, and cloud.",
   globeCities: [
     { label: "Brooklyn, NY", lat: 40.6782, lng: -73.9442 },
     { label: "London", lat: 51.5074, lng: -0.1278 },
@@ -552,13 +687,13 @@ export const hero = {
   ],
   now: {
     label: "NOW",
-    title: "Computer Vision Research",
-    detail: "NYU FAMS Lab",
+    title: "Computer vision research",
+    detail: "FAMS Lab, NYU Tandon",
   },
   recently: {
     label: "RECENTLY",
     title: "Built Prism",
-    detail: "LLM Gateway & Control Plane",
+    detail: "multi-provider LLM gateway",
   },
 };
 

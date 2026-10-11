@@ -6,9 +6,9 @@ import Footer from "@/components/Footer";
 import MedicalVisionDetail from "@/components/MedicalVisionDetail";
 
 export const metadata: Metadata = {
-  title: "Endoscopic Stone Detection — Naman Tyagi",
+  title: "Real-Time Kidney-Stone Detection — Naman Tyagi",
   description:
-    "Ongoing computer vision research at NYU's FAMS Lab: a real-time detection pipeline over a continuous endoscopic camera feed in a simulated renal environment.",
+    "Ongoing academic computer vision research at NYU Tandon's FAMS Lab: a real-time pipeline for detecting and localizing kidney stones in microscopic-camera video.",
 };
 
 export default function MedicalCvPage() {
@@ -18,11 +18,11 @@ export default function MedicalCvPage() {
       <main className="px-6 pt-32 pb-20">
         <div className="max-w-6xl mx-auto">
           <Link
-            href="/#work"
+            href="/#experience"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors mb-12"
           >
             <ArrowLeft size={14} />
-            Selected Work
+            Experience
           </Link>
           <MedicalVisionDetail />
         </div>

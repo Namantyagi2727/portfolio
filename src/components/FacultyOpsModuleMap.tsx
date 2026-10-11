@@ -2,10 +2,10 @@ import ArchitectureDiagram, { type ArchNode } from "./ArchitectureDiagram";
 
 // Stacked vertically (one column) rather than three side-by-side groups —
 // the prior horizontal layout required scrolling past 390px to see the
-// SYSTEM SERVICES group at all, including the chatbot "planned" disclosure.
-// A single narrow column fits every viewport without needing overflow-x
-// or shrunk labels, per the design brief's "prefer vertically rearranged
-// diagrams" guidance.
+// SYSTEM SERVICES group at all. A single narrow column fits every viewport
+// without needing overflow-x or shrunk labels, per the design brief's
+// "prefer vertically rearranged diagrams" guidance. This is the team
+// platform's app layout, not a count or a map of Naman's own ownership.
 const NODE_W = 220;
 const NODE_H = 30;
 const ROW_GAP = 38;
@@ -25,15 +25,7 @@ const NODES: ArchNode[] = [
   { id: "documents", x: 150, y: 398 + ROW_GAP, w: NODE_W, h: NODE_H, label: "documents" },
   { id: "audit", x: 150, y: 398 + ROW_GAP * 2, w: NODE_W, h: NODE_H, label: "audit" },
   { id: "export", x: 150, y: 398 + ROW_GAP * 3, w: NODE_W, h: NODE_H, label: "export" },
-  {
-    id: "chatbot",
-    x: 150,
-    y: 398 + ROW_GAP * 4,
-    w: NODE_W,
-    h: NODE_H,
-    label: "chatbot (planned)",
-    dashed: true,
-  },
+  { id: "chatbot", x: 150, y: 398 + ROW_GAP * 4, w: NODE_W, h: NODE_H, label: "chatbot" },
 ];
 
 const GROUPS = [
@@ -48,7 +40,7 @@ export default function FacultyOpsModuleMap() {
       <ArchitectureDiagram
         viewBox="0 0 300 620"
         minWidth={280}
-        ariaLabel="Faculty Operations Platform functional index — 12 Django apps grouped by function for presentation, not a dependency graph. Chatbot is a planned, not yet implemented, feature."
+        ariaLabel="Faculty Operations Platform functional index — the team platform's main Django apps grouped by function for presentation, not a dependency graph or a map of individual ownership."
         nodes={NODES}
         groups={GROUPS}
       />

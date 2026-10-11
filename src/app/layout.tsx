@@ -22,36 +22,42 @@ const caveat = Caveat({
   subsets: ["latin"],
 });
 
+// The apex domain 307-redirects to www, so www is the canonical origin for
+// absolute OG/Twitter URLs.
+const SITE_URL = "https://www.namantyagi.dev";
+const SITE_TITLE = "Naman Tyagi — Software Engineer | Applied AI & ML";
+const SITE_DESCRIPTION =
+  "Software engineer and NYU Tandon MS Computer Science graduate working across applied AI, LLM systems, computer vision, and cloud. Projects include Prism, a multi-provider LLM gateway; RAGBase, offline document Q&A; and ConTicx, a ticketing and payments app.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://namantyagi.dev"),
-  title: "Naman Tyagi | AI/ML Engineer",
-  description:
-    "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   keywords: [
     "Naman Tyagi",
-    "AI Engineer",
-    "ML Engineer",
-    "Full Stack Developer",
-    "Cloud Architect",
-    "NYU",
+    "Software Engineer",
+    "Applied AI",
+    "Machine Learning",
+    "LLM Systems",
+    "Computer Vision",
+    "Cloud",
+    "Full-Stack",
     "RAG",
-    "LLM",
+    "NYU Tandon",
     "Portfolio",
   ],
-  authors: [{ name: "Naman Tyagi" }],
+  authors: [{ name: "Naman Tyagi", url: SITE_URL }],
   openGraph: {
-    title: "Naman Tyagi | AI/ML Engineer",
-    description:
-      "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     type: "website",
-    url: "https://namantyagi.dev",
-    siteName: "Naman Tyagi Portfolio",
+    url: SITE_URL,
+    siteName: "Naman Tyagi",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Naman Tyagi | AI/ML Engineer",
-    description:
-      "AI/ML engineer with an MS in Computer Science from NYU Tandon. IEEE published researcher. 6+ internships across AI, cloud, and enterprise software.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 

@@ -6,7 +6,9 @@ import ProjectMetric from "./ProjectMetric";
 import FacultyOpsWorkflowIllustration from "./FacultyOpsWorkflowIllustration";
 
 const facultyOps = caseStudies.find((c) => c.slug === "faculty-ops")!;
-const previewMetrics = facultyOps.metrics?.filter((m) => m.value === "12" || m.value === "306") ?? [];
+// Not currently rendered on the homepage (see SelectedWork) — kept so the
+// card can return. Shows the first two individually attributable figures.
+const previewMetrics = facultyOps.metrics?.slice(0, 2) ?? [];
 
 export default function FacultyOpsPreview() {
   return (

@@ -8,9 +8,10 @@ const medicalCv = caseStudies.find((c) => c.slug === "medical-cv")!;
 const schematicFigure = medicalCv.figures?.find((f) => f.id === "FIG. 08");
 
 const CURRENT_FOCUS = [
-  "Continuous video ingestion",
-  "Real-time stone identification",
-  "CV pipeline development",
+  "Image/video preprocessing for microscopic-camera footage",
+  "Kidney-stone detection and localization",
+  "Model development and evaluation",
+  "Live-stream inference",
 ];
 
 // Short by design, not by omission: this is ongoing research with limited
@@ -59,10 +60,10 @@ export default function MedicalVisionDetail() {
           Current status
         </p>
         <p className="text-sm text-foreground leading-relaxed">
-          Ongoing research at NYU&apos;s FAMS Lab. No accuracy, FPS, latency, dataset-size, or model
-          benchmarks exist yet — none are claimed here. This page will grow as real results become
-          available; until then, it documents the verified experimental setup and current focus, not
-          a finished capability.
+          Ongoing academic research at NYU&apos;s FAMS Lab — not a deployed system. No accuracy, FPS,
+          latency, dataset-size, or model benchmarks are claimed here. This page will grow as real
+          results become available; until then, it documents the current focus — the pipeline figure
+          above is conceptual, not the lab&apos;s setup — not a finished capability.
         </p>
       </div>
 

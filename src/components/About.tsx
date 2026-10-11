@@ -51,10 +51,24 @@ export default function About() {
         </div>
 
         <div className="border-t border-border pt-8 mb-8">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Certifications</p>
-          <p className="text-sm text-muted leading-relaxed">
-            {certifications.map((c) => c.name).join(" · ")}
-          </p>
+          {/* Certificate programs and individual courses are listed apart; neither
+              is presented as a professional cloud certification. */}
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Certificates &amp; training</p>
+          <div className="flex flex-col gap-2 max-w-3xl">
+            {[
+              { label: "Certificate", kind: "certificate" as const },
+              { label: "Courses", kind: "course" as const },
+            ].map(({ label, kind }) => {
+              const items = certifications.filter((c) => c.kind === kind);
+              if (items.length === 0) return null;
+              return (
+                <p key={kind} className="text-sm text-muted leading-relaxed">
+                  <span className="text-foreground">{label}:</span>{" "}
+                  {items.map((c) => (c.name.includes(c.issuer) ? c.name : `${c.name} (${c.issuer})`)).join(" · ")}
+                </p>
+              );
+            })}
+          </div>
         </div>
 
         <div className="border-t border-border pt-8">

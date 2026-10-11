@@ -35,9 +35,23 @@ export default function FacultyOpsDetail() {
         </div>
       )}
 
+      {facultyOps.contributions && facultyOps.contributions.length > 0 && (
+        <div className="mb-12">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">My contributions</p>
+          <ul className="flex flex-col gap-1.5 max-w-2xl">
+            {facultyOps.contributions.map((item) => (
+              <li key={item} className="text-sm text-muted flex items-start gap-2">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-border-strong flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {facultyOps.metrics && facultyOps.metrics.length > 0 && (
         <div className="mb-12">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Verified figures</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">From my work</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
             {facultyOps.metrics.map((m) => (
               <ProjectMetric key={m.label} value={m.value} label={m.label} />

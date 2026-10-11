@@ -35,4 +35,28 @@ export const COVERS = {
     onMuted: "#9FB2C0",
     line: "#4F6A80",
   },
+  // Featured-project covers (PipelineCover). Same light/dark checkerboard
+  // as the gallery: Prism dark | RAGBase light, ConTicx light | Immune dark.
+  // `accent` marks the pipeline's final stage; every text pair is ≥ 4.5:1.
+  ragbase: {
+    surface: "#F0E4DA", // pale clay
+    on: "#3B2A20",
+    onMuted: "#7A5643",
+    line: "#D4B8A4",
+    accent: "#874B2E",
+  },
+  conticx: {
+    surface: "#E6E4F0", // pale lavender-grey
+    on: "#2A2740",
+    onMuted: "#5E5880",
+    line: "#BEB9D8",
+    accent: "#544A94",
+  },
+  immune: {
+    surface: "#1E3A33", // deep pine
+    on: "#EEF5F2",
+    onMuted: "#A3C4B8",
+    line: "#3E6157",
+    accent: "#8FD0B8",
+  },
 } as const;

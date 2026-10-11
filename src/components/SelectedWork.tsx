@@ -1,10 +1,14 @@
+import { featuredProjects } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import PrismPreview from "./PrismPreview";
-import MedicalVisionPreview from "./MedicalVisionPreview";
-import FacultyOpsPreview from "./FacultyOpsPreview";
-import AirspacePreview from "./AirspacePreview";
+import ProjectPreview from "./ProjectPreview";
 import OtherProjects from "./OtherProjects";
 
+// Featured gallery = the four projects that together show the breadth of the
+// work: LLM infrastructure (Prism), applied AI (RAGBase), full-stack systems
+// (ConTicx), and data/testing (Immune Cell). The research and NYU case-study
+// pages (/work/medical-cv, /work/faculty-ops) are linked from Experience, and
+// /work/airspace from the Other Projects index — none of them are orphaned.
 export default function SelectedWork() {
   return (
     <section id="work" className="px-6">
@@ -14,9 +18,9 @@ export default function SelectedWork() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           <PrismPreview />
-          <MedicalVisionPreview />
-          <FacultyOpsPreview />
-          <AirspacePreview />
+          {featuredProjects.map((project) => (
+            <ProjectPreview key={project.slug} project={project} />
+          ))}
         </div>
         <OtherProjects />
       </div>

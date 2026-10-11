@@ -8,7 +8,7 @@ import PrismDetail from "@/components/PrismDetail";
 export const metadata: Metadata = {
   title: "Prism — Naman Tyagi",
   description:
-    "Prism is a self-hosted LLM gateway and control plane — cost visibility, automatic failover, PII/prompt-injection guardrails, exact-match caching, and full observability.",
+    "Prism is a self-hosted, multi-provider LLM gateway — request caching, cost tracking, provider failover, PII/prompt-injection guardrails, and observability, load-tested locally.",
 };
 
 export default function PrismPage() {

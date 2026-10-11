@@ -8,7 +8,7 @@ import FacultyOpsDetail from "@/components/FacultyOpsDetail";
 export const metadata: Metadata = {
   title: "Faculty Operations Platform — Naman Tyagi",
   description:
-    "A cloud-integrated Django platform replacing manual faculty-affairs paperwork with structured workflows, approval-chain tracking, and automated records management for 500+ NYU faculty.",
+    "My contributions to a team-built Django REST Framework and PostgreSQL platform supporting 500+ NYU faculty: Celery Beat workflow automation, data ingestion and integration testing, AI document classification, and a RAG policy chatbot.",
 };
 
 export default function FacultyOpsPage() {
@@ -18,11 +18,11 @@ export default function FacultyOpsPage() {
       <main className="px-6 pt-32 pb-20">
         <div className="max-w-6xl mx-auto">
           <Link
-            href="/#work"
+            href="/#experience"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition-colors mb-12"
           >
             <ArrowLeft size={14} />
-            Selected Work
+            Experience
           </Link>
           <FacultyOpsDetail />
         </div>

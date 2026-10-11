@@ -67,8 +67,13 @@ export default function PrismDetail() {
 
       {prism.metrics && prism.metrics.length > 0 && (
         <div id="benchmarks" className="mb-12 scroll-mt-24">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
-            Verified benchmark results
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-2">
+            Local benchmark results
+          </p>
+          <p className="text-sm text-muted leading-relaxed mb-5 max-w-2xl">
+            Measured with Locust on a single machine (one uvicorn process) using local Ollama and mock
+            OpenAI/Anthropic providers. These describe this local setup, not production traffic or
+            throughput on other hardware.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
             {prism.metrics.map((m) => (

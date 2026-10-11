@@ -1,12 +1,14 @@
-import { Briefcase } from "lucide-react";
+import Link from "next/link";
+import { Briefcase, ArrowUpRight } from "lucide-react";
 import { experiences } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 
 // Recent/relevant roles get full detail; older roles compress to a dense
 // row — same underlying data, no invented distinction, just less visual
 // weight for history that's still accessible, not hidden. Per the brief:
-// this section stays quieter than Selected Work either way.
-const FEATURED_COUNT = 3;
+// this section stays quieter than Selected Work either way. Five covers
+// research, NYU, Mast-Jägermeister, Essex, and Ciena; the 2023 roles compress.
+const FEATURED_COUNT = 5;
 
 export default function Experience() {
   const featured = experiences.slice(0, FEATURED_COUNT);
@@ -53,6 +55,16 @@ export default function Experience() {
                   </span>
                 ))}
               </div>
+
+              {exp.caseStudy && (
+                <Link
+                  href={exp.caseStudy.href}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors mt-4"
+                >
+                  {exp.caseStudy.label}
+                  <ArrowUpRight size={14} />
+                </Link>
+              )}
             </div>
           ))}
         </div>
