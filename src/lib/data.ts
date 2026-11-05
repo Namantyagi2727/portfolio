@@ -6,7 +6,6 @@ export const personalInfo = {
   headline: "Software Engineer | Applied AI & Machine Learning | LLM Systems, Computer Vision & Cloud",
   roles: ["Software Engineer", "Applied AI / ML", "LLM Systems", "Computer Vision", "Cloud"],
   email: "namantyagi2727@gmail.com",
-  phone: "+1 (929) 605-9520",
   location: "Brooklyn, NY",
   github: "https://github.com/Namantyagi2727",
   linkedin: "https://www.linkedin.com/in/naman-tyagi-nt2727",
