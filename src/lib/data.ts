@@ -697,6 +697,135 @@ export const hero = {
   },
 };
 
+export type JourneyStopId = "noida" | "london" | "singapore" | "newyork";
+
+export type JourneyEntry = {
+  kind: string;
+  title: string;
+  org: string;
+  period: string;
+};
+
+export type JourneyStop = {
+  id: JourneyStopId;
+  code: string;
+  city: string;
+  region: string;
+  lat: number;
+  lng: number;
+  when: string;
+  summary: string;
+  passClass: string;
+  from: string | null;
+  remote: boolean;
+  entries: JourneyEntry[];
+};
+
+const workEntry = (company: string, kind = "Work"): JourneyEntry => {
+  const job = experiences.find((e) => e.company === company)!;
+  return { kind, title: job.title, org: job.company, period: job.period };
+};
+
+const degreeEntry = (school: string): JourneyEntry => {
+  const degree = education.find((e) => e.school === school)!;
+  return { kind: "Education", title: degree.degree, org: degree.school, period: degree.period };
+};
+
+export const journeyStops: JourneyStop[] = [
+  {
+    id: "noida",
+    code: "DEL",
+    city: "Noida",
+    region: "India",
+    lat: 28.535,
+    lng: 77.391,
+    when: "2020 – 2024",
+    summary: "B.Tech at Amity, then Ciena in Gurugram",
+    passClass: "Education · Work",
+    from: null,
+    remote: false,
+    entries: [
+      degreeEntry("Amity University Noida"),
+      { ...workEntry("Ciena"), org: "Ciena, Gurugram" },
+    ],
+  },
+  {
+    id: "london",
+    code: "LON",
+    city: "London",
+    region: "United Kingdom",
+    lat: 51.507,
+    lng: -0.128,
+    when: "During B.Tech",
+    summary: "Exchange at Birkbeck, research with Essex",
+    passClass: "Education · Research",
+    from: "DEL",
+    remote: false,
+    entries: [
+      { kind: "Education", title: "Exchange program", org: "Birkbeck University, London", period: "During B.Tech" },
+      workEntry("University of Essex", "Research · Remote"),
+    ],
+  },
+  {
+    id: "singapore",
+    code: "SIN",
+    city: "Singapore",
+    region: "Remote",
+    lat: 1.352,
+    lng: 103.82,
+    when: "2023",
+    summary: "Frontend Developer at Ulavi, remote",
+    passClass: "Work",
+    from: "DEL",
+    remote: true,
+    entries: [workEntry("Ulavi Technologies PTE. Ltd", "Work · Remote")],
+  },
+  {
+    id: "newyork",
+    code: "NYC",
+    city: "New York",
+    region: "United States",
+    lat: 40.678,
+    lng: -73.944,
+    when: "2024 – now",
+    summary: "MS at NYU Tandon, computer vision research at FAMS Lab",
+    passClass: "Education · Research · Work",
+    from: "DEL",
+    remote: false,
+    entries: [
+      workEntry("FAMS Lab, NYU Tandon", "Now · Research"),
+      workEntry("NYU Office of Faculty Affairs"),
+      degreeEntry("NYU Tandon School of Engineering"),
+      workEntry("Mast-Jägermeister US, Inc."),
+      { kind: "Education", title: "Exchange program", org: "Adelphi University, NY", period: "During B.Tech" },
+    ],
+  },
+];
+
+// Flights run in the order they happened: out on exchange through London to
+// New York, back to Delhi, then direct to New York for the master's. `lift`
+// keeps the two Delhi–New York arcs from drawing on top of each other.
+export const journeyRoutes: { from: JourneyStopId; to: JourneyStopId; remote: boolean; lift?: number }[] = [
+  { from: "noida", to: "london", remote: false },
+  { from: "london", to: "newyork", remote: false },
+  { from: "newyork", to: "noida", remote: false, lift: 0.05 },
+  { from: "noida", to: "newyork", remote: false, lift: 0.13 },
+  { from: "noida", to: "singapore", remote: true },
+];
+
+// Placeholder route: replace with places Naman has actually been before
+// publishing, since a car stopping in a city reads as having visited it.
+export const roadTrip: { city: string; lat: number; lng: number }[] = [
+  { city: "New York", lat: 40.71, lng: -74.01 },
+  { city: "Washington DC", lat: 38.9, lng: -77.04 },
+  { city: "Atlanta", lat: 33.75, lng: -84.39 },
+  { city: "Austin", lat: 30.27, lng: -97.74 },
+  { city: "Los Angeles", lat: 34.05, lng: -118.24 },
+  { city: "San Francisco", lat: 37.77, lng: -122.42 },
+  { city: "Denver", lat: 39.74, lng: -104.99 },
+  { city: "Chicago", lat: 41.88, lng: -87.63 },
+];
+
 export type DeskState = {
   id: "at-work" | "tea" | "race-weekend" | "gaming" | "training";
   label: string;
