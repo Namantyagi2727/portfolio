@@ -65,8 +65,7 @@ export default function DeskScene() {
                   src={s.image}
                   alt={s.alt}
                   fill
-                  priority={s.id === "at-work"}
-                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 60vw, 80vw"
+                  sizes="(min-width: 640px) 448px, 90vw"
                   className={`object-cover ${s.mobileImage ? "hidden sm:block" : ""}`}
                 />
                 {s.mobileImage && (
@@ -74,8 +73,7 @@ export default function DeskScene() {
                     src={s.mobileImage}
                     alt={s.alt}
                     fill
-                    priority={s.id === "at-work"}
-                    sizes="80vw"
+                    sizes="90vw"
                     className="object-cover sm:hidden"
                   />
                 )}
