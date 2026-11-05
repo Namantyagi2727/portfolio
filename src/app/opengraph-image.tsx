@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Naman Tyagi — AI/ML Engineer";
+export const alt = "Naman Tyagi — Software Engineer, Applied AI & ML";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -63,11 +63,11 @@ export default async function Image() {
             marginBottom: "48px",
           }}
         >
-          AI/ML Engineer — AI infrastructure &amp; computer vision
+          Software Engineer — Applied AI, LLM systems, computer vision &amp; cloud
         </div>
 
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          {["MS CS · NYU Tandon", "IEEE Published 2024", "Cambridge Scholars 2025", "6+ Internships"].map(
+          {["MS CS · NYU Tandon, 2026", "LLM Systems", "Computer Vision", "Cloud"].map(
             (badge) => (
               <div
                 key={badge}

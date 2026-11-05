@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import Link from "next/link";
 import { personalInfo, hero } from "@/lib/data";
 import DeskScene from "./DeskScene";
 
@@ -30,20 +30,25 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="px-6 pt-24 pb-12 lg:pt-32 lg:pb-20">
+    <section id="hero" className="px-6 pt-20 pb-10 lg:pt-28 lg:pb-16">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-5xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 lg:items-center"
+        className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_440px] lg:grid-rows-[auto_auto] gap-x-16 gap-y-8 lg:gap-y-10"
       >
-        <div>
+        {/* Intro + primary actions — left column at lg:, first in DOM order
+            everywhere (mobile composition item 1+2: name/intro, then actions). */}
+        <div className="lg:col-start-1 lg:row-start-1">
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-muted mb-6 lg:mb-10"
+            className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-widest text-muted mb-4 lg:mb-6"
           >
-            {hero.metaTop.map((line) => (
-              <span key={line}>{line}</span>
+            {hero.meta.map((line, i) => (
+              <span key={line}>
+                {line}
+                {i < hero.meta.length - 1 && <span className="mx-2 text-border-strong">·</span>}
+              </span>
             ))}
           </motion.div>
 
@@ -56,46 +61,46 @@ export default function Hero() {
 
           <motion.h2
             variants={itemVariants}
-            className="font-medium tracking-tight text-foreground mb-6 lg:mb-8 leading-[1.05] text-balance"
-            style={{ fontSize: "clamp(32px, 5.2vw, 68px)" }}
+            className="font-medium tracking-tight text-foreground mb-6 lg:mb-8 leading-[1.05]"
+            style={{ fontSize: "clamp(32px, 9vw, 64px)" }}
           >
-            {hero.statement}
+            {hero.statement.map((line) => (
+              <span key={line} className="block whitespace-nowrap">
+                {line}
+              </span>
+            ))}
           </motion.h2>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-base lg:text-lg text-muted max-w-xl leading-relaxed mb-6 lg:mb-8"
-          >
+          <motion.p variants={itemVariants} className="text-lg text-muted max-w-xl leading-relaxed mb-6 lg:mb-8">
             {hero.supporting}
           </motion.p>
 
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-muted mb-8 lg:mb-12"
-          >
-            {hero.metaSecondary.map((line, i) => (
-              <span key={line}>
-                {line}
-                {i < hero.metaSecondary.length - 1 && <span className="mx-2 text-border-strong">·</span>}
-              </span>
-            ))}
+          {/* One clear primary action, one quieter secondary, everything else
+              (social/contact) stays plain text — per the design spec's
+              link/button system. */}
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-6 lg:mb-8">
+            <Link
+              href="/#work"
+              className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-background hover:bg-accent-tint transition-colors"
+            >
+              Explore work
+            </Link>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-border-strong px-6 py-2.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent transition-colors"
+            >
+              Résumé
+            </a>
           </motion.div>
 
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap items-center gap-x-8 gap-y-3 mb-10 lg:mb-16"
-          >
-            <a
-              href="#work"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition-colors"
-            >
-              Selected work <ArrowDown size={13} />
-            </a>
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-muted hover:text-accent transition-colors"
+              className="text-sm text-muted hover:text-accent transition-colors"
             >
               GitHub ↗
             </a>
@@ -103,50 +108,47 @@ export default function Hero() {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-muted hover:text-accent transition-colors"
+              className="text-sm text-muted hover:text-accent transition-colors"
             >
               LinkedIn ↗
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-sm font-medium text-muted hover:text-accent transition-colors"
+              className="text-sm text-muted hover:text-accent transition-colors"
             >
               Email ↗
             </a>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-muted hover:text-accent transition-colors"
-            >
-              Résumé ↗
-            </a>
-          </motion.div>
-
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-x-16 gap-y-4 lg:gap-y-6 border-t border-border pt-8 max-w-lg"
-          >
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mb-1.5">
-                {hero.now.label}
-              </p>
-              <p className="text-sm text-foreground font-medium">{hero.now.title}</p>
-              <p className="text-sm text-muted">{hero.now.detail}</p>
-            </div>
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mb-1.5">
-                {hero.recently.label}
-              </p>
-              <p className="text-sm text-foreground font-medium">{hero.recently.title}</p>
-              <p className="text-sm text-muted">{hero.recently.detail}</p>
-            </div>
           </motion.div>
         </div>
 
-        <div className="w-full sm:w-[420px] lg:w-[480px] mx-auto lg:mx-0">
+        {/* Spatial illustration — right column at lg:, third in mobile DOM
+            order (after actions, before the now/recently strip). */}
+        <div className="w-[260px] sm:w-[320px] lg:w-full mx-auto lg:mx-0 lg:col-start-2 lg:row-start-1">
           <DeskScene />
         </div>
+
+        {/* Compact current-work strip — one line per item (label prefix
+            inline, not a stacked 3-line block), spans full width beneath
+            both columns at lg:, last in mobile DOM order. */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row flex-wrap gap-x-10 gap-y-2 border-t border-border pt-5 lg:pt-8 lg:col-span-2 lg:row-start-2"
+        >
+          <p className="text-sm text-foreground">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mr-2">
+              {hero.now.label}
+            </span>
+            {hero.now.title}
+            <span className="text-muted"> · {hero.now.detail}</span>
+          </p>
+          <p className="text-sm text-foreground">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mr-2">
+              {hero.recently.label}
+            </span>
+            {hero.recently.title}
+            <span className="text-muted"> · {hero.recently.detail}</span>
+          </p>
+        </motion.div>
       </motion.div>
     </section>
   );

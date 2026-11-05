@@ -66,7 +66,7 @@ export default function DeskScene() {
                   alt={s.alt}
                   fill
                   priority={s.id === "at-work"}
-                  sizes="(min-width: 1024px) 480px, (min-width: 640px) 70vw, 92vw"
+                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 60vw, 80vw"
                   className={`object-cover ${s.mobileImage ? "hidden sm:block" : ""}`}
                 />
                 {s.mobileImage && (
@@ -75,7 +75,7 @@ export default function DeskScene() {
                     alt={s.alt}
                     fill
                     priority={s.id === "at-work"}
-                    sizes="92vw"
+                    sizes="80vw"
                     className="object-cover sm:hidden"
                   />
                 )}
@@ -84,7 +84,11 @@ export default function DeskScene() {
           })}
       </div>
 
-      <div role="tablist" aria-label="Desk scene mode" className="flex flex-wrap justify-center gap-2 mt-4">
+      <div
+        role="tablist"
+        aria-label="Desk scene mode"
+        className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mt-3"
+      >
         {deskScene.map((s, i) => {
           const isActive = s.id === activeId;
           return (
@@ -101,7 +105,7 @@ export default function DeskScene() {
               tabIndex={isActive ? 0 : -1}
               onClick={() => activate(s.id)}
               onKeyDown={(e) => onTabKeyDown(e, i)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide border transition-colors ${
+              className={`px-2.5 py-1 text-[11px] sm:px-3 sm:py-1.5 sm:text-xs rounded-full font-medium tracking-wide border transition-colors ${
                 isActive
                   ? "bg-accent border-accent text-background"
                   : "border-border text-muted hover:text-foreground hover:border-border-strong"
@@ -118,7 +122,7 @@ export default function DeskScene() {
         role="status"
         aria-live="polite"
         aria-labelledby={`desk-tab-${active.id}`}
-        className="mt-2 text-sm text-muted text-center max-w-xs mx-auto min-h-[2rem]"
+        className="mt-2 text-xs sm:text-sm text-muted text-center max-w-[15rem] sm:max-w-xs mx-auto min-h-[1.75rem]"
       >
         {active.caption}
       </p>

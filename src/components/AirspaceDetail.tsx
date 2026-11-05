@@ -1,27 +1,35 @@
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/lib/data";
+import { COVERS } from "@/lib/illustration-tokens";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
+import ExpandableDiagram from "./ExpandableDiagram";
+import AirspaceCoverMotif from "./AirspaceCoverMotif";
 import AirspaceStreamDiagram from "./AirspaceStreamDiagram";
+import AirspaceStreamSummary from "./AirspaceStreamSummary";
 
 const airspace = caseStudies.find((c) => c.slug === "airspace")!;
 const streamFigure = airspace.figures?.find((f) => f.kind === "diagram");
 
-export default function AirspaceCaseStudy() {
+export default function AirspaceDetail() {
   return (
-    <article className="py-12 border-t border-border">
+    <article className="py-12">
       <SectionLabel
         label={`Case Study / ${airspace.caseNumber}`}
         meta={`${airspace.category} · ${airspace.year}`}
       />
 
-      <h3 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
+      <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-6">
         {airspace.title}
-      </h3>
+      </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{airspace.problem}</p>
       <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{airspace.description}</p>
+
+      <div className="mb-12 rounded-lg overflow-hidden p-6 max-w-xl" style={{ background: COVERS.airspace.surface }}>
+        <AirspaceCoverMotif />
+      </div>
 
       {airspace.metrics && airspace.metrics.length > 0 && (
         <div className="mb-12">
@@ -37,7 +45,7 @@ export default function AirspaceCaseStudy() {
       {streamFigure && (
         <div className="mb-12">
           <Figure figure={streamFigure}>
-            <AirspaceStreamDiagram />
+            <ExpandableDiagram summary={<AirspaceStreamSummary />} full={<AirspaceStreamDiagram />} />
           </Figure>
         </div>
       )}

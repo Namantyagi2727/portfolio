@@ -1,15 +1,26 @@
-import { Briefcase } from "lucide-react";
+import Link from "next/link";
+import { Briefcase, ArrowUpRight } from "lucide-react";
 import { experiences } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 
+// Recent/relevant roles get full detail; older roles compress to a dense
+// row — same underlying data, no invented distinction, just less visual
+// weight for history that's still accessible, not hidden. Per the brief:
+// this section stays quieter than Selected Work either way. Five covers
+// research, NYU, Mast-Jägermeister, Essex, and Ciena; the 2023 roles compress.
+const FEATURED_COUNT = 5;
+
 export default function Experience() {
+  const featured = experiences.slice(0, FEATURED_COUNT);
+  const compact = experiences.slice(FEATURED_COUNT);
+
   return (
-    <section id="experience" className="px-6 py-20">
-      <div className="max-w-5xl mx-auto">
-        <SectionLabel label="Experience" as="h2" />
+    <section id="experience" className="px-6 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto">
+        <SectionLabel label="Experience" as="h2" index="02" />
 
         <div className="mt-10 flex flex-col gap-8">
-          {experiences.map((exp, i) => (
+          {featured.map((exp, i) => (
             <div key={i} className="border-t border-border pt-6">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                 <div>
@@ -44,9 +55,39 @@ export default function Experience() {
                   </span>
                 ))}
               </div>
+
+              {exp.caseStudy && (
+                <Link
+                  href={exp.caseStudy.href}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-foreground transition-colors mt-4"
+                >
+                  {exp.caseStudy.label}
+                  <ArrowUpRight size={14} />
+                </Link>
+              )}
             </div>
           ))}
         </div>
+
+        {compact.length > 0 && (
+          <div className="mt-10 pt-6 border-t border-border">
+            <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Earlier</p>
+            <div className="flex flex-col gap-3">
+              {compact.map((exp, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 py-2"
+                >
+                  <p className="text-sm text-foreground">
+                    <span className="font-medium">{exp.title}</span>
+                    <span className="text-muted"> · {exp.company}</span>
+                  </p>
+                  <p className="text-xs font-mono text-muted flex-shrink-0">{exp.period}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

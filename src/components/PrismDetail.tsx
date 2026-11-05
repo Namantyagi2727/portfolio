@@ -3,11 +3,14 @@ import { caseStudies } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import ProjectMetric from "./ProjectMetric";
 import Figure from "./Figure";
+import ExpandableDiagram from "./ExpandableDiagram";
 import PrismFlowDiagram from "./PrismFlowDiagram";
+import PrismFlowSummary from "./PrismFlowSummary";
 import PrismInfraDiagram from "./PrismInfraDiagram";
+import PrismInfraSummary from "./PrismInfraSummary";
 
 const prism = caseStudies.find((c) => c.slug === "prism")!;
-const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01B");
+const flowFigure = prism.figures?.find((f) => f.id === "FIG. 01");
 const infraFigure = prism.figures?.find((f) => f.id === "FIG. 02");
 const screenshotFigures = prism.figures?.filter((f) => f.kind === "screenshot") ?? [];
 
@@ -24,28 +27,53 @@ export default function PrismDetail() {
       </h1>
 
       <p className="text-lg text-foreground leading-snug mb-4 max-w-2xl">{prism.problem}</p>
-      <p className="text-base text-muted leading-relaxed mb-12 max-w-2xl">{prism.description}</p>
+      <p className="text-base text-muted leading-relaxed mb-8 max-w-2xl">{prism.description}</p>
+
+      {/* On-page contents — this is the longest case-study page on the site. */}
+      <nav aria-label="On this page" className="flex flex-wrap gap-x-5 gap-y-2 mb-12 pb-6 border-b border-border">
+        {[
+          { href: "#request-flow", label: "Request flow" },
+          { href: "#infrastructure", label: "Infrastructure" },
+          { href: "#benchmarks", label: "Benchmarks" },
+          { href: "#what-broke", label: "What broke" },
+          { href: "#screenshots", label: "Screenshots" },
+          { href: "#stack", label: "Stack & links" },
+        ].map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            className="font-mono text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
       {flowFigure && (
-        <div className="mb-12">
+        <div id="request-flow" className="mb-12 scroll-mt-24">
           <Figure figure={flowFigure}>
-            <PrismFlowDiagram />
+            <ExpandableDiagram summary={<PrismFlowSummary />} full={<PrismFlowDiagram />} />
           </Figure>
         </div>
       )}
 
       {infraFigure && (
-        <div className="mb-12">
+        <div id="infrastructure" className="mb-12 scroll-mt-24">
           <Figure figure={infraFigure}>
-            <PrismInfraDiagram />
+            <ExpandableDiagram summary={<PrismInfraSummary />} full={<PrismInfraDiagram />} />
           </Figure>
         </div>
       )}
 
       {prism.metrics && prism.metrics.length > 0 && (
-        <div className="mb-12">
-          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">
-            Verified benchmark results
+        <div id="benchmarks" className="mb-12 scroll-mt-24">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted mb-2">
+            Local benchmark results
+          </p>
+          <p className="text-sm text-muted leading-relaxed mb-5 max-w-2xl">
+            Measured with Locust on a single machine (one uvicorn process) using local Ollama and mock
+            OpenAI/Anthropic providers. These describe this local setup, not production traffic or
+            throughput on other hardware.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6">
             {prism.metrics.map((m) => (
@@ -55,7 +83,7 @@ export default function PrismDetail() {
         </div>
       )}
 
-      <div className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5">
+      <div id="what-broke" className="mb-12 max-w-2xl border-l-2 border-accent-secondary pl-5 scroll-mt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-2">
           What broke
         </p>
@@ -69,14 +97,14 @@ export default function PrismDetail() {
       </div>
 
       {screenshotFigures.length > 0 && (
-        <div className="mb-12 grid sm:grid-cols-2 gap-8">
+        <div id="screenshots" className="mb-12 grid sm:grid-cols-2 gap-8 scroll-mt-24">
           {screenshotFigures.map((fig) => (
             <Figure key={fig.id} figure={fig} />
           ))}
         </div>
       )}
 
-      <div className="mb-8">
+      <div id="stack" className="mb-8 scroll-mt-24">
         <p className="font-mono text-xs uppercase tracking-widest text-muted mb-3">Stack</p>
         <p className="font-mono text-sm text-foreground leading-relaxed">{prism.stack.join(" / ")}</p>
       </div>

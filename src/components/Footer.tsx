@@ -3,8 +3,8 @@ import { formatCoord } from "@/lib/geo";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="border-t border-border px-6 py-20">
-      <div className="max-w-5xl mx-auto">
+    <footer id="contact" className="border-t border-border px-6 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto">
         <p className="font-mono text-xs uppercase tracking-widest text-accent-secondary mb-4">
           Let&apos;s talk
         </p>
@@ -35,10 +35,19 @@ export default function Footer() {
           >
             GitHub ↗
           </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+          >
+            Résumé ↗
+          </a>
         </div>
 
         <p className="font-mono text-xs text-muted mb-16">
-          {hero.location.label} — {formatCoord(hero.location.lat, hero.location.lng)}
+          {hero.globeCities[0].label} —{" "}
+          {formatCoord(hero.globeCities[0].lat, hero.globeCities[0].lng)}
         </p>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-border">
