@@ -97,15 +97,6 @@ const tokenize = (text: string) => words(text).filter((w) => !STOPWORDS.has(w)).
 
 const sentences = (text: string) => text.split(/(?<=[.!?])\s+(?=[A-Z])/);
 
-const EXPERIENCE_STOPS: Record<string, JourneyStopId> = {
-  "FAMS Lab, NYU Tandon": "newyork",
-  "NYU Office of Faculty Affairs": "newyork",
-  "Mast-Jägermeister US, Inc.": "newyork",
-  "University of Essex": "london",
-  Ciena: "noida",
-  "Ulavi Technologies PTE. Ltd": "singapore",
-};
-
 const EDUCATION_STOPS: Record<string, JourneyStopId> = {
   "NYU Tandon School of Engineering": "newyork",
   "Amity University Noida": "noida",
@@ -127,7 +118,7 @@ function buildDrafts(): Draft[] {
         title: job.title,
         subtitle: `${job.company} · ${job.location} · ${job.period}`,
         text: bullet,
-        stopId: EXPERIENCE_STOPS[job.company] ?? null,
+        stopId: job.stopId ?? null,
         href: "/#experience",
         source: "Experience",
         current: job.period.includes("Present"),
