@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { personalInfo, hero, journeyStops, type JourneyStopId } from "@/lib/data";
+import AskTheMap from "./AskTheMap";
 import BoardingPass from "./BoardingPass";
 import JourneyCanvas, { MAP_HEIGHT_RATIO, MAP_TOP_PADDING, type JourneySelectSource } from "./JourneyCanvas";
 
@@ -21,6 +22,7 @@ export default function Hero() {
   const [flat, setFlat] = useState(false);
   const [zoomed, setZoomed] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [askOpen, setAskOpen] = useState(false);
   const isDesktop = useSyncExternalStore(
     subscribeToDesktop,
     () => window.matchMedia(DESKTOP_QUERY).matches,
@@ -52,6 +54,11 @@ export default function Hero() {
   const selectStop = (id: JourneyStopId, source: JourneySelectSource) => {
     setActiveId(id);
     if (source === "user") setZoomed(flat && id === "newyork");
+  };
+
+  const flyTo = (id: JourneyStopId) => {
+    setActiveId(id);
+    setZoomed(false);
   };
 
   const toggleFlat = () => {
@@ -99,7 +106,7 @@ export default function Hero() {
               flat={flat}
               zoomed={zoomed}
               paused={paused}
-              tourEnabled
+              tourEnabled={!askOpen}
               onSelect={selectStop}
             />
           </div>
@@ -226,6 +233,7 @@ export default function Hero() {
               {zoomed ? "Click another city to zoom out" : "Click New York to follow the road trip"}
             </p>
           )}
+          <AskTheMap onFly={flyTo} onActiveChange={setAskOpen} />
         </div>
 
         {flat && (
