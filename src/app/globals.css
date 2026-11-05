@@ -74,6 +74,10 @@ body {
   border-radius: 2px;
 }
 
+[data-swarm="hidden"] {
+  visibility: hidden !important;
+}
+
 @keyframes pass-in {
   from {
     opacity: 0;

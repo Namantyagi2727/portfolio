@@ -9,6 +9,7 @@ import BoardingPass from "./BoardingPass";
 import JourneyCanvas, { MAP_HEIGHT_RATIO, MAP_TOP_PADDING, type JourneySelectSource } from "./JourneyCanvas";
 
 const DESKTOP_QUERY = "(min-width: 1024px)";
+const SWARM_PLAYED_KEY = "swarm-played";
 
 function subscribeToDesktop(onChange: () => void) {
   const query = window.matchMedia(DESKTOP_QUERY);
@@ -46,6 +47,45 @@ export default function Hero() {
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [flat, isDesktop]);
+
+  const swarmButtonRef = useRef<HTMLButtonElement>(null);
+  const stopSwarmRef = useRef<(() => void) | null>(null);
+  const [swarmRunning, setSwarmRunning] = useState(false);
+  const heroMountedRef = useRef(false);
+
+  const runSwarm = async (auto = false) => {
+    setSwarmRunning(true);
+    const { startSwarm } = await import("@/lib/swarm-rebuild");
+    if (!heroMountedRef.current) return;
+    stopSwarmRef.current = startSwarm(
+      () => {
+        stopSwarmRef.current = null;
+        setSwarmRunning(false);
+        if (!auto) swarmButtonRef.current?.focus({ preventScroll: true });
+      },
+      { auto },
+    );
+  };
+
+  // Autoplays once per browser session on a cursor-sized screen, starting from
+  // the top of the page, so coming back from a case study doesn't replay it.
+  useEffect(() => {
+    heroMountedRef.current = true;
+    const canAutoplay =
+      !sessionStorage.getItem(SWARM_PLAYED_KEY) &&
+      !window.location.hash &&
+      window.scrollY < 100 &&
+      window.matchMedia("(min-width: 768px)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (canAutoplay) {
+      sessionStorage.setItem(SWARM_PLAYED_KEY, "1");
+      void runSwarm(true);
+    }
+    return () => {
+      heroMountedRef.current = false;
+      stopSwarmRef.current?.();
+    };
+  }, []);
 
   const activeStop = journeyStops.find((s) => s.id === activeId)!;
   // On desktop the intro sits over the map, so it steps aside once unrolled.
@@ -106,7 +146,7 @@ export default function Hero() {
               flat={flat}
               zoomed={zoomed}
               paused={paused}
-              tourEnabled={!askOpen}
+              tourEnabled={!askOpen && !swarmRunning}
               onSelect={selectStop}
             />
           </div>
@@ -196,6 +236,7 @@ export default function Hero() {
           </div>
 
           <div
+            data-swarm-atomic
             aria-hidden={flat}
             className={`order-3 relative z-10 lg:w-[50%] lg:max-w-[460px] lg:mt-7 transition-[opacity,transform] duration-400 ${
               flat ? "hidden lg:block lg:opacity-0 lg:-translate-y-2.5 lg:pointer-events-none" : ""
@@ -226,6 +267,18 @@ export default function Hero() {
               className="font-mono text-xs text-muted hover:text-accent transition-colors"
             >
               {paused ? "Resume motion" : "Pause motion"}
+            </button>
+          )}
+          {!shouldReduceMotion && (
+            <button
+              ref={swarmButtonRef}
+              type="button"
+              onClick={() => {
+                if (!swarmRunning) void runSwarm();
+              }}
+              className="hidden md:inline font-mono text-xs text-muted hover:text-accent transition-colors underline decoration-border-strong underline-offset-4"
+            >
+              Replay the agents
             </button>
           )}
           {flat && (
