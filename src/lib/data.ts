@@ -31,12 +31,14 @@ export type Experience = {
   tags: string[];
   // Internal case-study route that goes deeper on this role, when one exists.
   caseStudy?: { href: string; label: string };
+  stopId?: JourneyStopId;
 };
 
 export const experiences: Experience[] = [
   {
     title: "Computer Vision Researcher",
     company: "FAMS Lab, NYU Tandon",
+    stopId: "newyork",
     period: "Sep 2025 – Present",
     location: "Brooklyn, NY",
     description: [
@@ -50,6 +52,7 @@ export const experiences: Experience[] = [
   {
     title: "Software Engineer",
     company: "NYU Office of Faculty Affairs",
+    stopId: "newyork",
     period: "Jan 2026 – Aug 2026",
     location: "New York, NY",
     description: [
@@ -67,6 +70,7 @@ export const experiences: Experience[] = [
     // public-facing functional title, matching LinkedIn.
     title: "Software Engineer Intern (AI & Power BI)",
     company: "Mast-Jägermeister US, Inc.",
+    stopId: "newyork",
     period: "Jun 2025 – Aug 2025",
     location: "White Plains, NY",
     description: [
@@ -79,6 +83,7 @@ export const experiences: Experience[] = [
   {
     title: "Artificial Intelligence Researcher (Part-time)",
     company: "University of Essex",
+    stopId: "london",
     period: "Sep 2023 – Aug 2024",
     location: "Remote, UK",
     description: [
@@ -90,6 +95,7 @@ export const experiences: Experience[] = [
   {
     title: "Global Technical Support Engineer",
     company: "Ciena",
+    stopId: "noida",
     period: "Jan 2024 – Jun 2024",
     location: "Gurugram, India",
     description: [
@@ -112,6 +118,7 @@ export const experiences: Experience[] = [
   {
     title: "Frontend Developer",
     company: "Ulavi Technologies PTE. Ltd",
+    stopId: "singapore",
     period: "Jan 2023 – Apr 2023",
     location: "Singapore (Remote)",
     description: [
