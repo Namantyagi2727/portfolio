@@ -3,10 +3,18 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { personalInfo, hero, journeyStops, type JourneyStopId } from "@/lib/data";
+import { personalInfo, hero, journeyRoutes, journeyStops, type JourneyStopId } from "@/lib/data";
+import { greatCircleKm } from "@/lib/geo";
 import AskTheMap from "./AskTheMap";
 import BoardingPass from "./BoardingPass";
 import JourneyCanvas, { MAP_HEIGHT_RATIO, MAP_TOP_PADDING, type JourneySelectSource } from "./JourneyCanvas";
+
+const flights = journeyRoutes.filter((r) => !r.remote);
+const flownKm = flights.reduce(
+  (sum, r) =>
+    sum + greatCircleKm(journeyStops.find((s) => s.id === r.from)!, journeyStops.find((s) => s.id === r.to)!),
+  0,
+);
 
 const DESKTOP_QUERY = "(min-width: 1024px)";
 const SWARM_PLAYED_KEY = "swarm-played";
@@ -351,6 +359,11 @@ export default function Hero() {
             </span>
             {hero.recently.title}
             <span className="text-muted"> · {hero.recently.detail}</span>
+          </p>
+          <p className="text-sm text-foreground">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-accent-secondary mr-2">FLOWN</span>
+            {flights.length} flights
+            <span className="text-muted"> · about {(Math.round(flownKm / 1000) * 1000).toLocaleString("en-US")} km</span>
           </p>
         </motion.div>
       </motion.div>
