@@ -10,7 +10,7 @@ type FigureProps = {
 export default function Figure({ figure, children, showCaption = true }: FigureProps) {
   return (
     <figure className="flex flex-col gap-3">
-      <div className="border border-border bg-surface rounded-sm overflow-hidden">
+      <div className="paper border border-border bg-surface rounded-sm overflow-hidden">
         {figure.kind === "screenshot" && figure.src ? (
           <Image
             src={figure.src}

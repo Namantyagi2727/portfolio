@@ -3,14 +3,6 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { journeyRoutes, journeyStops, roadTrip, type JourneyStopId } from "@/lib/data";
-import {
-  ACCENT,
-  ACCENT_SECONDARY,
-  BACKGROUND,
-  FOREGROUND,
-  MUTED,
-  SURFACE,
-} from "@/lib/diagram-tokens";
 
 export type JourneySelectSource = "user" | "tour";
 
@@ -27,8 +19,21 @@ type LandDots = { globe: number[]; northAmerica: number[] };
 type GeoPoint = { lat: number; lng: number; alt: number };
 type Layout = { gx: number; gy: number; radius: number; scale: number; mapY: number };
 
+const colors = { accent: "", clay: "", background: "", foreground: "", surface: "", muted: "", dot: "" };
+
+function readColors() {
+  const style = getComputedStyle(document.documentElement);
+  const read = (name: string) => style.getPropertyValue(name).trim();
+  colors.accent = read("--accent");
+  colors.clay = read("--accent-secondary");
+  colors.background = read("--background");
+  colors.foreground = read("--foreground");
+  colors.surface = read("--surface");
+  colors.muted = read("--muted");
+  colors.dot = read("--land-dot");
+}
+
 const RAD = Math.PI / 180;
-const LAND_DOT = "#B4B0A2";
 const TOUR_HOLD_MS = 5000;
 const TOUR_RESUME_MS = 9000;
 const US_CENTER = { lat: 39, lng: -96 };
@@ -189,6 +194,13 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
     let pressed = false;
     let moved = 0;
 
+    readColors();
+    const onThemeChange = () => {
+      readColors();
+      kick();
+    };
+    window.addEventListener("themechange", onThemeChange);
+
     const measure = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.clientWidth;
@@ -239,7 +251,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
       ctx.textAlign = "center";
       ctx.lineJoin = "round";
       ctx.lineWidth = 3;
-      ctx.strokeStyle = BACKGROUND;
+      ctx.strokeStyle = colors.background;
       ctx.fillStyle = color;
       ctx.strokeText(text, x, y);
       ctx.fillText(text, x, y);
@@ -288,12 +300,12 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
         ctx.globalAlpha = 1 - f;
         ctx.beginPath();
         ctx.arc(g.gx, g.gy, g.radius, 0, Math.PI * 2);
-        ctx.fillStyle = SURFACE;
+        ctx.fillStyle = colors.surface;
         ctx.fill();
         ctx.beginPath();
         ctx.arc(g.gx, g.gy, g.radius + 9, 0, Math.PI * 2);
         ctx.setLineDash([2, 5]);
-        ctx.strokeStyle = MUTED;
+        ctx.strokeStyle = colors.muted;
         ctx.lineWidth = 0.8;
         ctx.stroke();
         ctx.setLineDash([]);
@@ -301,7 +313,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
       }
 
       if (dots) {
-        ctx.fillStyle = LAND_DOT;
+        ctx.fillStyle = colors.dot;
         const dotRadius = lerp(1.45, 1.25, f) * (compact ? 0.72 : 1);
         drawDots(dots.globe, dotRadius, g, "front");
         if (f > 0.01) {
@@ -319,7 +331,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
       ctx.lineCap = "round";
       for (const route of ROUTES) {
         const highlighted = route.from === active || route.to === active;
-        ctx.strokeStyle = route.remote ? MUTED : ACCENT_SECONDARY;
+        ctx.strokeStyle = route.remote ? colors.muted : colors.clay;
         ctx.lineWidth = route.remote ? 1.2 : highlighted ? 2.2 : 1.5;
         ctx.setLineDash(route.remote ? [2, 4] : []);
         tracePath(route.points, g, f);
@@ -327,7 +339,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
       }
 
       const car = hideMovers ? null : carPosition(clock);
-      ctx.strokeStyle = ACCENT;
+      ctx.strokeStyle = colors.accent;
       ctx.lineWidth = lerp(0.9, 1.5, zt);
       ctx.setLineDash([3, 4]);
       ctx.globalAlpha = 0.7;
@@ -341,9 +353,9 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
         if (!p.front && f < 0.5) continue;
         ctx.beginPath();
         ctx.arc(p.x, p.y, lerp(1.9, 3.2, zt), 0, Math.PI * 2);
-        ctx.fillStyle = ACCENT;
+        ctx.fillStyle = colors.accent;
         ctx.fill();
-        ctx.strokeStyle = BACKGROUND;
+        ctx.strokeStyle = colors.background;
         ctx.lineWidth = 1;
         ctx.stroke();
         const here = car?.parkedAt === city.city;
@@ -352,7 +364,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
             city.city,
             p.x,
             p.y - 8,
-            here ? ACCENT : MUTED,
+            here ? colors.accent : colors.muted,
             `${here ? "600 " : ""}9.5px ${monoFont}, monospace`,
           );
         }
@@ -367,12 +379,12 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
           ctx.translate(lerp(a.x, b.x, car.u), lerp(a.y, b.y, car.u));
           ctx.rotate(Math.atan2(b.y - a.y, b.x - a.x));
           ctx.scale(k, k);
-          ctx.strokeStyle = BACKGROUND;
+          ctx.strokeStyle = colors.background;
           ctx.lineWidth = 2;
           ctx.stroke(carPath);
-          ctx.fillStyle = FOREGROUND;
+          ctx.fillStyle = colors.foreground;
           ctx.fill(carPath);
-          ctx.fillStyle = BACKGROUND;
+          ctx.fillStyle = colors.background;
           ctx.fillRect(1.8, -2, 1.5, 4);
           ctx.fillRect(-4.6, -1.8, 1, 3.6);
           ctx.restore();
@@ -393,10 +405,10 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
               ctx.save();
               ctx.translate(lerp(a.x, b.x, u), lerp(a.y, b.y, u));
               ctx.rotate(Math.atan2(b.y - a.y, b.x - a.x));
-              ctx.strokeStyle = BACKGROUND;
+              ctx.strokeStyle = colors.background;
               ctx.lineWidth = 1.4;
               ctx.stroke(planePath);
-              ctx.fillStyle = FOREGROUND;
+              ctx.fillStyle = colors.foreground;
               ctx.fill(planePath);
               ctx.restore();
             }
@@ -417,17 +429,17 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
           ctx.globalAlpha = (1 - k) * 0.6;
           ctx.beginPath();
           ctx.arc(p.x, p.y, 6 + k * 17, 0, Math.PI * 2);
-          ctx.strokeStyle = ACCENT;
+          ctx.strokeStyle = colors.accent;
           ctx.lineWidth = 1.2;
           ctx.stroke();
           ctx.globalAlpha = 1;
         }
         ctx.beginPath();
         ctx.arc(p.x, p.y, isActive ? 5.5 : 4, 0, Math.PI * 2);
-        ctx.fillStyle = stop.remote ? BACKGROUND : isActive ? ACCENT : ACCENT_SECONDARY;
+        ctx.fillStyle = stop.remote ? colors.background : isActive ? colors.accent : colors.clay;
         ctx.fill();
         if (stop.remote) {
-          ctx.strokeStyle = isActive ? ACCENT : MUTED;
+          ctx.strokeStyle = isActive ? colors.accent : colors.muted;
           ctx.lineWidth = 1.5;
           ctx.stroke();
         }
@@ -435,7 +447,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
           stop.city.toUpperCase(),
           p.x,
           stop.remote ? p.y + 17 : p.y - 11,
-          isActive ? ACCENT : FOREGROUND,
+          isActive ? colors.accent : colors.foreground,
           `600 ${compact ? 9 : 10}px ${monoFont}, monospace`,
         );
       }
@@ -602,6 +614,7 @@ export default function JourneyCanvas({ activeId, flat, zoomed, paused, tourEnab
     return () => {
       disposed = true;
       kickRef.current = () => {};
+      window.removeEventListener("themechange", onThemeChange);
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
       canvas.removeEventListener("pointerdown", onPointerDown);
