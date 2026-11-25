@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
-import { personalInfo, education, certifications, hero, awayFromKeyboard } from "@/lib/data";
-import DeskScene from "./DeskScene";
+import { personalInfo, education, certifications, awayFromKeyboard } from "@/lib/data";
+import PassportStamps from "./PassportStamps";
 import SectionLabel from "./SectionLabel";
 
 export default function About() {
@@ -17,7 +17,7 @@ export default function About() {
               alt={personalInfo.name}
               width={160}
               height={160}
-              className="rounded-sm object-cover border border-border"
+              className="rounded-sm object-cover border border-border [image-rendering:pixelated]"
             />
           </div>
         )}
@@ -25,16 +25,10 @@ export default function About() {
         <p className="text-xl sm:text-2xl leading-relaxed text-foreground max-w-2xl mb-4">
           {personalInfo.shortBio}
         </p>
-        <div className="flex items-center gap-2 text-sm text-muted mb-3">
+        <div className="flex items-center gap-2 text-sm text-muted mb-10">
           <MapPin size={14} />
           {personalInfo.location}
         </div>
-
-        {/* A small geographic thread, not a claimed itinerary — the same
-            three verified locations used in the Footer coordinate line. */}
-        <p className="font-mono text-xs text-muted mb-10">
-          {hero.globeCities.map((c) => c.label).join(" · ")}
-        </p>
 
         <div className="border-t border-border pt-8 mb-8">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Education</p>
@@ -75,9 +69,7 @@ export default function About() {
         <div className="border-t border-border pt-8">
           <p className="font-mono text-xs uppercase tracking-widest text-muted mb-4">Away from the keyboard</p>
           <p className="text-sm text-muted leading-relaxed max-w-2xl mb-6">{awayFromKeyboard}</p>
-          <div className="max-w-md">
-            <DeskScene />
-          </div>
+          <PassportStamps />
         </div>
       </div>
     </section>
