@@ -141,7 +141,7 @@ export function startSwarm(onEnd: () => void, { auto = false }: { auto?: boolean
   const bar = document.createElement("div");
   bar.setAttribute("role", "status");
   bar.style.cssText =
-    "position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:55;display:flex;align-items:center;gap:14px;padding:9px 12px 9px 16px;border-radius:999px;background:#171715;color:#F6F5F0;font:11px var(--font-geist-mono),monospace;white-space:nowrap;box-shadow:0 10px 30px -12px rgba(0,0,0,.6)";
+    "position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:55;display:flex;align-items:center;gap:14px;padding:9px 12px 9px 16px;border-radius:999px;background:#171715;border:1px solid #3A352D;color:#F6F5F0;font:11px var(--font-geist-mono),monospace;white-space:nowrap;box-shadow:0 10px 30px -12px rgba(0,0,0,.6)";
   const status = document.createElement("span");
   const note = document.createElement("span");
   note.textContent = "Scripted animation";

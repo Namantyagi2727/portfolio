@@ -11,6 +11,34 @@
   --surface: #eceae4;
   --border: #d8d6cf;
   --border-strong: #c4c1b6;
+  --land-dot: #b4b0a2;
+}
+
+[data-theme="redeye"] {
+  color-scheme: dark;
+  --background: #14120f;
+  --background-alt: #1a1714;
+  --foreground: #f1ece2;
+  --muted: #a39b8d;
+  --accent: #8fb3dc;
+  --accent-tint: #a9c6e6;
+  --accent-secondary: #e08a5f;
+  --surface: #1e1b17;
+  --border: #2f2a24;
+  --border-strong: #473f35;
+  --land-dot: #544c40;
+}
+
+/* Diagrams hardcode the light palette, so they stay on a lit panel in red-eye. */
+[data-theme="redeye"] .paper {
+  --background: #f6f5f0;
+  --foreground: #171715;
+  --muted: #6a6963;
+  --accent: #355c8a;
+  --accent-secondary: #a54a42;
+  --surface: #eceae4;
+  --border: #d8d6cf;
+  --border-strong: #c4c1b6;
 }
 
 @theme inline {
@@ -69,7 +97,7 @@ body {
 :focus-visible {
   outline-width: 2px;
   outline-style: solid;
-  outline-color: #355c8a !important;
+  outline-color: var(--accent) !important;
   outline-offset: 3px;
   border-radius: 2px;
 }

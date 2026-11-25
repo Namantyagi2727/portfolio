@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Moon, Sun } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 const navLinks = [
@@ -15,6 +16,33 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [redEye, setRedEye] = useState(true);
+
+  useEffect(() => {
+    setRedEye(document.documentElement.dataset.theme === "redeye");
+  }, []);
+
+  const toggleRedEye = () => {
+    const next = !redEye;
+    setRedEye(next);
+    if (next) document.documentElement.dataset.theme = "redeye";
+    else delete document.documentElement.dataset.theme;
+    localStorage.setItem("theme", next ? "redeye" : "paper");
+    window.dispatchEvent(new Event("themechange"));
+  };
+
+  const themeButton = (
+    <button
+      type="button"
+      onClick={toggleRedEye}
+      aria-pressed={!redEye}
+      aria-label="Daylight mode"
+      title={redEye ? "Daylight mode" : "Red-eye mode"}
+      className="text-muted hover:text-accent transition-colors p-1"
+    >
+      {redEye ? <Sun size={15} /> : <Moon size={15} />}
+    </button>
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -58,9 +86,12 @@ export default function Navbar() {
           >
             GitHub ↗
           </a>
+          {themeButton}
           <kbd className="text-[10px] font-mono text-muted border border-border rounded px-1.5 py-1">⌘K</kbd>
         </div>
 
+        <div className="md:hidden flex items-center gap-2">
+          {themeButton}
         <button
           className="md:hidden text-foreground p-2"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -73,6 +104,7 @@ export default function Navbar() {
             <span className={`block h-0.5 bg-current transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
           </div>
         </button>
+        </div>
       </nav>
 
       {menuOpen && (
